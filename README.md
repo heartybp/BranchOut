@@ -25,9 +25,9 @@ To make networking more accessible and solve these challenges, the application w
 - **User Connections [In Progress]**: Search and follow other users.
 - **Message Board [In Progress]**: Post and discuss career-related questions, with an option for anonymous posts.
 - **Mentorship Matching [In Progress]**: Pair students with mentors using a relevancy-based matching system.
-- **AI Resume Feedback [Optional]**: Provide actionable suggestions for resume improvements.
 - **Gamification [In Progress]**: Achievements and badges, e.g., “Reached first 50 connections!”, “Answered 10 questions!”.
 - **Separate Mentorship Platform [In Progress]**: A dedicated space for mentor-mentee interactions.
+- **AI Resume Feedback [Optional]**: Provide actionable suggestions for resume improvements.
 
 ## 🎨 Design Stack
 
@@ -53,26 +53,32 @@ To make networking more accessible and solve these challenges, the application w
 Ensure you have the following installed:
 - [Node.js](https://nodejs.org/)
 - [PostgreSQL](https://www.postgresql.org/)
-- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
 ### Setup Instructions
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/heartybp/Adobytes.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd your-repo-name
+   cd Adobytes
    ```
 3. Install dependencies:
    ```bash
    npm install
    ```
-4. Set up the database:
+4. Run the client side server:
+   ```bash
+   npm run dev
+   ```
+
+***IGNORE STEPS 5-6 FOR NOW:***    
+
+5. Set up the database:
    - Create a PostgreSQL database.
    - Run the provided SQL scripts in `/database` to set up tables.
 
-5. Start the development server:
+6. Start the development server:
    ```bash
-   npm start
+   node server.js
    ```
