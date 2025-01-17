@@ -63,11 +63,14 @@ Ensure you have the following installed:
    ```bash
    cd Adobytes
    ```
-3. Install dependencies:
+3. Install client dependencies:
+   ```bash
+   cd client
+   ```
    ```bash
    npm install
    ```
-4. Run the client side server:
+5. Run the client side server:
    ```bash
    npm run dev
    ```
