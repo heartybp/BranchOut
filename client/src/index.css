@@ -2,7 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-/* *{
-    box-sizing: border-box;
-
-} */
+/* This file is needed to import TailWind functionality. */

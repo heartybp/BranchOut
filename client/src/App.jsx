@@ -1,8 +1,3 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
 // import components
 import Login from './components/Login.jsx'
 import Navbar from './components/Navbar.jsx'
@@ -12,7 +7,6 @@ import Navbar from './components/Navbar.jsx'
 
 // components are listed in the components folder in src
 // client > src > components
-
 
 function App() {
 
