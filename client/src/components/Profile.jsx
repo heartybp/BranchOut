@@ -56,16 +56,26 @@ SKILLS SECTION (Einar)
 const Profile = () => {
 
   return (
-    <div className="absolute overflow-hidden top-10 h-full w-full bg-gradient-to-b from-gray-100 to-gray-200">
+    <div className="absolute overflow-hidden top-10 h-full w-full bg-gradient-to-b from-gray-900 to-gray-800">
     	<div className="absolute top-10 left-64 h-full w-3/5 bg-white rounded-xl border border-solid border-gray-300">
     	</div>
 
 		{/* ----- BANNER ----- */}
 		<img src="https://static.vecteezy.com/system/resources/thumbnails/054/506/874/small/lush-forest-floor-with-ferns-and-sunlight-free-photo.jpg"
-			className="absolute top-10 left-64 h-2/12 w-3/5 bg-emerald-900 rounded-t-xl border border-solid border-gray-300"/>
+			className="absolute top-10 left-64 h-60 w-3/5 bg-emerald-900 rounded-t-xl border border-solid border-gray-300"/>
 		{/* ----- PROFILE PHOTO ----- */}
 		<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" 
-			className="absolute top-52 left-96 w-40 h-40 rounded-full border-4 border-solid border-white" />
+			className="absolute top-32 left-80 w-44 h-44 rounded-full border-4 border-solid border-white" />
+		
+		<div className="absolute top-80 left-80 w-2/5">
+			{/* ----- FULL NAME ----- */}
+			<span className="font-sans font-semibold text-3xl" >Mike B. Wazowski</span> 
+			{/* ----- EDIT BUTTON ----- */}
+			<div className="absolute top-0 -right-24 w-10 h-10 opacity-25" >
+				<span><img src="https://static.thenounproject.com/png/65482-200.png"/></span> 
+				<span className="relative -top-7 left-10 font-bold">Edit</span>
+			</div>
+		</div>
 
     </div>
   )
