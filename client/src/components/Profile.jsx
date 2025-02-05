@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { GraduationCap } from 'lucide-react';
 
 // ---------- Use LinkedIn as reference --------- //
 
@@ -45,7 +45,46 @@ EDUCATION (Einar)
 - Dates
 */
 
+const EducationItem = ({ school, degree, field, startYear, endYear, gpa, activities }) => (
+  <div className="mb:6 last:mb-0">
+    <div className="flex items-start gap-4">
+      <div className="bg-gray-100 p2 rounded-lg">
+        <GraduationCap className="w-6 h-6 text-gray-600" />
+      </div>
+      <div className="flex-1">
+        <h3 className="font-semibold text-lg"></h3>
+        <p className="">
+          {degree} {field && `in ${field}`}
+        </p>
+        <p className="text-sm">
+          {startYear} - {endYear || 'Present'}
+        </p>
+        {gpa && <p className=" text-sm mt-1">GPA: {gpa}</p>}
+        {activities && (
+          <div className="mt-2">
+            <p className="text-sm">{activities}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
 
+const SkillsItem = ({ skill }) => (
+  <div className="mb:6 last:mb-0">
+    <div className="flex items-start gap-4">
+      <div className="bg-gray-100 p2 rounded-lg">
+        <GraduationCap className="w-6 h-6 text-gray-600" />
+      </div>
+      <div className="flex-1">
+        <h3 className="font-semibold text-lg"></h3>
+        <p className="">
+          {skill}
+        </p>
+      </div>
+    </div>
+  </div>
+);
 
 /*
 SKILLS SECTION (Einar)
@@ -53,7 +92,28 @@ SKILLS SECTION (Einar)
 */
 
 const Profile = () => {
+  const skills = [
 
+  ];
+  const education = [
+    {
+      school: "University of Technology",
+      degree: "Bachelor of Science",
+      field: "Computer Science",
+      startYear: "2019",
+      endYear: "2023",
+      gpa: "3.8",
+      activities: "Computer Science Club, Robotics Team, Hackathon Organizer"
+    },
+    {
+      school: "City Community College",
+      degree: "Associate's Degree",
+      field: "General Studies",
+      startYear: "2017",
+      endYear: "2019",
+      activities: "Student Government, Debate Club"
+    }
+  ];
   return (
     <div className="absolute top-10 h-full w-full bg-gradient-to-b from-gray-900 to-gray-800">
     	
@@ -141,8 +201,38 @@ const Profile = () => {
 					and explore new opportunities in digital marketing.
 				</div>
 
+        <span className="text-2xl font-semibold p-2">Education</span>
+        {education.length > 0 ? (
+        <div className="p-2">
+          {education.map((item, index) => (
+            <EducationItem key={index} {...item} />
+          ))}
+        </div>
+        ) : (
+          <div className="text-gray-500 text-center py-4">
+            No education history added yet
+          </div>
+        )}
+
+        <span className="text-2xl font-semibold p-2">Skills</span>
+        {skills.length > 0 ? (
+        <div className="p-2">
+          {skills.map((item, index) => (
+            <SkillsItem key={index} {...item} />
+          ))}
+        </div>
+        ) : (
+          <div className="text-gray-500 text-center py-4">
+            No Skills added yet
+          </div>
+        )}
 			</div>
 		</div>
+
+    {/* ----- EDUCATION SECTION ----- */}
+    <div>
+
+    </div>
 
 		
     </div>
