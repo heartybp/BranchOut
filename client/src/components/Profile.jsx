@@ -55,7 +55,7 @@ SKILLS SECTION (Einar)
 const Profile = () => {
 
   return (
-    <div className="absolute overflow-hidden top-10 h-full w-full bg-gradient-to-b from-gray-900 to-gray-800">
+    <div className="absolute top-10 h-full w-full bg-gradient-to-b from-gray-900 to-gray-800">
     	
 		<div className="absolute top-10 left-64 h-3/5 w-3/5 bg-white rounded-xl border border-solid border-gray-500"></div>
 
@@ -105,7 +105,7 @@ const Profile = () => {
 		{/* ----- ABOUT SECTION BOX ----- */}
 		<div className="relative top-52 left-64 h-2/5 w-3/5 bg-white rounded-xl">
 			{/* ----- CONTACT INFO ----- */}
-			<div className=" relative top-8 left-10 w-4/12 border border-xl" >
+			<div className=" relative top-8 left-10 w-4/12" >
 				<span className="text-2xl font-semibold p-2">Contact Info</span>
 				<div alt="Phone" className="p-2"> 
 					<img src="https://cdn.iconscout.com/icon/free/png-256/free-phone-icon-download-in-svg-png-gif-file-formats--call-logo-telephone-receiver-user-interface-pack-icons-1502142.png?f=webp&w=256" 
@@ -129,13 +129,22 @@ const Profile = () => {
 				</div>
 			</div>
 			{/* ----- SUMMARY DESCRIPTION ----- */}
-			<div className="absolute top-8 right-10 w-6/12 border border-xl"> 
-				<span className="text-2xl font-semibold">About</span>
-				<div className="border border-xl"> cool description</div>
+			<div className="absolute top-8 right-14 w-7/12"> 
+				<span className="text-2xl font-semibold p-2">About</span>
+				<div className="p-2"> 
+					I’m a results-driven marketing specialist with 5+ years of experience in digital marketing,
+					specializing in content creation, social media strategy, and data-driven campaigns. I have a
+					passion for helping brands grow by crafting compelling stories and driving measurable results. 
+					Throughout my career, I’ve led cross-functional teams and executed successful campaigns that
+					boosted engagement and sales.
+					Always eager to learn and innovate, I am excited to connect with like-minded professionals
+					and explore new opportunities in digital marketing.
+				</div>
 
 			</div>
 		</div>
 
+		
     </div>
   )
 
