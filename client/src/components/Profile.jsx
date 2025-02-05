@@ -96,7 +96,7 @@ const Profile = () => {
 			</div>
 			{/* ----- USER BIO ----- */}
 			<div className="absolute top-0 left-0 flex text-gray-400">
-				<span>Some short user bio here.  (Ex: Senior Mechanical <br/>Engineer at WacDonald's)</span>
+				<span>Marketing Specialist | Digital Strategy | Content Creation</span>
 			</div>
 		</div>
 
@@ -105,18 +105,33 @@ const Profile = () => {
 		{/* ----- ABOUT SECTION BOX ----- */}
 		<div className="relative top-52 left-64 h-2/5 w-3/5 bg-white rounded-xl">
 			{/* ----- CONTACT INFO ----- */}
-			<div className=" relative top-8 left-10 w-4/12 border border-xl">
-				<span className="text-2xl font-semibold">Contact Info</span>
-				<div className="border border-xl"> 
-					<img src="https://icons.veryicon.com/png/o/miscellaneous/yunrenui-original-ui-of-fool-cloud/phone-circle.png" 
-						className="w-6 h-6 inline"/> 
-					<span>Phone</span>
+			<div className=" relative top-8 left-10 w-4/12 border border-xl" >
+				<span className="text-2xl font-semibold p-2">Contact Info</span>
+				<div alt="Phone" className="p-2"> 
+					<img src="https://cdn.iconscout.com/icon/free/png-256/free-phone-icon-download-in-svg-png-gif-file-formats--call-logo-telephone-receiver-user-interface-pack-icons-1502142.png?f=webp&w=256" 
+						className="w-4 h-4 inline opacity-50"/> 
+					<span className="relative left-2">(323) 123-4567</span>
+				</div>
+				<div alt="Email" className="p-2"> 
+					<img src="https://i.pinimg.com/736x/a1/84/0a/a1840a14b487ef2bee618d080221ec13.jpg" 
+						className="w-4 h-4 inline opacity-50"/> 
+					<span className="relative left-2">wazowski@outlook.com</span>
+				</div>
+				<div alt="Website" className="p-2"> 
+					<img src="https://cdn-icons-png.flaticon.com/512/3037/3037366.png" 
+						className="w-4 h-4 inline opacity-50"/> 
+					<span className="relative left-2">mike-wazowski.com</span>
+				</div>
+				<div alt="Birthday" className="p-2"> 
+					<img src="https://cdn.iconscout.com/icon/free/png-256/free-phone-icon-download-in-svg-png-gif-file-formats--call-logo-telephone-receiver-user-interface-pack-icons-1502142.png?f=webp&w=256" 
+						className="w-4 h-4 inline opacity-50"/> 
+					<span className="relative left-2">October 3, 2005</span>
 				</div>
 			</div>
 			{/* ----- SUMMARY DESCRIPTION ----- */}
 			<div className="absolute top-8 right-10 w-6/12 border border-xl"> 
 				<span className="text-2xl font-semibold">About</span>
-				<div className="border border-xl"> phone</div>
+				<div className="border border-xl"> cool description</div>
 
 			</div>
 		</div>
