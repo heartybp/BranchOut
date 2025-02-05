@@ -56,8 +56,8 @@ const Profile = () => {
 
   return (
     <div className="absolute overflow-hidden top-10 h-full w-full bg-gradient-to-b from-gray-900 to-gray-800">
-    	<div className="absolute top-10 left-64 h-3/5 w-3/5 bg-white rounded-xl border border-solid border-gray-500">
-    	</div>
+    	
+		<div className="absolute top-10 left-64 h-3/5 w-3/5 bg-white rounded-xl border border-solid border-gray-500"></div>
 
 		{/* ----- BANNER ----- */}
 		<img src="https://static.vecteezy.com/system/resources/thumbnails/054/506/874/small/lush-forest-floor-with-ferns-and-sunlight-free-photo.jpg"
@@ -98,7 +98,27 @@ const Profile = () => {
 			<div className="absolute top-0 left-0 flex text-gray-400">
 				<span>Some short user bio here.  (Ex: Senior Mechanical <br/>Engineer at WacDonald's)</span>
 			</div>
+		</div>
 
+		<div className="relative top-96 left-64 h-2/5 w-3/5"></div>
+
+		{/* ----- ABOUT SECTION BOX ----- */}
+		<div className="relative top-52 left-64 h-2/5 w-3/5 bg-white rounded-xl">
+			{/* ----- CONTACT INFO ----- */}
+			<div className=" relative top-8 left-10 w-4/12 border border-xl">
+				<span className="text-2xl font-semibold">Contact Info</span>
+				<div className="border border-xl"> 
+					<img src="https://icons.veryicon.com/png/o/miscellaneous/yunrenui-original-ui-of-fool-cloud/phone-circle.png" 
+						className="w-6 h-6 inline"/> 
+					<span>Phone</span>
+				</div>
+			</div>
+			{/* ----- SUMMARY DESCRIPTION ----- */}
+			<div className="absolute top-8 right-10 w-6/12 border border-xl"> 
+				<span className="text-2xl font-semibold">About</span>
+				<div className="border border-xl"> phone</div>
+
+			</div>
 		</div>
 
     </div>
