@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <Login /> 
+      {/* <Login />  */}
       {/* in order to display a component, add an import at the top of the file */}
       {/* and then render inside the div using the format <ComponentName /> */}
 
