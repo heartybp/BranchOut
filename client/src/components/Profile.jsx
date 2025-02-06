@@ -86,6 +86,27 @@ const SkillsItem = ({ skill }) => (
   </div>
 );
 
+const RecommendedFriend = ({ name, title, profilePic, mutualConnections }) => {
+  return (
+    <div className="flex items-center gap-4 p-4 hover:bg-gray-50 rounded-lg transition-colors">
+      <img 
+        src={profilePic || "/api/placeholder/40/40"} 
+        alt={name}
+        className="w-10 h-10 rounded-full"
+      />
+      <div className="flex-grow">
+        <h3 className="font-semibold text-gray-800">{name}</h3>
+        <p className="text-sm text-gray-500">{title}</p>
+        <p className="text-xs text-gray-400">{mutualConnections} mutual connections</p>
+      </div>
+      <button className="px-4 py-1 text-sm font-semibold text-blue-600 border border-blue-600 rounded-full hover:bg-blue-50">
+        Connect
+      </button>
+    </div>
+  );
+};
+
+
 /*
 SKILLS SECTION (Einar)
 - smart
@@ -95,6 +116,17 @@ const Profile = () => {
   const skills = [
     {skill: "Software Development"}
   ];
+  
+  const recommendations = [
+    {
+      id: 1,
+      name: "Sarah Johnson",
+      title: "Software Engineer at Tech Co",
+      profilePic: "/api/placeholder/40/40",
+      mutualConnections: 12
+    },
+  ]
+  
   const education = [
     {
       school: "University of Technology",
@@ -115,10 +147,9 @@ const Profile = () => {
     }
   ];
   return (
-    <div className="absolute top-10 h-full w-full bg-gradient-to-b from-gray-900 to-gray-800">
-
+    <>
       {/* ----- PROFILE HEADER ----- */}
-      <div className="relative top-10 left-64 h-3/5 w-3/5 bg-white rounded-xl border border-solid border-gray-500">
+      <div className="relative top-10 mx-auto h-full w-3/5 bg-white rounded-t-xl gray">
         {/* ----- BANNER ----- */}
         <img src="https://static.vecteezy.com/system/resources/thumbnails/054/506/874/small/lush-forest-floor-with-ferns-and-sunlight-free-photo.jpg"
           className="relative h-1/2 w-full rounded-t-xl border border-solid border-gray-500"/>
@@ -152,37 +183,56 @@ const Profile = () => {
         </div>
       </div>
   
-      <div className="relative top-10 left-64 h-full w-3/5 bg-white rounded-xl border border-solid border-gray-500">
-        {/* ----- INFORMATION BODY ----- */}
-        {/* ----- CONTACT INFO ----- */}
-        <div className=" relative bg-gray-100 rounded-lg top-8 left-10 w-3/12" >
-          <span className="text-2xl font-semibold p-2">Contact Info</span>
-          <div alt="Phone" className="p-2"> 
-            <img src="https://cdn.iconscout.com/icon/free/png-256/free-phone-icon-download-in-svg-png-gif-file-formats--call-logo-telephone-receiver-user-interface-pack-icons-1502142.png?f=webp&w=256" 
-              className="w-4 h-4 inline opacity-50"/> 
-            <span className="relative left-2">(323) 123-4567</span>
+      <div className="relative flex h-screen mx-auto w-3/5 rounded-b-xl bg-white gap-32 top-10">
+        <div className='relative bg-white rounded-xl left-10 w-1/3'>
+          <div className="relative bg-gray-100 h-1/4 p-4 rounded-xl w-full" >
+            <div>
+              <span className="text-2xl font-semibold p-2">Contact Info</span>
+              <div alt="Phone" className="p-2"> 
+                <img src="https://cdn.iconscout.com/icon/free/png-256/free-phone-icon-download-in-svg-png-gif-file-formats--call-logo-telephone-receiver-user-interface-pack-icons-1502142.png?f=webp&w=256" 
+                  className="w-4 h-4 inline opacity-50"/> 
+                <span className="relative left-2">(323) 123-4567</span>
+              </div>
+              <div alt="Email" className="p-2"> 
+                <img src="https://i.pinimg.com/736x/a1/84/0a/a1840a14b487ef2bee618d080221ec13.jpg" 
+                  className="w-4 h-4 inline opacity-50"/> 
+                <span className="relative left-2">wazowski@outlook.com</span>
+              </div>
+              <div alt="Website" className="p-2"> 
+                <img src="https://cdn-icons-png.flaticon.com/512/3037/3037366.png" 
+                  className="w-4 h-4 inline opacity-50"/> 
+                <span className="relative left-2">mike-wazowski.com</span>
+              </div>
+              <div alt="Birthday" className="p-2"> 
+                <img src="https://cdn.iconscout.com/icon/free/png-256/free-phone-icon-download-in-svg-png-gif-file-formats--call-logo-telephone-receiver-user-interface-pack-icons-1502142.png?f=webp&w=256" 
+                  className="w-4 h-4 inline opacity-50"/> 
+                <span className="relative left-2">October 3, 2005</span>
+              </div>
+            </div>
           </div>
-          <div alt="Email" className="p-2"> 
-            <img src="https://i.pinimg.com/736x/a1/84/0a/a1840a14b487ef2bee618d080221ec13.jpg" 
-              className="w-4 h-4 inline opacity-50"/> 
-            <span className="relative left-2">wazowski@outlook.com</span>
-          </div>
-          <div alt="Website" className="p-2"> 
-            <img src="https://cdn-icons-png.flaticon.com/512/3037/3037366.png" 
-              className="w-4 h-4 inline opacity-50"/> 
-            <span className="relative left-2">mike-wazowski.com</span>
-          </div>
-          <div alt="Birthday" className="p-2"> 
-            <img src="https://cdn.iconscout.com/icon/free/png-256/free-phone-icon-download-in-svg-png-gif-file-formats--call-logo-telephone-receiver-user-interface-pack-icons-1502142.png?f=webp&w=256" 
-              className="w-4 h-4 inline opacity-50"/> 
-            <span className="relative left-2">October 3, 2005</span>
-          </div>
+          <div className='relative bg-gray-100 mt-4 p-4 rounded-xl w-full'>
+              <span className="text-2xl font-semibold p-2">People You May Know</span>
+              {recommendations.length > 0 ? (
+              <div className="p-2">
+                {recommendations.map((friend) => (
+                  <RecommendedFriend 
+                    key={friend.id}
+                    {...friend}
+                  />
+                ))}
+              </div>
+              ) : (
+                <div className="text-gray-500 text-center py-4">
+                  No Skills added yet
+                </div>
+              )}
+            </div>
         </div>
         {/* ----- SUMMARY DESCRIPTION ----- */}
-        <ul className='absolute top-8 right-10 w-7/12'>
-          <li className='bg-gray-100 rounded-lg mb-5'>
-            <span className="text-2xl font-semibold p-2">About</span>
-            <div className="p-2"> 
+        <ul className='relative right-10 w-2/3'>
+          <li className='bg-gray-100 h-3/8 rounded-lg mb-5 p-4'>
+            <span className="text-2xl font-semibold">About</span>
+            <div className=""> 
               I’m a results-driven marketing specialist with 5+ years of experience in digital marketing,
               specializing in content creation, social media strategy, and data-driven campaigns. I have a
               passion for helping brands grow by crafting compelling stories and driving measurable results. 
@@ -193,8 +243,8 @@ const Profile = () => {
             </div>
           </li>
             
-          <li className='bg-gray-100 rounded-lg mb-5'>
-            <span className="text-2xl font-semibold p-2">Education</span>
+          <li className='bg-gray-100 rounded-lg mb-5 p-4'>
+            <span className="text-2xl font-semibold">Education</span>
             {education.length > 0 ? (
             <div className="p-2">
               {education.map((item, index) => (
@@ -208,8 +258,8 @@ const Profile = () => {
             )}
           </li>
 
-          <li className='bg-gray-100 rounded-lg mb-5'>
-            <span className="text-2xl font-semibold p-2">Skills</span>
+          <li className='bg-gray-100 rounded-lg mb-5 p-4'>
+            <span className="text-2xl font-semibold">Skills</span>
             {skills.length > 0 ? (
             <div className="p-2">
               {skills.map((item, index) => (
@@ -224,7 +274,7 @@ const Profile = () => {
           </li>
         </ul>
       </div>
-    </div>
+    </>
   )
 
 }
