@@ -123,7 +123,7 @@ const RecommendedFriend = ({ name, title, profilePic, mutualConnections }) => {
 				<p className="text-sm text-gray-500">{title}</p>
 				<p className="text-xs text-gray-400">{mutualConnections} mutual connections</p>
 			</div>
-			<button className="px-4 py-1 text-sm font-semibold text-blue-600 border border-blue-600 rounded-full hover:bg-blue-50">
+			<button className="px-1 py-1 text-sm font-semibold text-blue-600 border border-blue-600 rounded-full hover:bg-blue-50">
 				Connect
 			</button>
 		</div>
@@ -183,17 +183,18 @@ const Profile = () => {
 		}
 	];
 	return (
-		<>
+		<div className='relative bg-white w-3/5'>
 			{/* ----- PROFILE HEADER ----- */}
-			<div className="relative top-10 mx-auto h-full w-3/5 bg-white rounded-t-xl gray">
+      <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" 
+        className="absolute top-24 left-20 w-44 h-44 rounded-full border-8 border-solid border-white" />
+			
+      <div className="top-10 mx-auto bg-white rounded-t-xl gray">
 				{/* ----- BANNER ----- */}
 				<img src="https://static.vecteezy.com/system/resources/thumbnails/054/506/874/small/lush-forest-floor-with-ferns-and-sunlight-free-photo.jpg"
-					className="relative h-1/2 w-full rounded-t-xl border border-solid border-gray-500"/>
+					className="h-1/2 w-full rounded-t-xl border border-solid border-gray-500"/>
 				{/* ----- PROFILE PHOTO ----- */}
-				<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" 
-					className="absolute top-24 left-20 w-44 h-44 rounded-full border-8 border-solid border-white" />
 				
-				<div className="relative h-1/2 w-full p-10">
+				<div className="w-full p-10">
 					<div className="flex h-full">
 						<div className="w-7/12 h-full space-y-4">
 							<span className="font-sans font-semibold text-3xl text-gray-800" >Mike B. Wazowski</span> 
@@ -205,7 +206,7 @@ const Profile = () => {
 								<button className='w-32 rounded-full bg-gray-800 text-white font-semibold text-lg text-center'>Message</button>
 							</div>
 						</div>
-						<div className="flex gap-4">
+						<div className="flex justify-between w-5/12">
 							<div className="font-bold text-gray-800">
 								<h1 className='text-2xl'>Connections</h1>
 								<span className="font-normal text-2xl text-gray-800">123</span>
@@ -219,34 +220,34 @@ const Profile = () => {
 				</div>
 			</div>
 	
-			<div className="relative flex h-screen mx-auto w-3/5 rounded-b-xl bg-white gap-32 top-10">
-				<div className='relative bg-white rounded-xl left-10 w-1/3'>
-					<div className="relative bg-gray-100 h-3/12 p-4 rounded-xl w-full" >
+			<div className="flex p-10 rounded-b-xl bg-white gap-10 top-10">
+				<div className='bg-white rounded-xl left-10 w-1/3'>
+					<div className="bg-gray-100 h-3/12 p-4 rounded-xl w-full" >
 						<div>
 							<span className="text-2xl font-semibold p-2">Contact Info</span>
 							<div alt="Phone" className="p-2"> 
 								<img src="https://cdn.iconscout.com/icon/free/png-256/free-phone-icon-download-in-svg-png-gif-file-formats--call-logo-telephone-receiver-user-interface-pack-icons-1502142.png?f=webp&w=256" 
 									className="w-4 h-4 inline opacity-50"/> 
-								<span className="relative left-2">(323) 123-4567</span>
+								<span className="left-2">(323) 123-4567</span>
 							</div>
 							<div alt="Email" className="p-2"> 
 								<img src="https://i.pinimg.com/736x/a1/84/0a/a1840a14b487ef2bee618d080221ec13.jpg" 
 									className="w-4 h-4 inline opacity-50"/> 
-								<span className="relative left-2">wazowski@outlook.com</span>
+								<span className="left-2">wazowski@outlook.com</span>
 							</div>
 							<div alt="Website" className="p-2"> 
 								<img src="https://cdn-icons-png.flaticon.com/512/3037/3037366.png" 
 									className="w-4 h-4 inline opacity-50"/> 
-								<span className="relative left-2">mike-wazowski.com</span>
+								<span className="left-2">mike-wazowski.com</span>
 							</div>
 							<div alt="Birthday" className="p-2"> 
 								<img src="https://cdn.iconscout.com/icon/free/png-256/free-phone-icon-download-in-svg-png-gif-file-formats--call-logo-telephone-receiver-user-interface-pack-icons-1502142.png?f=webp&w=256" 
 									className="w-4 h-4 inline opacity-50"/> 
-								<span className="relative left-2">October 3, 2005</span>
+								<span className="left-2">October 3, 2005</span>
 							</div>
 						</div>
 					</div>
-					<div className='relative bg-gray-100 mt-4 p-4 rounded-xl w-full'>
+					<div className='bg-gray-100 mt-4 p-4 rounded-xl w-full'>
 							<span className="text-2xl font-semibold p-2">People You May Know</span>
 							{recommendations.length > 0 ? (
 							<div className="p-2">
@@ -265,7 +266,7 @@ const Profile = () => {
 						</div>
 				</div>
 				{/* ----- SUMMARY DESCRIPTION ----- */}
-				<ul className='relative right-10 w-2/3'>
+				<ul className='right-10 w-2/3'>
 					<li className='bg-gray-100 h-3/8 rounded-lg mb-5 p-4'>
 						<span className="text-2xl font-semibold">About</span>
 						<div className=""> 
@@ -325,7 +326,7 @@ const Profile = () => {
 					</li>
 				</ul>
 			</div>
-		</>
+		</div>
 	)
 
 }
