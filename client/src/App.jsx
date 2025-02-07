@@ -12,7 +12,7 @@ import Profile from './components/Profile.jsx'
 function App() {
 
   return (
-    <>
+    <div className='flex flex-col items-center'>
       <Navbar />
       {/* <Login />  */}
       {/* in order to display a component, add an import at the top of the file */}
@@ -20,7 +20,7 @@ function App() {
 
       <Profile />
 
-    </>
+    </div>
   )
 }
 
