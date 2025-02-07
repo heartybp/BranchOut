@@ -4,8 +4,8 @@ const Login = () => {
   return (
     // <div className="flex items-center justify-center h-screen bg-orange-50">
     <div className="flex items-center justify-center h-screen text-gray-600 bg-blue-500">
-        <div className="flex flex-col w-1/3 bg-gray-50 p-10 rounded-md shadow-xl shadow-gray-500">
-            <h1 className="text-4xl font-extrabold flex justify-center mb-10 ">Sign In</h1>
+        <div className="flex flex-col w-1/3 bg-gray-50 p-10 rounded-md shadow-xl shadow-gray-800">
+            <h1 className="text-4xl font-extrabold flex justify-center mb-10 ">Login</h1>
             <form action="" className="flex flex-col">
                 <label htmlFor="name" className="mb-2 font-semibold">NAME</label>
                 <input 
@@ -41,7 +41,7 @@ const Login = () => {
                 />
 
                 <button className="mt-4 p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600">
-                    Sign In
+                    Login
                 </button>
             </form>
         </div>
