@@ -1,7 +1,12 @@
-// import components
-import Login from './components/Login.jsx'
-import Navbar from './components/Navbar.jsx'
-import Profile from './components/Profile.jsx'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import SignUp from './components/SignUp.jsx';
+import Login from "./components/Login.jsx";
+
+import Home from "./Home.jsx";
+import Network from "./Network.jsx";
+import Forum from "./Forum.jsx";
+import Profile from "./Profile.jsx";
 
 // App.jsx is the entry point of a React application
 // Here, you define your main React component and render the initial structure of the user interface
@@ -12,15 +17,18 @@ import Profile from './components/Profile.jsx'
 function App() {
 
   return (
-    <div className='flex flex-col items-center'>
-      <Navbar />
-      {/* <Login />  */}
-      {/* in order to display a component, add an import at the top of the file */}
-      {/* and then render inside the div using the format <ComponentName /> */}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SignUp />}  />
+        <Route path="/login" element={<Login />}  />
+        <Route path="/home" element={<Home />}  />
 
-      <Profile />
+        <Route path="/network" element={<Network />}  />
+        <Route path="/forum" element={<Forum />}  />
 
-    </div>
+        <Route path="/profile" element={<Profile />}  />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

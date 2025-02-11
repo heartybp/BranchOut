@@ -1,52 +1,59 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  return (
-    // <div className="flex items-center justify-center h-screen bg-orange-50">
-    <div className="flex items-center justify-center h-screen text-gray-600 bg-blue-500">
-        <div className="flex flex-col w-1/3 bg-gray-50 p-10 rounded-md shadow-xl shadow-gray-800">
-            <h1 className="text-4xl font-extrabold flex justify-center mb-10 ">Login</h1>
-            <form action="" className="flex flex-col">
-                <label htmlFor="name" className="mb-2 font-semibold">NAME</label>
-                <input 
-                    type="text" 
-                    id="name"
-                    placeholder="Peter Anteater"
-                    className="p-2 rounded-md mb-10 border border-gray-400 outline-none focus:outline focus:outline-blue-950"
-                    // className=""
-                />
 
-                <label htmlFor="name" className="mb-2 font-semibold">EMAIL</label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    placeholder="petrant@uci.edu"
-                    className="p-2 rounded-md mb-10 border border-gray-400 outline-none focus:outline focus:outline-blue-500"
-                />
+    const navigate = useNavigate();
 
-                <label htmlFor="name" className="mb-2 font-semibold">PASSWORD</label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    placeholder="Enter a password"
-                    className="p-2 rounded-md mb-10 border border-gray-400 outline-none focus:outline focus:outline-blue-500"
-                />
+    const navigateSignUp = () => {
+        navigate('/');
+    };
 
-                <label htmlFor="name" className="mb-2 font-semibold">CONFIRM PASSWORD</label>
-                <input 
-                    type="password"
-                    id="password"
-                    placeholder="Re-enter password"
-                    className="p-2 rounded-md mb-8 border border-gray-400 outline-none focus:outline focus:outline-blue-500"
-                />
+    const navigateHome = () => {
+        navigate('/home');
+    };
 
-                <button className="mt-4 p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600">
-                    Login
-                </button>
-            </form>
+
+    return (
+        <div className="flex items-center justify-center h-screen text-gray-600 bg-emerald-800">
+            <div className="flex flex-col w-1/3 bg-gray-50 p-10 rounded-md shadow-md shadow-gray-800">
+                <h1 className="text-4xl font-bold flex justify-center mb-6">Log In</h1>
+
+                <form action="" className="flex flex-col">
+
+                    <label htmlFor="name" className="mb-1 font-semibold">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        placeholder="petrant@uci.edu"
+                        className="p-2 rounded-md mb-4 border border-gray-400 outline-none focus:outline focus:outline-blue-500"
+                    />
+
+                    <label htmlFor="name" className="mb-1 font-semibold">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="Enter a password"
+                        className="p-2 rounded-md mb-4 border border-gray-400 outline-none focus:outline focus:outline-blue-500"
+                    />
+
+                    <button 
+                    className="mt-4 p-3 bg-emerald-600 text-white font-semibold rounded-md hover:bg-emerald-700"
+                    onClick={navigateHome}
+                    >
+                        Log In
+                    </button>
+
+                    <button 
+                        className="mt-2 p-3 bg-gray-300 text-white font-semibold rounded-md hover:bg-gray-400"
+                        onClick={navigateSignUp}
+                    >
+                        Create new account
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Login
