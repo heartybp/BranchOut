@@ -185,10 +185,10 @@ const Profile = () => {
 	return (
 		<div className='relative bg-white w-3/5'>
 			{/* ----- PROFILE HEADER ----- */}
-      <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" 
-        className="absolute top-24 left-20 w-44 h-44 rounded-full border-8 border-solid border-white" />
+		<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" 
+			className="absolute top-24 left-20 w-44 h-44 rounded-full border-8 border-solid border-white" />
 			
-      <div className="top-10 mx-auto bg-white rounded-t-xl gray">
+		<div className="top-10 mx-auto bg-white rounded-t-xl gray">
 				{/* ----- BANNER ----- */}
 				<img src="https://static.vecteezy.com/system/resources/thumbnails/054/506/874/small/lush-forest-floor-with-ferns-and-sunlight-free-photo.jpg"
 					className="h-1/2 w-full rounded-t-xl border border-solid border-gray-500"/>
