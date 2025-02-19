@@ -15,9 +15,9 @@
 
 
 -- Create database
-CREATE DATABASE networkingApp;
+CREATE DATABASE networkingapp;
 
-\c networkingApp;
+\c networkingapp;
 
 -- Create universities table
 CREATE TABLE IF NOT EXISTS universities (
