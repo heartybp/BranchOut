@@ -168,7 +168,16 @@ CREATE TABLE IF NOT EXISTS group_messages (
     is_deleted BOOLEAN DEFAULT FALSE
 );
 
--- Insert test data
+
+
+
+
+
+-- INSERT TEST DATA
+
+
+
+
 BEGIN;
 
 INSERT INTO universities (university_id, name, location) VALUES
@@ -216,8 +225,6 @@ INSERT INTO mentors (username, email, first_name, last_name, password, company, 
 
 
 -- Insert Questions
-
-
 INSERT INTO questions (asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted) VALUES
     (5, 'How to prepare for a software engineering interview?', 'I have an interview next week. Any tips?', false, NOW(), NOW(), false),
     (6, 'Best resources for learning biology?', 'Looking for recommendations for online courses.', false, NOW(), NOW(), false),
