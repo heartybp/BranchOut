@@ -12,13 +12,13 @@ const Forum = () => {
                     placeholder="Question Title" 
                     value={title}
                     onChange={(event) => setTitle(event.target.value)}
-                    className="w-full"
+                    className="w-full p-1"
                 />
                 <textarea
                     placeholder="Type your question here..."
                     value={body}
                     onChange={(event) => setBody(event.target.value)}
-                    className="w-full"
+                    className="w-full p-1"
                 />
                 <button
                 />
