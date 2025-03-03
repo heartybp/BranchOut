@@ -19,7 +19,7 @@ app.post("/students", async (req, res) => {
     try {
       const { username, email, first_name, last_name, password, university_id, major_id, grade_level, expected_graduation_date, resume_url, bio } = req.body;
       const newStudent = await pool.query(
-        "INSERT INTO students (username, email, first_name, last_name, password, university_id, major_id, grade_level, expected_graduation_date, resume_url, bio) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *",
+        "INSERT INTO studentzs (username, email, first_name, last_name, password, university_id, major_id, grade_level, expected_graduation_date, resume_url, bio) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *",
         [username, email, first_name, last_name, password, university_id, major_id, grade_level, expected_graduation_date, resume_url, bio]
       );
   
