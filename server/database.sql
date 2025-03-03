@@ -19,20 +19,20 @@ CREATE DATABASE networkingapp;
 
 \c networkingapp;
 
--- Create universities table
+-- Create universities table X
 CREATE TABLE IF NOT EXISTS universities (
     university_id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     location TEXT
 );
 
--- Create majors table
+-- Create majors table X
 CREATE TABLE IF NOT EXISTS majors (
     major_id TEXT PRIMARY KEY,
     name TEXT NOT NULL
 );
 
--- Create students table
+-- Create students table X
 CREATE TABLE IF NOT EXISTS students (
     student_id SERIAL PRIMARY KEY,
     username TEXT NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS students (
     bio TEXT
 );
 
--- Create mentors table
+-- Create mentors table X
 CREATE TABLE IF NOT EXISTS mentors (
     mentor_id SERIAL PRIMARY KEY,
     username TEXT NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS mentors (
     bio TEXT
 );
 
--- Create work experiences table
+-- Create work experiences table X
 CREATE TABLE IF NOT EXISTS work_experiences (
     experience_id SERIAL PRIMARY KEY,
     experience_type TEXT CHECK (experience_type IN ('student', 'mentor')),
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS work_experiences (
     date_started DATE,
     date_ended DATE,
     is_current BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (experience_holder_id) REFERENCES students(student_id) ON DELETE CASCADE
+    FOREIGN KEY (experience_holder_id) REFERENCES students(student_id) ON DELETE CASCADE,
     FOREIGN KEY (experience_holder_id) REFERENCES mentors(mentor_id) ON DELETE CASCADE
 );
 
@@ -231,4 +231,167 @@ INSERT INTO questions (asker_id, title, content, is_anonymous, created_at, updat
     (7, 'How to balance studies and part-time work?', 'I am struggling to manage my time.', false, NOW(), NOW(), false);
 
 
+COMMIT;
+
+
+BEGIN;
+-- Insert Work Experience
+INSERT INTO work_experiences (experience_type, experience_holder_id, company, job_title, description, date_started, date_ended, is_current) VALUES 
+(
+    'student',
+    1,  -- This should be an existing student_id in your students table
+    'Google',
+    'Software Engineering Intern',
+    'Worked on the Google Cloud Platform team developing microservices for data processing pipelines. Implemented new features in Java and Go, participated in code reviews, and collaborated with senior engineers on system architecture improvements.',
+    '2023-06-01',
+    '2023-08-31',
+    FALSE
+),
+(
+    'student',
+    2,  -- This should be an existing student_id in your students table
+    'Google',
+    'Data Analyst Intern',
+    'Worked on Ad data at Google.',
+    '2023-07-01',
+    '2023-10-22',
+    FALSE
+),
+(
+    'mentor',
+    1,  -- This should be an existing student_id in your students table
+    'Google',
+    'SWE I',
+    'Software Engineer at google working on the Google Cloud platform.',
+    '2023-07-01',
+    '2027-11-22',
+    TRUE
+);
+COMMIT;
+
+
+BEGIN;
+-- Insert connections
+INSERT INTO connections (requester_type, requester_id, receiver_type, receiver_id, status) VALUES 
+(
+    'student',
+    1,
+    'student',
+    2,
+    'pending'
+),
+(
+    'student',
+    1,
+    'mentor',
+    2,
+    'pending'
+),
+(
+    'mentor',
+    1,
+    'mentor',
+    2,
+    'pending'
+);
+COMMIT;
+
+
+BEGIN;
+-- Insert mentor requests
+INSERT INTO mentorship_requests (student_id, mentor_id, status, message) VALUES 
+(
+    1,
+    1,
+    'pending',
+    'I would like guidance on advanced database design concepts.'
+),
+(
+    2,
+    2,
+    'accepted',
+    'Looking for mentorship in web development, particularly React and Node.js.'
+),
+(
+    3,
+    1,
+    'pending',
+    'Seeking career advice for transitioning into data science.'
+),
+(
+    4,
+    2,
+    'rejected',
+    'Would like help with machine learning algorithms and practical applications.'
+),
+(
+    5,
+    2,
+    'accepted',
+    'Need guidance on networking in the tech industry and finding internships.'
+),
+(
+    6,
+    1,
+    'pending',
+    'Interested in learning more about cloud architecture and AWS services.'
+);
+COMMIT;
+
+
+BEGIN;
+--Insert mentorship groups
+INSERT INTO mentorship_groups (mentor_id, name, description, max_mentees)
+VALUES 
+(
+    1,
+    'Web Development Fundamentals',
+    'A group focused on learning HTML, CSS, JavaScript and basic web development principles.',
+    8
+),
+(
+    2,
+    'Data Science Workshop',
+    'Practical applications of data science techniques including Python, R, and machine learning algorithms.',
+    6
+),
+(
+    1,
+    'Career Development Circle',
+    'Support group for tech professionals looking to advance their careers or transition into new roles.',
+    10
+),
+(
+    2,
+    'Full Stack Mastery',
+    'Deep dive into full stack development with focus on modern frameworks and best practices.',
+    5
+);
+COMMIT;
+
+
+BEGIN;
+--Insert mentorship group members
+INSERT INTO mentorship_group_members (group_id, student_id)
+VALUES 
+(
+    1,
+    2
+),
+(
+    1,
+    3
+),
+(
+    4,
+    5
+),
+(
+    3,
+    1
+),
+(
+    1,
+    4
+);
 COMMIT;
