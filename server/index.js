@@ -19,7 +19,7 @@ app.post("/students", async (req, res) => {
     try {
       const { username, email, first_name, last_name, password, university_id, major_id, grade_level, expected_graduation_date, resume_url, bio } = req.body;
       const newStudent = await pool.query(
-        "INSERT INTO studentzs (username, email, first_name, last_name, password, university_id, major_id, grade_level, expected_graduation_date, resume_url, bio) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *",
+        "INSERT INTO students (username, email, first_name, last_name, password, university_id, major_id, grade_level, expected_graduation_date, resume_url, bio) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *",
         [username, email, first_name, last_name, password, university_id, major_id, grade_level, expected_graduation_date, resume_url, bio]
       );
   
@@ -238,13 +238,13 @@ app.post("/mentor", async (req, res) => {
 
 // Getting all mentors
 app.get("/mentors", async (req, res) => {
-  try {
-    const allMentors = await pool.query("SELECT * FROM mentors");
-    res.json(allMentors.rows);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
-  }
+    try {
+      const allMentors = await pool.query("SELECT * FROM mentors");
+      res.json(allMentors.rows);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+    }
 });
 
 // Get a single mentor by id
@@ -266,41 +266,123 @@ app.get("/mentors/:id", async (req, res) => {
 
 // update a mentor + corresponding information
 app.put("/mentors/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { username, email, first_name, last_name, company, job_title, years_of_experience, university_id, expertise_areas, max_mentees, bio} = req.body;
-    const updateMentor = await pool.query(
-      "UPDATE mentors SET username = $1, email = $2, first_name = $3, last_name = $4, company = $5, job_title = $6, years_of_experience = $7, university_id = $8, expertise_areas = $9, max_mentees = $10, bio = $11 WHERE mentor_id = $12 RETURNING *",
-      [username, email, first_name, last_name, company, job_title, years_of_experience, university_id, expertise_areas, max_mentees, bio]
-    );
+    try {
+      const { id } = req.params;
+      const { username, email, first_name, last_name, company, job_title, years_of_experience, university_id, expertise_areas, max_mentees, bio} = req.body;
+      const updateMentor = await pool.query(
+        "UPDATE mentors SET username = $1, email = $2, first_name = $3, last_name = $4, company = $5, job_title = $6, years_of_experience = $7, university_id = $8, expertise_areas = $9, max_mentees = $10, bio = $11 WHERE mentor_id = $12 RETURNING *",
+        [username, email, first_name, last_name, company, job_title, years_of_experience, university_id, expertise_areas, max_mentees, bio]
+      );
 
-    if (updateMentor.rows.length === 0) { // error checking: trying to update a student that doesn't exist
-      return res.status(404).json({ message: "Mentor not found" });
+      if (updateMentor.rows.length === 0) { // error checking: trying to update a student that doesn't exist
+        return res.status(404).json({ message: "Mentor not found" });
+      }
+
+      res.json(updateMentor.rows[0]);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
     }
-
-    res.json(updateMentor.rows[0]);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
-  }
 });
 
 // 5 - delete a mentor
 app.delete("/mentors/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deleteMentor = await pool.query("DELETE FROM mentors WHERE mentor_id = $1 RETURNING *", [id]);
+    try {
+      const { id } = req.params;
+      const deleteMentor = await pool.query("DELETE FROM mentors WHERE mentor_id = $1 RETURNING *", [id]);
 
-    if (deleteMentor.rows.length === 0) {
-      return res.status(404).json({ message: "Mentor not found" });
+      if (deleteMentor.rows.length === 0) {
+        return res.status(404).json({ message: "Mentor not found" });
+      }
+
+      res.json({ message: "Mentor was deleted!" });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
     }
+});
 
-    res.json({ message: "Mentor was deleted!" });
+
+// getting mentor's connections
+app.get("/mentors/:id/connections", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const connections = await pool.query(
+            "SELECT * FROM connections WHERE requester_id = $1 OR receiver_id = $1",
+            [id]
+        );
+
+        res.json(connections.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
+});
+
+// getting a mentor's mentorship request (received from a student?)
+app.get("/mentors/:id/mentorship-requests", async (req, res) => {
+  try {
+      const { id } = req.params;
+      const mentorshipRequests = await pool.query(
+          "SELECT * FROM mentorship_requests WHERE mentor_id = $1",
+          [id]
+      );
+
+      res.json(mentorshipRequests.rows);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
+      console.error(err.message);
+      res.status(500).send("Server error");
   }
 });
+
+// getting a mentor's post
+app.get("/mentors/:id/posts", async (req, res) => {
+  try {
+      const { id } = req.params;
+      const posts = await pool.query(
+          "SELECT * FROM posts WHERE poster_id = $1 AND poster_type = 'mentor'",
+          [id]
+      );
+
+      res.json(posts.rows);
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+  }
+});
+
+// getting a mentor's questions
+app.get("/mentors/:id/questions", async (req, res) => {
+  try {
+      const { id } = req.params;
+      const questions = await pool.query(
+          "SELECT * FROM questions WHERE asker_id = $1",
+          [id]
+      );
+
+      res.json(questions.rows);
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+  }
+});
+
+// getting a mentor's work experience
+app.get("/mentors/:id/work-experiences", async (req, res) => {
+  try {
+      const { id } = req.params;
+      const workExperiences = await pool.query(
+          "SELECT * FROM work_experiences WHERE experience_holder_id = $1 AND experience_type = 'mentor'",
+          [id]
+      );
+
+      res.json(workExperiences.rows);
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+  }
+});
+
 
 
 // work experience routes
