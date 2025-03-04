@@ -384,10 +384,53 @@ app.get("/mentors/:id/work-experiences", async (req, res) => {
 });
 
 
-
 // work experience routes
 
 // connection routes
+
+/*
+CREATE TABLE IF NOT EXISTS connections (
+    connection_id SERIAL PRIMARY KEY,
+    requester_type TEXT CHECK (requester_type IN ('student', 'mentor')),
+    requester_id INT NOT NULL,
+    receiver_type TEXT CHECK (receiver_type IN ('student', 'mentor')),
+    receiver_id INT NOT NULL,
+    status TEXT DEFAULT 'pending',
+    CONSTRAINT unique_connection UNIQUE (requester_id, receiver_id, requester_type, receiver_type)
+);
+*/
+
+// creating a connection request
+app.post("/connections", async (req, res) => {
+  try {
+    const { requester_type, requester_id, receiver_type, receiver_id, status = 'pending' } = req.body;
+    const newConnection = await pool.query(
+      "INSERT INTO connections (requester_type, requester_id, receiver_id, receiver_type, receiver_id, status) VALUES($1, $2, $3, $4, $5) RETURNING *",
+      [requester_type, requester_id, receiver_type, receiver_id, status]
+    );
+
+    res.json(newConnection.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// getting all connections for a user
+app.get("/connections/:userId",async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const connections = await pool.query(
+      "SELECT * FROM connections WHERE requester_id = $1 OR receiver_id = $1'",
+      [userId]
+      );
+
+      res.json(connections.rows);
+  } catch(err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
 
 // mentorship request routes
 
