@@ -271,7 +271,7 @@ app.put("/mentors/:id", async (req, res) => {
       const { username, email, first_name, last_name, company, job_title, years_of_experience, university_id, expertise_areas, max_mentees, bio} = req.body;
       const updateMentor = await pool.query(
         "UPDATE mentors SET username = $1, email = $2, first_name = $3, last_name = $4, company = $5, job_title = $6, years_of_experience = $7, university_id = $8, expertise_areas = $9, max_mentees = $10, bio = $11 WHERE mentor_id = $12 RETURNING *",
-        [username, email, first_name, last_name, company, job_title, years_of_experience, university_id, expertise_areas, max_mentees, bio]
+        [username, email, first_name, last_name, company, job_title, years_of_experience, university_id, expertise_areas, max_mentees, bio, id]
       );
 
       if (updateMentor.rows.length === 0) { // error checking: trying to update a student that doesn't exist
@@ -389,6 +389,8 @@ app.get("/mentors/:id/work-experiences", async (req, res) => {
 // connection routes
 
 /*
+SQL table for connections for reference
+
 CREATE TABLE IF NOT EXISTS connections (
     connection_id SERIAL PRIMARY KEY,
     requester_type TEXT CHECK (requester_type IN ('student', 'mentor')),
@@ -417,7 +419,7 @@ app.post("/connections", async (req, res) => {
 });
 
 // getting all connections for a user
-app.get("/connections/:userId",async (req, res) => {
+app.get("/connections/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const connections = await pool.query(
@@ -427,6 +429,50 @@ app.get("/connections/:userId",async (req, res) => {
 
       res.json(connections.rows);
   } catch(err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// (might have to recheck this)
+// updating a connection (accept/reject)
+app.put("/connections/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body; // updating the connection status specifically
+
+    if(!["accepted", "rejected"].includes(status)) {
+      return res.status(400).json({ message: "Invalid status value"});
+    }
+
+    const updateConnection = await pool.query(
+      "UPDATE connections SET status = $1 WHERE connection_id = $2 RETURNING *",
+      [status, id]
+    );
+
+    if(updateConnection.rows.length === 0) {
+      return res.status(404).json({ message: "Connection not found"});
+    }
+
+    res.json(updateConnection.rows[0]);
+  } catch(error) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// deleting a connection
+app.delete("/connections/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteConnection = await pool.query("DELETE FROM connections WHERE connection_id = $1 RETURNING *", [id]);
+
+    if (deleteConnection.rows.length === 0) {
+      return res.status(404).json({ message: "Connection not found" });
+    }
+
+    res.json({ message: "Connection was deleted!" });
+  } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
   }
