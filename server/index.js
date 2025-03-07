@@ -14,6 +14,12 @@ app.use(express.json()); // <-- allows us to access request.body
 
 // student routes
 
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+////////////// STUDENT ROUTES ///////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+
 // 1 - create a student
 app.post("/students", async (req, res) => {
     try {
@@ -177,6 +183,7 @@ app.get("/students/:id/work-experiences", async (req, res) => {
     }
 });
 
+
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!!!!!!!!!!!!!!READ THIS BEFORE IMPLEMENTING ROUTES!!!!!!!!!!!!!!!!!!!!!!!
@@ -216,7 +223,11 @@ app.get("/PATH/", async (req, res) => {
 });
 */
 
-
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+////////////// MENTOR ROUTES ////////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
 
 // mentor routes
 
@@ -388,19 +399,11 @@ app.get("/mentors/:id/work-experiences", async (req, res) => {
 
 // connection routes
 
-/*
-SQL table for connections for reference
-
-CREATE TABLE IF NOT EXISTS connections (
-    connection_id SERIAL PRIMARY KEY,
-    requester_type TEXT CHECK (requester_type IN ('student', 'mentor')),
-    requester_id INT NOT NULL,
-    receiver_type TEXT CHECK (receiver_type IN ('student', 'mentor')),
-    receiver_id INT NOT NULL,
-    status TEXT DEFAULT 'pending',
-    CONSTRAINT unique_connection UNIQUE (requester_id, receiver_id, requester_type, receiver_type)
-);
-*/
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+//////////// CONNECTION ROUTES //////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
 
 // creating a connection request
 app.post("/connections", async (req, res) => {
@@ -482,6 +485,13 @@ app.delete("/connections/:id", async (req, res) => {
 
 // question & answer routes
 
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+//////////////// Q&A ROUTES /////////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+
+// Questions
 // creating a question
 app.post("/questions", async (req, res) => {
   try {
@@ -547,7 +557,79 @@ app.delete("/questions/:id", async (req, res) => {
   }
 });
 
-// we do the answers below
+// Answers
+app.post("/answers", async (req, res) => {
+  try {
+    const { question_id, answerer_type, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted } = req.body;
+    const newAnswer = await pool.query(
+      "INSERT INTO answers (question_id, answerer_type, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      [question_id, answerer_type, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted]
+    );
+
+    res.json(newAnswer.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// getting all answers for a question
+app.get("/answers/:questionID", async (req, res) => {
+  try {
+    const { questionID } = req.params;
+    // takes any answer with the correspond question id
+    const answers = await pool.query("SELECT * FROM answers WHERE question_id = $1", [questionID]);
+  
+    if (answers.rows.length === 0) {
+      return res.status(404).json({ message: "Answer(s) not found" });
+    }
+  
+    res.json(answers.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// updating an answer (updating by answer ID)
+app.put("/answers/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {question_id, answerer_type, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted} = req.body;
+    const updateAnswer = await pool.query(
+      "UPDATE answers SET question_id = $1, answerer_type = $2, answerer_id = $3, content = $4, is_anonymous = $5, created_at = $6, updated_at = $7, is_deleted = $8 WHERE answer_id = $9 RETURNING *",
+      [question_id, answerer_type, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted, id]
+    );
+
+    if (updateAnswer.rows.length === 0) { // error checking: trying to update an answer that doesn't exist!
+      return res.status(404).json({ message: "Answer not found" });
+    }
+
+    res.json(updateAnswer.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// deleting an answer
+app.delete("/answers:id", async (req, res) => {
+  try {
+    const { id } = red.params;
+    const deleteAnswer = await pool.query("DELETE FROM answers WHERE answer_id = $1 RETURNING *", [id]);
+
+    if (deleteAnswer.rows.length === 0) {
+      return res.status(404).json({ message: "Answer not found" });
+    }
+    res.json({ message: "Answer was deleted!" }); 
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+
+
 
 // search & filter routes
 
