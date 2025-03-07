@@ -223,6 +223,12 @@ app.get("/PATH/", async (req, res) => {
 });
 */
 
+
+
+
+
+
+
 /////////////////////////////////////////////
 /////////////////////////////////////////////
 ////////////// MENTOR ROUTES ////////////////
@@ -444,10 +450,13 @@ app.put("/connections/:id", async (req, res) => {
     const { id } = req.params;
     const { status } = req.body; // updating the connection status specifically
 
+    // We check first if accepted or rejected is NOT the updated status query
+    // If it is, then we return an Error 400 message
     if(!["accepted", "rejected"].includes(status)) {
       return res.status(400).json({ message: "Invalid status value"});
     }
 
+    // Updates the status based on the connection id given.
     const updateConnection = await pool.query(
       "UPDATE connections SET status = $1 WHERE connection_id = $2 RETURNING *",
       [status, id]
