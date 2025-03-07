@@ -251,7 +251,7 @@ app.get("/mentors", async (req, res) => {
 app.get("/mentors/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const student = await pool.query("SELECT * FROM mentors WHERE mentor_id = $1", [id]);
+    const mentor = await pool.query("SELECT * FROM mentors WHERE mentor_id = $1", [id]);
 
     if (mentor.rows.length === 0) {
       return res.status(404).json({ message: "Mentor not found" });
@@ -264,7 +264,7 @@ app.get("/mentors/:id", async (req, res) => {
   }
 });
 
-// update a mentor + corresponding information
+// update a mentor's information by their id
 app.put("/mentors/:id", async (req, res) => {
     try {
       const { id } = req.params;
@@ -481,6 +481,73 @@ app.delete("/connections/:id", async (req, res) => {
 // mentorship request routes
 
 // question & answer routes
+
+// creating a question
+app.post("/questions", async (req, res) => {
+  try {
+    const { asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted } = req.body;
+    const newQuestion = await pool.query(
+      "INSERT INTO questions (asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      [asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted]
+    );
+
+    res.json(newQuestion.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// getting all questions
+app.get("/questions", async (req, res) => {
+  try {
+    const allQuestions = await pool.query("SELECT * FROM questions");
+    res.json(allQuestions.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// update a question
+app.put("/questions/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted } = req.body;
+
+    const updateQuestion = await pool.query("UPDATE questions SET asker_id = $1, title = $2, content = $3, is_anonymous = $4, created_at = $5, updated_at = $6, is_deleted = $7 WHERE question_id = $8 RETURNING *",
+    [asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted, id]
+    );
+
+    if (updateQuestion.rows.length === 0) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+    res.json(updateQuestion.rows[0]);
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// deleting a question
+app.delete("/questions/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteQuestion = await pool.query("DELETE FROM questions WHERE student_id = $1 RETURNING *", [id]);
+
+    if (deleteQuestion.rows.length === 0) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+
+    res.json({ message: "Question was deleted!" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// we do the answers below
 
 // search & filter routes
 
