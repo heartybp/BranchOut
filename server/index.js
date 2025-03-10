@@ -14,6 +14,12 @@ app.use(express.json()); // <-- allows us to access request.body
 
 // student routes
 
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+////////////// STUDENT ROUTES ///////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+
 // 1 - create a student
 app.post("/students", async (req, res) => {
     try {
@@ -177,6 +183,7 @@ app.get("/students/:id/work-experiences", async (req, res) => {
     }
 });
 
+
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!!!!!!!!!!!!!!READ THIS BEFORE IMPLEMENTING ROUTES!!!!!!!!!!!!!!!!!!!!!!!
@@ -218,15 +225,420 @@ app.get("/PATH/", async (req, res) => {
 
 
 
+
+
+
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+////////////// MENTOR ROUTES ////////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+
 // mentor routes
+
+// Creating a mentor
+app.post("/mentor", async (req, res) => {
+  try {
+    const { username, email, first_name, last_name, company, job_title, years_of_experience, university_id, expertise_areas, max_mentees, bio } = req.body;
+    const newMentor = await pool.query(
+      "INSERT INTO mentor (username, email, first_name, last_name, company, job_title, years_of_experience, university_id, expertise_areas, max_mentees, bio) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *",
+      [username, email, first_name, last_name, company, job_title, years_of_experience, university_id, expertise_areas, max_mentees, bio]
+    );
+
+      res.json(newMentor.rows[0]);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+  }
+});
+
+// Getting all mentors
+app.get("/mentors", async (req, res) => {
+    try {
+      const allMentors = await pool.query("SELECT * FROM mentors");
+      res.json(allMentors.rows);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+    }
+});
+
+// Get a single mentor by id
+app.get("/mentors/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const mentor = await pool.query("SELECT * FROM mentors WHERE mentor_id = $1", [id]);
+
+    if (mentor.rows.length === 0) {
+      return res.status(404).json({ message: "Mentor not found" });
+    }
+
+    res.json(mentor.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// update a mentor's information by their id
+app.put("/mentors/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { username, email, first_name, last_name, company, job_title, years_of_experience, university_id, expertise_areas, max_mentees, bio} = req.body;
+      const updateMentor = await pool.query(
+        "UPDATE mentors SET username = $1, email = $2, first_name = $3, last_name = $4, company = $5, job_title = $6, years_of_experience = $7, university_id = $8, expertise_areas = $9, max_mentees = $10, bio = $11 WHERE mentor_id = $12 RETURNING *",
+        [username, email, first_name, last_name, company, job_title, years_of_experience, university_id, expertise_areas, max_mentees, bio, id]
+      );
+
+      if (updateMentor.rows.length === 0) { // error checking: trying to update a student that doesn't exist
+        return res.status(404).json({ message: "Mentor not found" });
+      }
+
+      res.json(updateMentor.rows[0]);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+    }
+});
+
+// 5 - delete a mentor
+app.delete("/mentors/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deleteMentor = await pool.query("DELETE FROM mentors WHERE mentor_id = $1 RETURNING *", [id]);
+
+      if (deleteMentor.rows.length === 0) {
+        return res.status(404).json({ message: "Mentor not found" });
+      }
+
+      res.json({ message: "Mentor was deleted!" });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+    }
+});
+
+
+// getting mentor's connections
+app.get("/mentors/:id/connections", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const connections = await pool.query(
+            "SELECT * FROM connections WHERE requester_id = $1 OR receiver_id = $1",
+            [id]
+        );
+
+        res.json(connections.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
+});
+
+// getting a mentor's mentorship request (received from a student?)
+app.get("/mentors/:id/mentorship-requests", async (req, res) => {
+  try {
+      const { id } = req.params;
+      const mentorshipRequests = await pool.query(
+          "SELECT * FROM mentorship_requests WHERE mentor_id = $1",
+          [id]
+      );
+
+      res.json(mentorshipRequests.rows);
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+  }
+});
+
+// getting a mentor's post
+app.get("/mentors/:id/posts", async (req, res) => {
+  try {
+      const { id } = req.params;
+      const posts = await pool.query(
+          "SELECT * FROM posts WHERE poster_id = $1 AND poster_type = 'mentor'",
+          [id]
+      );
+
+      res.json(posts.rows);
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+  }
+});
+
+// getting a mentor's questions
+app.get("/mentors/:id/questions", async (req, res) => {
+  try {
+      const { id } = req.params;
+      const questions = await pool.query(
+          "SELECT * FROM questions WHERE asker_id = $1",
+          [id]
+      );
+
+      res.json(questions.rows);
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+  }
+});
+
+// getting a mentor's work experience
+app.get("/mentors/:id/work-experiences", async (req, res) => {
+  try {
+      const { id } = req.params;
+      const workExperiences = await pool.query(
+          "SELECT * FROM work_experiences WHERE experience_holder_id = $1 AND experience_type = 'mentor'",
+          [id]
+      );
+
+      res.json(workExperiences.rows);
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+  }
+});
+
 
 // work experience routes
 
 // connection routes
 
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+//////////// CONNECTION ROUTES //////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+
+// creating a connection request
+app.post("/connections", async (req, res) => {
+  try {
+    const { requester_type, requester_id, receiver_type, receiver_id, status = 'pending' } = req.body;
+    const newConnection = await pool.query(
+      "INSERT INTO connections (requester_type, requester_id, receiver_id, receiver_type, receiver_id, status) VALUES($1, $2, $3, $4, $5) RETURNING *",
+      [requester_type, requester_id, receiver_type, receiver_id, status]
+    );
+
+    res.json(newConnection.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// getting all connections for a user
+app.get("/connections/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const connections = await pool.query(
+      "SELECT * FROM connections WHERE requester_id = $1 OR receiver_id = $1'",
+      [userId]
+      );
+
+      res.json(connections.rows);
+  } catch(err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// (might have to recheck this)
+// updating a connection (accept/reject)
+app.put("/connections/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body; // updating the connection status specifically
+
+    // We check first if accepted or rejected is NOT the updated status query
+    // If it is, then we return an Error 400 message
+    if(!["accepted", "rejected"].includes(status)) {
+      return res.status(400).json({ message: "Invalid status value"});
+    }
+
+    // Updates the status based on the connection id given.
+    const updateConnection = await pool.query(
+      "UPDATE connections SET status = $1 WHERE connection_id = $2 RETURNING *",
+      [status, id]
+    );
+
+    if(updateConnection.rows.length === 0) {
+      return res.status(404).json({ message: "Connection not found"});
+    }
+
+    res.json(updateConnection.rows[0]);
+  } catch(error) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// deleting a connection
+app.delete("/connections/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteConnection = await pool.query("DELETE FROM connections WHERE connection_id = $1 RETURNING *", [id]);
+
+    if (deleteConnection.rows.length === 0) {
+      return res.status(404).json({ message: "Connection not found" });
+    }
+
+    res.json({ message: "Connection was deleted!" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 // mentorship request routes
 
 // question & answer routes
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+//////////////// Q&A ROUTES /////////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+
+// Questions
+// creating a question
+app.post("/questions", async (req, res) => {
+  try {
+    const { asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted } = req.body;
+    const newQuestion = await pool.query(
+      "INSERT INTO questions (asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      [asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted]
+    );
+
+    res.json(newQuestion.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// getting all questions
+app.get("/questions", async (req, res) => {
+  try {
+    const allQuestions = await pool.query("SELECT * FROM questions");
+    res.json(allQuestions.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// update a question
+app.put("/questions/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted } = req.body;
+
+    const updateQuestion = await pool.query("UPDATE questions SET asker_id = $1, title = $2, content = $3, is_anonymous = $4, created_at = $5, updated_at = $6, is_deleted = $7 WHERE question_id = $8 RETURNING *",
+    [asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted, id]
+    );
+
+    if (updateQuestion.rows.length === 0) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+    res.json(updateQuestion.rows[0]);
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// deleting a question
+app.delete("/questions/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteQuestion = await pool.query("DELETE FROM questions WHERE student_id = $1 RETURNING *", [id]);
+
+    if (deleteQuestion.rows.length === 0) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+
+    res.json({ message: "Question was deleted!" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// Answers
+app.post("/answers", async (req, res) => {
+  try {
+    const { question_id, answerer_type, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted } = req.body;
+    const newAnswer = await pool.query(
+      "INSERT INTO answers (question_id, answerer_type, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      [question_id, answerer_type, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted]
+    );
+
+    res.json(newAnswer.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// getting all answers for a question
+app.get("/answers/:questionID", async (req, res) => {
+  try {
+    const { questionID } = req.params;
+    // takes any answer with the correspond question id
+    const answers = await pool.query("SELECT * FROM answers WHERE question_id = $1", [questionID]);
+  
+    if (answers.rows.length === 0) {
+      return res.status(404).json({ message: "Answer(s) not found" });
+    }
+  
+    res.json(answers.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// updating an answer (updating by answer ID)
+app.put("/answers/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {question_id, answerer_type, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted} = req.body;
+    const updateAnswer = await pool.query(
+      "UPDATE answers SET question_id = $1, answerer_type = $2, answerer_id = $3, content = $4, is_anonymous = $5, created_at = $6, updated_at = $7, is_deleted = $8 WHERE answer_id = $9 RETURNING *",
+      [question_id, answerer_type, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted, id]
+    );
+
+    if (updateAnswer.rows.length === 0) { // error checking: trying to update an answer that doesn't exist!
+      return res.status(404).json({ message: "Answer not found" });
+    }
+
+    res.json(updateAnswer.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// deleting an answer
+app.delete("/answers:id", async (req, res) => {
+  try {
+    const { id } = red.params;
+    const deleteAnswer = await pool.query("DELETE FROM answers WHERE answer_id = $1 RETURNING *", [id]);
+
+    if (deleteAnswer.rows.length === 0) {
+      return res.status(404).json({ message: "Answer not found" });
+    }
+    res.json({ message: "Answer was deleted!" }); 
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+
+
 
 // search & filter routes
 

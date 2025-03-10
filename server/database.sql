@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS mentors (
     years_of_experience INT,
     university_id TEXT REFERENCES universities(university_id),
     expertise_areas TEXT[],
-    max_mentees INT,
+    max_mentees INT,3
     bio TEXT
 );
 
