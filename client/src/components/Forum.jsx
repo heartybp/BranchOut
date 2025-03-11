@@ -99,7 +99,49 @@ const Forum = () => {
         )}
       </div>
 
-      
+        {/* Comment Popup */}
+      {showCommentPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 className="text-xl font-semibold text-gray-700 mb-4">Comments</h3>
+            <h4 className="text-lg text-gray-800">{selectedQuestion.title}</h4>
+            <p className="text-gray-600 mt-2">{selectedQuestion.body}</p>
+            <div className="mt-4">
+              {selectedQuestion.comments.length === 0 ? (
+                <p className="text-gray-500">No comments yet</p>
+              ) : (
+                selectedQuestion.comments.map((comment, index) => (
+                  <div key={index} className="text-gray-700 mt-2">
+                    <p>{comment}</p>
+                  </div>
+                ))
+              )}
+            </div>
+            <div className="mt-4">
+              <textarea
+                className="w-full p-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Add a comment"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                rows="3"
+              />
+              <button
+                onClick={handleAddComment}
+                disabled={!comment}
+                className="w-full mt-3 p-3 bg-blue-600 text-white rounded-md disabled:opacity-50 hover:bg-blue-700 focus:outline-none"
+              >
+                Post Comment
+              </button>
+            </div>
+            <button
+              onClick={() => setShowCommentPopup(false)}
+              className="mt-4 text-gray-600 hover:text-gray-800 focus:outline-none"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
