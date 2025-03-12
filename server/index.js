@@ -853,7 +853,7 @@ app.delete("/answers:id", async (req, res) => {
 //Student search
 app.get("/search/students?query=", async(req, res) => {
   try {
-    const { query } = req.query; // Extracts the search query
+    const { query } = req.query; // gets search query
 
     if (!query) {
       return res.status(400).json({ message: "Query parameter is required." });
