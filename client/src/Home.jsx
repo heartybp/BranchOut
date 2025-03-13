@@ -16,6 +16,18 @@ const Home = () => {
       username: 'janedoe',
       content: 'React is amazing!',
       profilePhoto: null
+    },
+    {
+      id: 3,
+      username: 'petranteater',
+      content: 'Anyone know any research positions open for a Bio major?',
+      profilePhoto: null
+    },
+    {
+      id: 4,
+      username: 'imcooked',
+      content: 'How did everyone do on ICS 46 midterm?',
+      profilePhoto: null
     }
   ];
 

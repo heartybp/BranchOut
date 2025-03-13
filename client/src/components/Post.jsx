@@ -3,7 +3,7 @@ import { UserCircle } from 'lucide-react';
 
 const Post = ({ username, content, profilePhoto }) => {
   return (
-    <div className="w-full max-w-md flex flex-col justify-center items-center bg-white rounded-md shadow-sm shadow-gray-500 p-4">
+    <div className="flex flex-col justify-center items-center bg-white rounded-md shadow-sm shadow-gray-500 p-4">
       <div className="flex items-center gap-2 w-full mb-3">
         {profilePhoto ? (
           <img 
