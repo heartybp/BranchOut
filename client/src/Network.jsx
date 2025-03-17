@@ -82,7 +82,7 @@ const Network = () => {
                       <div key={index} className="flex items-center border rounded p-4">
                         <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
                         <div className="flex-1">
-                          <p className="text-xl">{student}</p>
+                          <p className="text-xl font-bold">{student}</p>
                           <button className="ml-2 px-2 py-1 bg-green-800 text-white rounded text-lg">Connect</button>
                           <button className="ml-2 px-2 py-1 bg-gray-200 rounded text-lg">View Profile</button>
                         </div>
@@ -99,7 +99,7 @@ const Network = () => {
                       <div key={index} className="flex items-center border rounded p-4">
                         <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
                         <div className="flex-1">
-                          <p className="text-xl">{mentor}</p>
+                          <p className="text-xl font-bold">{mentor}</p>
                           <button className="ml-2 px-2 py-1 bg-green-800 text-white rounded text-lg">Connect</button>
                           <button className="ml-2 px-2 py-1 bg-gray-200 rounded text-lg">View Profile</button>
                         </div>
