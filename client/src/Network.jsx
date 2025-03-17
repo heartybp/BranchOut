@@ -55,13 +55,13 @@ const Network = () => {
             <div className="flex space-x-4 mb-4">
               <button
                 onClick={() => setActiveTab('students')}
-                className={`px-4 py-2 rounded ${activeTab === 'students' ? 'border-b-4 border-green-900 text-green-900 text-xl' : 'border-slate-400 '}`}
+                className={`px-4 py-2 rounded ${activeTab === 'students' ? 'border-b-4 border-green-900 text-green-900 text-xl' : 'border-slate-400 text-slate-400'}`}
               >
                 Students
               </button>
               <button
                 onClick={() => setActiveTab('mentors')}
-                className={`px-4 py-2 rounded ${activeTab === 'mentors' ? 'border-b-4 border-green-900 text-green-900 text-xl' : 'border-slate-400'}`}
+                className={`px-4 py-2 rounded ${activeTab === 'mentors' ? 'border-b-4 border-green-900 text-green-900 text-xl' : 'border-slate-400 text-slate-400'}`}
               >
                 Mentors
               </button>
