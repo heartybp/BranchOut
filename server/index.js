@@ -403,6 +403,96 @@ app.get("/mentors/:id/work-experiences", async (req, res) => {
 
 // work experience routes
 
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+//////// WORK EXPERIENCE ROUTES /////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+
+//Create new experience
+app.post("/work-experiences", async (req, res) => {
+  try{
+    const { experience_type, experience_holder_id, company, job_title, description, date_started, date_ended, is_current } = req.body;
+    const newExperience = await pool.query(
+      "INSERT INTO work_experiences (experience_type, experience_holder_id, company, job_title, description, date_started, date_ended, is_current) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      [experience_type, experience_holder_id, company, job_title, description, date_started, date_ended, is_current]
+    );
+
+    res.json(newExperience.rows[0]); // Return the newly created work experience
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+
+//Get all work experiences for a user
+app.get("/work-experiences/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const workExperiences = await pool.query(
+      "SELECT * FROM work_experiences WHERE experience_holder_id = $1",
+      [userId]
+    );
+
+    if (workExperiences.rows.length === 0) {
+      return res.status(404).json({ message: "No work experiences found for this user." });
+    }
+
+    res.json(workExperiences.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+
+//Update a work experience
+app.put("/work-experiences/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    //Don't need holder id because no point in changing if student/mentor data for a work experience
+    const { company, job_title, description, date_started, date_ended, is_current } = req.body;
+    const updatedExperience = await pool.query(
+      "UPDATE work_experiences SET company = $1, job_title = $2, description = $3, date_started = $4, date_ended = $5, is_current = $6 WHERE experience_id = $7 RETURNING *",
+      [company, job_title, description, date_started, date_ended, is_current, id]
+    );
+
+    if (updatedExperience.rows.length === 0) {
+      return res.status(404).json({ message: "Work experience not found" });
+    }
+
+    res.json(updatedExperience.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+
+//Delete a work experience 
+app.delete("/work-experiences/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedExperience = await pool.query(
+      "DELETE FROM work_experiences WHERE experience_id = $1 RETURNING *",
+      [id]
+    );
+
+    if (deletedExperience.rows.length === 0) {
+      return res.status(404).json({ message: "Work experience not found" });
+    }
+
+    res.json({ message: "Work experience deleted successfully" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+
 // connection routes
 
 /////////////////////////////////////////////
@@ -491,6 +581,118 @@ app.delete("/connections/:id", async (req, res) => {
 });
 
 // mentorship request routes
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+///////// Mentorship Request ////////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+
+
+//Create a mentorship request
+app.post("/mentorship-requests", async (req, res) => {
+  try {
+    const { student_id, mentor_id, message } = req.body;
+
+    const newRequest = await pool.query(
+      "INSERT INTO mentorship_requests (student_id, mentor_id, message) VALUES ($1, $2, $3) RETURNING *",
+      [student_id, mentor_id, message]
+    );
+
+    res.json(newRequest.rows[0]); // Return the created mentorship request
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+
+//Getting all mentorship requests
+app.get("/students/:id/mentorship-requests", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const studentRequests = await pool.query(
+      "SELECT * FROM mentorship_requests WHERE student_id = $1",
+      [id]
+    );
+
+    if (studentRequests.rows.length === 0) {
+      return res.status(404).json({ message: "No mentorship requests found for this student." });
+    }
+
+    res.json(studentRequests.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+
+//Getting all mentorship requests for a mentor
+app.get("/mentors/:id/mentorship-requests", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const mentorRequests = await pool.query(
+      "SELECT * FROM mentorship_requests WHERE mentor_id = $1",
+      [id]
+    );
+
+    if (mentorRequests.rows.length === 0) {
+      return res.status(404).json({ message: "No mentorship requests found for this mentor." });
+    }
+
+    res.json(mentorRequests.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+//Update a mentorship request
+app.put("/mentorship-requests/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body; 
+
+    const updatedRequest = await pool.query(
+      "UPDATE mentorship_requests SET status = $1 WHERE request_id = $2 RETURNING *",
+      [status, id]
+    );
+
+    if (updatedRequest.rows.length === 0) {
+      return res.status(404).json({ message: "Mentorship request not found." });
+    }
+
+    res.json(updatedRequest.rows[0]); // Update the mentorship request
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+//Delete a mentorship request
+app.delete("/mentorship-requests/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedRequest = await pool.query(
+      "DELETE FROM mentorship_requests WHERE request_id = $1 RETURNING *",
+      [id]
+    );
+
+    if (deletedRequest.rows.length === 0) {
+      return res.status(404).json({ message: "Mentorship request not found." });
+    }
+
+    res.json({ message: "Mentorship request deleted successfully." });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 
 // question & answer routes
 
@@ -641,6 +843,71 @@ app.delete("/answers:id", async (req, res) => {
 
 
 // search & filter routes
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+/////////// SEARCH & FILTER /////////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+
+
+//Student search
+app.get("/search/students?query=", async(req, res) => {
+  try {
+    const { query } = req.query; // gets search query
+
+    if (!query) {
+      return res.status(400).json({ message: "Query parameter is required." });
+    }
+
+    const students = await pool.query(
+      `SELECT * FROM students 
+       WHERE LOWER(username) LIKE LOWER($1) 
+       OR LOWER(email) LIKE LOWER($1) 
+       OR LOWER(first_name) LIKE LOWER($1) 
+       OR LOWER(last_name) LIKE LOWER($1)`,
+    );
+
+    if (students.rows.length === 0) {
+      return res.status(404).json({ message: "No students found." });
+    }
+
+    res.json(students.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+//Mentor search
+app.get("/search/mentors", async (req, res) => {
+  try {
+    const { query } = req.query; // Extracts the search query
+
+    if (!query) {
+      return res.status(400).json({ message: "Query parameter is required." });
+    }
+
+    const mentors = await pool.query(
+      `SELECT * FROM mentors 
+       WHERE LOWER(username) LIKE LOWER($1) 
+       OR LOWER(email) LIKE LOWER($1) 
+       OR LOWER(first_name) LIKE LOWER($1) 
+       OR LOWER(last_name) LIKE LOWER($1) 
+       OR LOWER(job_title) LIKE LOWER($1) 
+       OR EXISTS (SELECT 1 FROM unnest(expertise_areas) e WHERE LOWER(e) LIKE LOWER($1))`,
+    );
+
+    if (mentors.rows.length === 0) {
+      return res.status(404).json({ message: "No mentors found." });
+    }
+
+    res.json(mentors.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 
 
 
