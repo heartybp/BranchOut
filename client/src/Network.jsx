@@ -67,6 +67,7 @@ const Network = () => {
               </button>
             </div>
             <div className="border-2 p-8 rounded-lg bg-gray-50 flex-grow">
+              <h2 className="text-xl font-bold mb-4">Search for {activeTab}</h2>
               <input
                 type="text"
                 placeholder={`Search ${activeTab}`}
@@ -76,7 +77,7 @@ const Network = () => {
               />
               {activeTab === 'students' && (
                 <div>
-                  <h2 className="text-xl font-bold mb-4">Search for Students</h2>
+                  
                   <div className="space-y-4">
                     {filteredStudents.map((student, index) => (
                       <div key={index} className="flex items-center border rounded p-4">
@@ -96,7 +97,6 @@ const Network = () => {
               )}
               {activeTab === 'mentors' && (
                 <div>
-                  <h2 className="text-xl font-bold mb-4">Search for Mentors</h2>
                   <div className="space-y-4">
                     {filteredMentors.map((mentor, index) => (
                       <div key={index} className="flex items-center border rounded p-4">
@@ -127,7 +127,7 @@ const Network = () => {
             />
             <ul className="overflow-y-auto h-3/4 space-y-4">
               {filteredConnections.sort().map((connection, index) => (
-                <li key={index} className="flex items-center border rounded p-4">
+                <li key={index} className="flex items-center bg-white border rounded p-4">
                   <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
                   <div className="flex-1">
                     <p className="text-xl font-bold">{connection}</p>
