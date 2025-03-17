@@ -100,6 +100,9 @@ const Network = () => {
                         <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
                         <div className="flex-1">
                           <p className="text-xl font-bold">{mentor}</p>
+                          <p className="text-sm text-gray-600">Current Position / Headline</p>
+                        </div>
+                        <div className="flex space-x-2">
                           <button className="ml-2 px-2 py-1 bg-green-800 text-white rounded text-lg">Connect</button>
                           <button className="ml-2 px-2 py-1 bg-gray-200 rounded text-lg">View Profile</button>
                         </div>
