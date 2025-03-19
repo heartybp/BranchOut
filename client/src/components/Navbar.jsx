@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  
+
   const navigateHome = () => navigate('/home');
   const navigateNetwork = () => navigate('/network');
   const navigateForum = () => navigate('/forum');
@@ -18,7 +18,7 @@ const Navbar = () => {
             <li className="p-2 font-semibold cursor-pointer" onClick={navigateNetwork}>Network</li>
 
             <li className="p-2 font-semibold cursor-pointer" onClick={navigateForum}>Forum</li>
- 
+
             <li className="p-2 font-semibold cursor-pointer" onClick={navigateProfile}>Profile</li>
         </ul>
     </div>
@@ -26,4 +26,3 @@ const Navbar = () => {
 }
 
 export default Navbar
-
