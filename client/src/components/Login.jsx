@@ -17,7 +17,6 @@ const Login = () => {
 
 
     return (
-
         <div className="flex">
             {/* image component */}
             <div className="relative w-3/5 bg-emerald-800">
@@ -75,7 +74,6 @@ const Login = () => {
                                 />
                             </div>
                             
-
                             <div className="relative flex items-center justify-center">
                                 <LockOutlined className="absolute left-16 top-2.5 text-xl text-gray-400"/>
                                 <input 
@@ -114,11 +112,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-
-            
-          
         </div>
-        
     )
 }
 
