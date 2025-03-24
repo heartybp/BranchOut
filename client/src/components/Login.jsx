@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-
 import {MailOutlined, DiscordOutlined, GoogleOutlined, UserOutlined, LockOutlined, QuestionCircleFilled} from '@ant-design/icons';
 import { Leaf } from 'lucide-react';
 
@@ -21,7 +20,9 @@ const Login = () => {
 
         <div className="flex">
             {/* image component */}
-            <div className="w-3/5 bg-emerald-800">
+            <div className="relative w-3/5 bg-emerald-800">
+                <img class="absolute w-full h-full object-cover" src="/src/assets/login-cover.jpg" />
+                <div className="absolute inset-0 bg-emerald-800 bg-opacity-40"></div>
             </div>
 
             <div className="w-2/5 bg-lightGreen h-screen">
