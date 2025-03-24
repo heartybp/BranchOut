@@ -4,7 +4,7 @@ import { Leaf, House, UsersRound, MessageCircleQuestion, CircleUserRound, Archiv
 
 const Navbar = () => {
   const navigate = useNavigate();
-  
+
   const navigateHome = () => navigate('/home');
   const navigateNetwork = () => navigate('/network');
   const navigateForum = () => navigate('/forum');
@@ -41,10 +41,10 @@ const Navbar = () => {
               <Archive size={40}/>
               <li className="">Resources</li>
             </div>
+
         </ul>
     </div>
   )
 }
 
 export default Navbar
-
