@@ -8,6 +8,8 @@ export default {
     extend: {
       colors: {
         // add custom colors here
+        'brandGreen': '#3E5742', // MAIN GREEN USED IN FIGMA
+        'mediumGreen':'#2e734b',
         'lightGreen': '#e7ede4',
       },
     },
