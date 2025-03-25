@@ -141,21 +141,41 @@ const Network = () => {
                     {filteredMentors.map((mentor, index) => (
                       <div
                         key={index}
-                        className="flex items-center border rounded p-4"
+                        className="flex flex-col border rounded bg-white py-4"
                       >
-                        <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
-                        <div className="flex-1">
-                          <p className="text-xl font-bold">{mentor}</p>
-                          <p className="text-sm text-gray-600">
-                            Current Position / Headline
-                          </p>
+                        <div className="flex flex-row px-5">
+                          <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                          <div className="flex-1">
+                            <p className="text-lg font-medium">{mentor}</p>
+                            <p className="text-sm text-gray-500">
+                              Current Position / Headline
+                            </p>
+                          </div>
                         </div>
 
-                        <div className="flex space-x-2">
-                          <button className="ml-2 px-2 py-1 bg-green-800 text-white rounded text-xl">
-                            Connect
+                        <p className="px-5 my-3 text-sm text-gray-600">
+                          10+ years of experience in field
+                        </p>
+
+                        <div className="px-4">
+                          <ul className="flex gap-2">
+                            <li className="bg-sky-100 w-fit rounded-full text-xs py-1 px-3 font-semibold text-sky-800">
+                              Product Design
+                            </li>
+                            <li className="bg-sky-100 w-fit rounded-full text-xs py-1 px-3 font-semibold text-sky-800">
+                              Strategy
+                            </li>
+                          </ul>
+                        </div>
+
+                        {/* horizontal line */}
+                        <div className="flex-grow h-px bg-gray-200 my-4"></div>
+
+                        <div className="flex space-x-2 px-4">
+                          <button className="px-3 py-2 bg-sky-600 text-white rounded text-sm">
+                            Request
                           </button>
-                          <button className="ml-2 px-2 py-1 bg-gray-200 rounded text-xl">
+                          <button className="px-3 py-2 bg-gray-50 border border-gray-300 rounded text-sm">
                             View Profile
                           </button>
                         </div>
@@ -189,7 +209,7 @@ const Network = () => {
                     </p>
                   </div>
                   <div className="ml-auto">
-                    <button className="px-3 py-2 bg-gray-50 border border-gray-300 rounded text-sm">
+                    <button className="px-3 py-2 bg-gray-100 border border-gray-300 rounded text-sm">
                       View Profile
                     </button>
                   </div>
