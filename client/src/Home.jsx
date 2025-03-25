@@ -32,22 +32,22 @@ const Home = () => {
   ];
 
   return (
-    <>
-      <Navbar />
-      <div className="bg-green-700 flex justify-center items-center py-8">
-        {/* Container for posts */}
-        <div className="w-full max-w-2xl space-y-4">
-          {posts.map(post => (
-            <Post 
-              key={post.id}
-              username={post.username}
-              content={post.content}
-              profilePhoto={post.profilePhoto}
-            />
-          ))}
+    <div className="flex flex-row">
+        <Navbar />
+        <div className="w-full bg-green-700 flex justify-center items-center py-8">
+          {/* Container for posts */}
+          <div className="w-full max-w-2xl space-y-4">
+            {posts.map(post => (
+              <Post 
+                key={post.id}
+                username={post.username}
+                content={post.content}
+                profilePhoto={post.profilePhoto}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </>
+    </div>
   );
 };
 

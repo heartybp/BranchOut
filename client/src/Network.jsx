@@ -47,9 +47,10 @@ const Network = () => {
   );
 
   return (
-    <>
+    <div className="flex">
       <Navbar />
-      <div className="container mx-auto p-4 text-xl min-h-screen flex flex-col">
+
+      <div className="w-full container mx-auto p-4 text-xl min-h-screen flex flex-col">
         <div className="grid grid-cols-3 gap-4 flex-grow">
           <div className="col-span-2 pl-4 flex-col">
             <div className="flex space-x-4 mb-4">
@@ -142,7 +143,7 @@ const Network = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -36,9 +36,9 @@ const Forum = () => {
     };
 
     return (
-        <>
+        <div className="flex">
         <Navbar />
-        <div className="bg-gray-100 min-h-screen py-10 px-4">
+        <div className="w-full bg-gray-100 min-h-screen py-10 px-4">
             <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
                 <h2 className="text-2xl font-semibold text-gray-700 mb-4">Ask a Question</h2>
                 <div className="space-y-4">
@@ -146,7 +146,7 @@ const Forum = () => {
             </div>
             )}
         </div>
-        </>
+        </div>
     );
 };
 
