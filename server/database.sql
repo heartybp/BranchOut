@@ -32,15 +32,20 @@ CREATE TABLE IF NOT EXISTS majors (
     name TEXT NOT NULL
 );
 
--- Create students table X
-CREATE TABLE IF NOT EXISTS students (
-    student_id SERIAL PRIMARY KEY,
-    username TEXT NOT NULL,
-    email TEXT NOT NULL,
+CREATE TABLE IF NOT EXISTS users (
+    user_id SERIAL PRIMARY KEY,
+    username TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
-    password TEXT NOT NULL, -- change from plain text to hash later
+    password TEXT NOT NULL,
     university_id TEXT REFERENCES universities(university_id),
+    bio TEXT
+);
+
+-- Create students table X
+CREATE TABLE IF NOT EXISTS students (
+    student_id INT PRIMARY KEY REFERENCES users(user_id) ON DELETE CASCADE,
     major_id TEXT REFERENCES majors(major_id),
     grade_level TEXT,
     expected_graduation_date DATE,
@@ -50,34 +55,25 @@ CREATE TABLE IF NOT EXISTS students (
 
 -- Create mentors table X
 CREATE TABLE IF NOT EXISTS mentors (
-    mentor_id SERIAL PRIMARY KEY,
-    username TEXT NOT NULL,
-    email TEXT NOT NULL,
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
-    password TEXT NOT NULL, -- change from plain text to hash later
+    mentor_id INT PRIMARY KEY REFERENCES users(user_id) ON DELETE CASCADE,
     company TEXT,
     job_title TEXT,
     years_of_experience INT,
-    university_id TEXT REFERENCES universities(university_id),
     expertise_areas TEXT[],
-    max_mentees INT,3
+    max_mentees INT DEFAULT 3,
     bio TEXT
 );
 
 -- Create work experiences table X
 CREATE TABLE IF NOT EXISTS work_experiences (
     experience_id SERIAL PRIMARY KEY,
-    experience_type TEXT CHECK (experience_type IN ('student', 'mentor')),
-    experience_holder_id INT NOT NULL,
+    user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
     company TEXT,
     job_title TEXT,
     description TEXT,
     date_started DATE,
     date_ended DATE,
-    is_current BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (experience_holder_id) REFERENCES students(student_id) ON DELETE CASCADE,
-    FOREIGN KEY (experience_holder_id) REFERENCES mentors(mentor_id) ON DELETE CASCADE
+    is_current BOOLEAN DEFAULT FALSE
 );
 
 -- Create connections table (student_id || mentor_id foreign key)
@@ -175,9 +171,7 @@ CREATE TABLE IF NOT EXISTS group_messages (
 
 -- INSERT TEST DATA
 
-
-
-
+-- CHECKING UNIVERSITIES
 BEGIN;
 
 INSERT INTO universities (university_id, name, location) VALUES
@@ -187,6 +181,20 @@ INSERT INTO universities (university_id, name, location) VALUES
     ('csulb', 'Cal State Long Beach', 'Long Beach, CA'),
     ('csuf', 'Cal State Fullerton', 'Fullerton, CA');
 
+-- Run tests
+SELECT * FROM universities;
+SELECT * FROM universities WHERE university_id = 'csuf';
+
+-- Cleanup
+DELETE FROM universities WHERE university_id = 'csuf';
+SELECT * FROM universities;
+
+ROLLBACK;
+ 
+
+-- CHECKING MAJORS
+BEGIN;
+
 INSERT INTO majors (major_id, name) VALUES
     ('business', 'Business'),
     ('biology', 'Biology'),
@@ -195,7 +203,15 @@ INSERT INTO majors (major_id, name) VALUES
     ('economics', 'Economics'),
     ('ee', 'Electrical Engineering');
 
-COMMIT;
+-- Run tests
+SELECT * FROM majors;
+SELECT * FROM majors WHERE major_id = 'cs';
+
+-- Cleanup
+DELETE FROM majors WHERE major_id = 'cs';
+SELECT * FROM majors;
+
+ROLLBACK;
 
 
 -- Users and Profiles in one transaction
