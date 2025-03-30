@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS questions (
 -- Create answers table (needs to map to existing question)
 CREATE TABLE IF NOT EXISTS answers (
     answer_id SERIAL PRIMARY KEY,
-    question_id INT REFERENCES questions(question_id),
+    question_id INT NOT NULL REFERENCES questions(question_id),
     answerer_id INT NOT NULL REFERENCES users(user_id),
     content TEXT NOT NULL,
     is_anonymous BOOLEAN DEFAULT FALSE,
