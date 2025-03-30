@@ -42,7 +42,7 @@ SELECT * FROM majors;
 
 ROLLBACK;
 
--- ADD UNIVERSITIES & MAJORS
+-------------------------- CHECKING USERS
 
 BEGIN;
 
@@ -61,12 +61,6 @@ INSERT INTO majors (major_id, name) VALUES
     ('economics', 'Economics'),
     ('ee', 'Electrical Engineering');
 
-COMMIT;
-
--------------------------- CHECKING USERS
-
-BEGIN;
-
 INSERT INTO users (username, email, first_name, last_name, password, university_id, bio) VALUES
     ('jsmith', 'john@example.com', 'John', 'Smith', 'password123', 'ucla', 'I am a CS student'),
     ('jdoe', 'jane@example.com', 'Jane', 'Doe', 'securepass', 'uci', 'PhD candidate'),
@@ -84,20 +78,29 @@ ROLLBACK;
 
 SELECT setval(pg_get_serial_sequence('users', 'user_id'), 1, false);
 
--- CREATE USERS 
+-------------------------- CHECKING STUDENTS
 
 BEGIN;
+
+INSERT INTO universities (university_id, name, location) VALUES
+    ('uci', 'University of California, Irvine', 'Irvine, CA'),
+    ('ucb', 'University of California, Berkeley', 'Berkeley, CA'),
+    ('ucla', 'UCLA', 'Los Angeles, CA'),
+    ('csulb', 'Cal State Long Beach', 'Long Beach, CA'),
+    ('csuf', 'Cal State Fullerton', 'Fullerton, CA');
+
+INSERT INTO majors (major_id, name) VALUES
+    ('business', 'Business'),
+    ('biology', 'Biology'),
+    ('cs', 'Computer Science'),
+    ('sociology', 'Sociology'),
+    ('economics', 'Economics'),
+    ('ee', 'Electrical Engineering');
 
 INSERT INTO users (username, email, first_name, last_name, password, university_id, bio) VALUES
     ('jsmith', 'john@example.com', 'John', 'Smith', 'password123', 'ucla', 'I am a CS student'),
     ('jdoe', 'jane@example.com', 'Jane', 'Doe', 'securepass', 'uci', 'PhD candidate'),
     ('mwilson', 'mike@example.com', 'Mike', 'Wilson', 'mentorpass', 'uci', 'Tech industry veteran');
-
-COMMIT;
-
--------------------------- CHECKING STUDENTS
-
-BEGIN;
 
 INSERT INTO students (student_id, major_id, grade_level, expected_graduation_date, resume_url) VALUES
     (1, 'cs', 'Junior', '2026-05-15', 'https://example.com/resume/jsmith'),
@@ -112,6 +115,26 @@ ROLLBACK;
 -------------------------- CHECKING MENTORS
 
 BEGIN;
+
+INSERT INTO universities (university_id, name, location) VALUES
+    ('uci', 'University of California, Irvine', 'Irvine, CA'),
+    ('ucb', 'University of California, Berkeley', 'Berkeley, CA'),
+    ('ucla', 'UCLA', 'Los Angeles, CA'),
+    ('csulb', 'Cal State Long Beach', 'Long Beach, CA'),
+    ('csuf', 'Cal State Fullerton', 'Fullerton, CA');
+
+INSERT INTO majors (major_id, name) VALUES
+    ('business', 'Business'),
+    ('biology', 'Biology'),
+    ('cs', 'Computer Science'),
+    ('sociology', 'Sociology'),
+    ('economics', 'Economics'),
+    ('ee', 'Electrical Engineering');
+
+INSERT INTO users (username, email, first_name, last_name, password, university_id, bio) VALUES
+    ('jsmith', 'john@example.com', 'John', 'Smith', 'password123', 'ucla', 'I am a CS student'),
+    ('jdoe', 'jane@example.com', 'Jane', 'Doe', 'securepass', 'uci', 'PhD candidate'),
+    ('mwilson', 'mike@example.com', 'Mike', 'Wilson', 'mentorpass', 'uci', 'Tech industry veteran');
 
 INSERT INTO mentors (mentor_id, company, job_title, years_of_experience, expertise_areas, max_mentees) VALUES
     (3, 'Tech Giants Inc.', 'Senior Software Engineer', 8, ARRAY['Web Development', 'AI', 'Cloud Computing'], 5);
