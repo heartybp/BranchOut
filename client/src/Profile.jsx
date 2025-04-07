@@ -4,10 +4,10 @@ import ProfileSection from "./components/ProfileSection.jsx";
 
 const Profile = () => {
   return (
-    <div className="flex">
+    <div className="flex max-h-screen">
       <Navbar />
 
-      <div className="w-full flex justify-center bg-gray-300">
+      <div className="flex justify-center overflow-y-scroll bg-gray-200 h-dvh">
         <ProfileSection />
       </div>
     </div>

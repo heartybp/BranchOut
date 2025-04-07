@@ -182,13 +182,13 @@ const Profile = () => {
     },
   ];
   return (
-    <div className="bg-white w-4/5 pt-20">
+    <div className="bg-white w-4/5 pt-20 h-max">
       <div className="relative w-full">
         {/* centered profile photo */}
         <div className="flex justify-center w-full">
           <img
             src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-            className="absolute top-24 w-44 h-44 rounded-full border-2 border-solid border-emerald-800"
+            className="absolute top-24 w-52 h-52 rounded-full border-8 border-solid border-white"
           />
         </div>
 
@@ -197,9 +197,9 @@ const Profile = () => {
           {/* <img src="https://static.vecteezy.com/system/resources/thumbnails/054/506/874/small/lush-forest-floor-with-ferns-and-sunlight-free-photo.jpg"
 				className="h-1/2 w-full rounded-t-xl border border-solid border-gray-500"/> */}
 
-          <div className="h-56 w-full bg-brandGreen"></div>
+          <div className="h-64 w-full bg-brandGreen"></div>
 
-          <div className="w-full pt-16 pb-10">
+          <div className="w-full pt-20 pb-10">
             <div className="flex flex-col justify-center items-center">
               <h1 className="font-semibold text-2xl pb-1">Mike B. Wazowski</h1>
               <p className="font-light">University of California, Irvine</p>

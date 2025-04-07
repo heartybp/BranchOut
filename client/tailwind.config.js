@@ -9,6 +9,9 @@ export default {
         mediumGreen: "#2e734b",
         lightGreen: "#e7ede4",
       },
+      fontFamily: {
+        jakarta: ['"Plus Jakarta Sans"', "sans-serif"],
+      },
     },
   },
   plugins: [],
