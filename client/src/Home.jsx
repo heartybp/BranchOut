@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar.jsx";
 import Post from "./components/Post.jsx";
 import Tree from "./assets/tree.png";
 import ScrollEvents from "./components/ScrollEvents.jsx";
+import SuggestedConnections from "./components/SuggestedConnections.jsx";
 
 const Home = () => {
   return (
@@ -31,13 +32,21 @@ const Home = () => {
         </div>
         
         <ScrollEvents ScrollEventsTitle="Ongoing Mentor Matchings" />
-        <ScrollEvents ScrollEventsTitle="Upcoming Mentor Matchings" />
-
         <div className="flex justify-center">
-          <button className="p-2 bg-brandGreen rounded-lg">See more</button>
+          <button className="p-2 bg-brandGreen rounded-lg text-sm text-white">See more</button>
         </div>
 
-        
+        <ScrollEvents ScrollEventsTitle="Upcoming Mentor Matchings" />
+        <div className="flex justify-center">
+          <button className="p-2 bg-brandGreen rounded-lg text-sm text-white">See more</button>
+        </div>
+
+        <h1 className="text-3xl font-bold pl-10 my-8">Suggested Connections based on your career goals</h1>
+
+        <SuggestedConnections />
+        <div className="flex justify-center">
+          <button className="p-2 bg-brandGreen rounded-lg text-sm text-white">See more</button>
+        </div>
 
         {/* this week */}
         <div>
