@@ -7,7 +7,7 @@ const Profile = () => {
     <div className="flex max-h-screen">
       <Navbar />
 
-      <div className="flex justify-center overflow-y-scroll bg-gray-200 h-dvh">
+      <div className="flex justify-center overflow-y-scroll bg-gray-200">
         <ProfileSection />
       </div>
     </div>
