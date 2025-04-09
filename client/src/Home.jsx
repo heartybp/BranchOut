@@ -48,7 +48,7 @@ const Home = () => {
         <div className="flex flex-col overflow-y-scroll bg-white">
           <Header />
 
-          <div className="flex bg-white">
+          <div className="flex bg-white mb-10">
             {/* left side */}
 
             <div className="bg-white justify-center w-[940px] flex-row ">
@@ -65,7 +65,7 @@ const Home = () => {
                     <p className="font-semibold">days checked in</p>
                   </div>
 
-                  <div className="bg-gray-100 p-6 rounded-lg border border-gray-300 flex flex-col items-center">
+                  <div className="bg-gray-100 p-5 rounded-lg border border-gray-300 flex flex-col items-center">
                     <p className="font-semibold">Current Mentor</p>
                     <img
                       src={mentorImage}
