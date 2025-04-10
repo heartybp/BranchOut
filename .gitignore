@@ -2,4 +2,7 @@
 .idea
 .env
 
-db.js
+server/db.js
+
+# Ignore node_modules directory at any level
+**/node_modules
