@@ -763,7 +763,7 @@ app.get("/connections/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const connections = await pool.query(
-      "SELECT * FROM connections WHERE requester_id = $1 OR receiver_id = $1'",
+      "SELECT * FROM connections WHERE requester_id = $1 OR receiver_id = $1",
       [userId]
     );
 
