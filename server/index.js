@@ -310,28 +310,16 @@ app.get("/students/:id/posts", async (req, res) => {
   }
 });
 
-// 9 - get student's questions
-app.get("/students/:id/questions", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const questions = await pool.query(
-      "SELECT * FROM questions WHERE asker_id = $1",
-      [id]
-    );
-
-    res.json(questions.rows);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
-  }
-});
-
 // 10 - get student's work experience
 app.get("/students/:id/work-experiences", async (req, res) => {
   try {
     const { id } = req.params;
+
     const workExperiences = await pool.query(
-      "SELECT * FROM work_experiences WHERE experience_holder_id = $1 AND experience_type = 'student'",
+      `SELECT we.*
+       FROM work_experiences we
+       JOIN students s ON we.user_id = s.student_id
+       WHERE s.student_id = $1`,
       [id]
     );
 
@@ -341,6 +329,7 @@ app.get("/students/:id/work-experiences", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
 
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -595,8 +584,12 @@ app.get("/mentors/:id/questions", async (req, res) => {
 app.get("/mentors/:id/work-experiences", async (req, res) => {
   try {
     const { id } = req.params;
+
     const workExperiences = await pool.query(
-      "SELECT * FROM work_experiences WHERE experience_holder_id = $1 AND experience_type = 'mentor'",
+      `SELECT we.*
+       FROM work_experiences we
+       JOIN mentors m ON we.user_id = m.mentor_id
+       WHERE m.mentor_id = $1`,
       [id]
     );
 
@@ -606,6 +599,7 @@ app.get("/mentors/:id/work-experiences", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
 
 // work experience routes
 
@@ -619,8 +613,7 @@ app.get("/mentors/:id/work-experiences", async (req, res) => {
 app.post("/work-experiences", async (req, res) => {
   try {
     const {
-      experience_type,
-      experience_holder_id,
+      user_id,
       company,
       job_title,
       description,
@@ -629,10 +622,9 @@ app.post("/work-experiences", async (req, res) => {
       is_current,
     } = req.body;
     const newExperience = await pool.query(
-      "INSERT INTO work_experiences (experience_type, experience_holder_id, company, job_title, description, date_started, date_ended, is_current) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      "INSERT INTO work_experiences (user_id, company, job_title, description, date_started, date_ended, is_current) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
       [
-        experience_type,
-        experience_holder_id,
+        user_id,
         company,
         job_title,
         description,
@@ -655,7 +647,7 @@ app.get("/work-experiences/:userId", async (req, res) => {
     const { userId } = req.params;
 
     const workExperiences = await pool.query(
-      "SELECT * FROM work_experiences WHERE experience_holder_id = $1",
+      "SELECT * FROM work_experiences WHERE user_id = $1",
       [userId]
     );
 
