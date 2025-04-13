@@ -1089,7 +1089,7 @@ app.get("/answers/:questionID", async (req, res) => {
     const { questionID } = req.params;
     // takes any answer with the correspond question id
     const answers = await pool.query(
-      "SELECT * FROM answers WHERE question_id = $1",
+      "SELECT * FROM answers WHERE question_id = $1 AND is_deleted = false",
       [questionID]
     );
 
@@ -1097,7 +1097,7 @@ app.get("/answers/:questionID", async (req, res) => {
       return res.status(404).json({ message: "Answer(s) not found" });
     }
 
-    res.json(answers.rows[0]);
+    res.json(answers.rows);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
