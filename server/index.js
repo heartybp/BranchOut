@@ -956,16 +956,22 @@ app.post("/questions", async (req, res) => {
       asker_id,
       title,
       content,
-      is_anonymous
+      is_anonymous,
+      created_at,
+      updated_at,
+      is_deleted
     } = req.body;
 
     const newQuestion = await pool.query(
-      "INSERT INTO questions (asker_id, title, content, is_anonymous) VALUES($1, $2, $3, $4) RETURNING *",
+      "INSERT INTO questions (asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
       [
         asker_id,
         title,
         content,
-        is_anonymous
+        is_anonymous,
+        created_at,
+        updated_at,
+        is_deleted
       ]
     );
 
@@ -998,7 +1004,7 @@ app.put("/questions/:id", async (req, res) => {
       is_anonymous,
       created_at,
       updated_at,
-      is_deleted,
+      is_deleted
     } = req.body;
 
     const updateQuestion = await pool.query(
@@ -1011,7 +1017,7 @@ app.put("/questions/:id", async (req, res) => {
         created_at,
         updated_at,
         is_deleted,
-        id,
+        id
       ]
     );
 
