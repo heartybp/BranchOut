@@ -956,22 +956,16 @@ app.post("/questions", async (req, res) => {
       asker_id,
       title,
       content,
-      is_anonymous,
-      created_at,
-      updated_at,
-      is_deleted,
+      is_anonymous
     } = req.body;
 
     const newQuestion = await pool.query(
-      "INSERT INTO questions (asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      "INSERT INTO questions (asker_id, title, content, is_anonymous) VALUES($1, $2, $3, $4) RETURNING *",
       [
         asker_id,
         title,
         content,
-        is_anonymous,
-        created_at,
-        updated_at,
-        is_deleted,
+        is_anonymous
       ]
     );
 
@@ -1232,5 +1226,5 @@ app.get("/search/mentors", async (req, res) => {
 });
 
 app.listen(5432, () => {
-  console.log("server has started on port 5003");
+  console.log("server has started on port 5432");
 });
