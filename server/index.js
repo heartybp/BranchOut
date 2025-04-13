@@ -979,7 +979,7 @@ app.post("/questions", async (req, res) => {
 // getting all questions
 app.get("/questions", async (req, res) => {
   try {
-    const allQuestions = await pool.query("SELECT * FROM questions");
+    const allQuestions = await pool.query("SELECT * FROM questions WHERE is_deleted = false");
     res.json(allQuestions.rows);
   } catch (err) {
     console.error(err.message);
