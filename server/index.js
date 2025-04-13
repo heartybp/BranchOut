@@ -1225,6 +1225,6 @@ app.get("/search/mentors", async (req, res) => {
   }
 });
 
-app.listen(5432, () => {
-  console.log("server has started on port 5432");
+app.listen(5003, () => {
+  console.log("server has started on port 5003");
 });
