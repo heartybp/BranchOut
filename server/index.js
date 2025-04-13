@@ -1110,7 +1110,6 @@ app.put("/answers/:id", async (req, res) => {
     const { id } = req.params;
     const {
       question_id,
-      answerer_type,
       answerer_id,
       content,
       is_anonymous,
@@ -1146,9 +1145,9 @@ app.put("/answers/:id", async (req, res) => {
 });
 
 // deleting an answer
-app.delete("/answers:id", async (req, res) => {
+app.delete("/answers/:id", async (req, res) => {
   try {
-    const { id } = red.params;
+    const { id } = req.params;
     const deleteAnswer = await pool.query(
       "DELETE FROM answers WHERE answer_id = $1 RETURNING *",
       [id]
