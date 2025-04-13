@@ -3,7 +3,7 @@
 const Pool = require("pg").Pool;
 const pool = new Pool({
     user: "postgres",
-    password: "", // 
+    password: "password", // 
     // put your postgres password here, but don't commit this file onto github so that your password is protected
         // to do so, make sure db.js is in .gitignore file
     host: "localhost",

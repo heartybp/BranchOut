@@ -961,6 +961,7 @@ app.post("/questions", async (req, res) => {
       updated_at,
       is_deleted,
     } = req.body;
+
     const newQuestion = await pool.query(
       "INSERT INTO questions (asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
       [
@@ -1230,6 +1231,6 @@ app.get("/search/mentors", async (req, res) => {
   }
 });
 
-app.listen(5003, () => {
+app.listen(5432, () => {
   console.log("server has started on port 5003");
 });
