@@ -1036,7 +1036,7 @@ app.delete("/questions/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const deleteQuestion = await pool.query(
-      "DELETE FROM questions WHERE student_id = $1 RETURNING *",
+      "DELETE FROM questions WHERE asker_id = $1 RETURNING *",
       [id]
     );
 
