@@ -1056,7 +1056,6 @@ app.post("/answers", async (req, res) => {
   try {
     const {
       question_id,
-      answerer_type,
       answerer_id,
       content,
       is_anonymous,
@@ -1065,10 +1064,9 @@ app.post("/answers", async (req, res) => {
       is_deleted,
     } = req.body;
     const newAnswer = await pool.query(
-      "INSERT INTO answers (question_id, answerer_type, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      "INSERT INTO answers (question_id, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
         question_id,
-        answerer_type,
         answerer_id,
         content,
         is_anonymous,
