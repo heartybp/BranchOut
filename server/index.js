@@ -949,8 +949,9 @@ app.post("/questions", async (req, res) => {
       is_anonymous,
       created_at,
       updated_at,
-      is_deleted,
+      is_deleted
     } = req.body;
+
     const newQuestion = await pool.query(
       "INSERT INTO questions (asker_id, title, content, is_anonymous, created_at, updated_at, is_deleted) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
       [
@@ -960,7 +961,7 @@ app.post("/questions", async (req, res) => {
         is_anonymous,
         created_at,
         updated_at,
-        is_deleted,
+        is_deleted
       ]
     );
 
@@ -974,7 +975,7 @@ app.post("/questions", async (req, res) => {
 // getting all questions
 app.get("/questions", async (req, res) => {
   try {
-    const allQuestions = await pool.query("SELECT * FROM questions");
+    const allQuestions = await pool.query("SELECT * FROM questions WHERE is_deleted = false");
     res.json(allQuestions.rows);
   } catch (err) {
     console.error(err.message);
@@ -993,7 +994,7 @@ app.put("/questions/:id", async (req, res) => {
       is_anonymous,
       created_at,
       updated_at,
-      is_deleted,
+      is_deleted
     } = req.body;
 
     const updateQuestion = await pool.query(
@@ -1006,7 +1007,7 @@ app.put("/questions/:id", async (req, res) => {
         created_at,
         updated_at,
         is_deleted,
-        id,
+        id
       ]
     );
 
@@ -1025,7 +1026,7 @@ app.delete("/questions/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const deleteQuestion = await pool.query(
-      "DELETE FROM questions WHERE student_id = $1 RETURNING *",
+      "DELETE FROM questions WHERE asker_id = $1 RETURNING *",
       [id]
     );
 
@@ -1045,7 +1046,6 @@ app.post("/answers", async (req, res) => {
   try {
     const {
       question_id,
-      answerer_type,
       answerer_id,
       content,
       is_anonymous,
@@ -1054,10 +1054,9 @@ app.post("/answers", async (req, res) => {
       is_deleted,
     } = req.body;
     const newAnswer = await pool.query(
-      "INSERT INTO answers (question_id, answerer_type, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      "INSERT INTO answers (question_id, answerer_id, content, is_anonymous, created_at, updated_at, is_deleted) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
         question_id,
-        answerer_type,
         answerer_id,
         content,
         is_anonymous,
@@ -1080,7 +1079,7 @@ app.get("/answers/:questionID", async (req, res) => {
     const { questionID } = req.params;
     // takes any answer with the correspond question id
     const answers = await pool.query(
-      "SELECT * FROM answers WHERE question_id = $1",
+      "SELECT * FROM answers WHERE question_id = $1 AND is_deleted = false",
       [questionID]
     );
 
@@ -1088,7 +1087,7 @@ app.get("/answers/:questionID", async (req, res) => {
       return res.status(404).json({ message: "Answer(s) not found" });
     }
 
-    res.json(answers.rows[0]);
+    res.json(answers.rows);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
@@ -1101,7 +1100,6 @@ app.put("/answers/:id", async (req, res) => {
     const { id } = req.params;
     const {
       question_id,
-      answerer_type,
       answerer_id,
       content,
       is_anonymous,
@@ -1137,9 +1135,9 @@ app.put("/answers/:id", async (req, res) => {
 });
 
 // deleting an answer
-app.delete("/answers:id", async (req, res) => {
+app.delete("/answers/:id", async (req, res) => {
   try {
-    const { id } = red.params;
+    const { id } = req.params;
     const deleteAnswer = await pool.query(
       "DELETE FROM answers WHERE answer_id = $1 RETURNING *",
       [id]
