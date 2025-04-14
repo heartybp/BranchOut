@@ -734,15 +734,13 @@ app.delete("/work-experiences/:id", async (req, res) => {
 app.post("/connections", async (req, res) => {
   try {
     const {
-      requester_type,
       requester_id,
-      receiver_type,
       receiver_id,
       status = "pending",
     } = req.body;
     const newConnection = await pool.query(
-      "INSERT INTO connections (requester_type, requester_id, receiver_id, receiver_type, receiver_id, status) VALUES($1, $2, $3, $4, $5) RETURNING *",
-      [requester_type, requester_id, receiver_type, receiver_id, status]
+      "INSERT INTO connections (requester_id, receiver_id, status) VALUES($1, $2, $3) RETURNING *",
+      [requester_id, receiver_id, status]
     );
 
     res.json(newConnection.rows[0]);
@@ -757,7 +755,7 @@ app.get("/connections/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const connections = await pool.query(
-      "SELECT * FROM connections WHERE requester_id = $1 OR receiver_id = $1'",
+      "SELECT * FROM connections WHERE requester_id = $1 OR receiver_id = $1",
       [userId]
     );
 
