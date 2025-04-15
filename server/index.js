@@ -379,37 +379,40 @@ app.get("/PATH/", async (req, res) => {
 // mentor routes
 
 // Creating a mentor
-app.post("/mentor", async (req, res) => {
+app.post("/mentors", async (req, res) => {
   try {
     const {
-      username,
-      email,
-      first_name,
-      last_name,
+      mentor_id,
       company,
       job_title,
       years_of_experience,
-      university_id,
       expertise_areas,
       max_mentees,
       bio,
     } = req.body;
     const newMentor = await pool.query(
-      "INSERT INTO mentor (username, email, first_name, last_name, company, job_title, years_of_experience, university_id, expertise_areas, max_mentees, bio) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *",
+      "INSERT INTO mentors (mentor_id, company, job_title, years_of_experience, expertise_areas, max_mentees, bio)VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
       [
-        username,
-        email,
-        first_name,
-        last_name,
+        mentor_id,
         company,
         job_title,
         years_of_experience,
-        university_id,
         expertise_areas,
         max_mentees,
         bio,
       ]
     );
+
+    // Example input post req
+    // {
+    //   mentor_id: 16;
+    //   company: "Google";
+    //   job_title: "Senior Cloud Engineer";
+    //   years_of_experience: 10;
+    //   expertise_areas: ['Cloud', 'FullStack'];
+    //   max_mentees: 2;
+    //   bio: "wait im goated";
+    // }
 
     res.json(newMentor.rows[0]);
   } catch (err) {
