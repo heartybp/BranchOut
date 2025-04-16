@@ -330,7 +330,6 @@ app.get("/students/:id/work-experiences", async (req, res) => {
   }
 });
 
-
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!!!!!!!!!!!!!!READ THIS BEFORE IMPLEMENTING ROUTES!!!!!!!!!!!!!!!!!!!!!!!
@@ -603,6 +602,21 @@ app.get("/mentors/:id/work-experiences", async (req, res) => {
   }
 });
 
+// getting mentors mentorship-groups
+app.get("/mentors/:id/mentorship-groups", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const workExperiences = await pool.query(
+      "SELECT * FROM mentorship_groups WHERE mentor_id = $1",
+      [id]
+    );
+
+    res.json(workExperiences.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
 
 // work experience routes
 
@@ -736,11 +750,7 @@ app.delete("/work-experiences/:id", async (req, res) => {
 // creating a connection request
 app.post("/connections", async (req, res) => {
   try {
-    const {
-      requester_id,
-      receiver_id,
-      status = "pending",
-    } = req.body;
+    const { requester_id, receiver_id, status = "pending" } = req.body;
     const newConnection = await pool.query(
       "INSERT INTO connections (requester_id, receiver_id, status) VALUES($1, $2, $3) RETURNING *",
       [requester_id, receiver_id, status]
@@ -933,6 +943,27 @@ app.delete("/mentorship-requests/:id", async (req, res) => {
   }
 });
 
+//Delete a mentorship request
+app.delete("/mentorship-requests/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedRequest = await pool.query(
+      "DELETE FROM mentorship_requests WHERE request_id = $1 RETURNING *",
+      [id]
+    );
+
+    if (deletedRequest.rows.length === 0) {
+      return res.status(404).json({ message: "Mentorship request not found." });
+    }
+
+    res.json({ message: "Mentorship request deleted successfully." });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 // question & answer routes
 
 /////////////////////////////////////////////
@@ -952,7 +983,7 @@ app.post("/questions", async (req, res) => {
       is_anonymous,
       created_at,
       updated_at,
-      is_deleted
+      is_deleted,
     } = req.body;
 
     const newQuestion = await pool.query(
@@ -964,7 +995,7 @@ app.post("/questions", async (req, res) => {
         is_anonymous,
         created_at,
         updated_at,
-        is_deleted
+        is_deleted,
       ]
     );
 
@@ -978,7 +1009,9 @@ app.post("/questions", async (req, res) => {
 // getting all questions
 app.get("/questions", async (req, res) => {
   try {
-    const allQuestions = await pool.query("SELECT * FROM questions WHERE is_deleted = false");
+    const allQuestions = await pool.query(
+      "SELECT * FROM questions WHERE is_deleted = false"
+    );
     res.json(allQuestions.rows);
   } catch (err) {
     console.error(err.message);
@@ -997,7 +1030,7 @@ app.put("/questions/:id", async (req, res) => {
       is_anonymous,
       created_at,
       updated_at,
-      is_deleted
+      is_deleted,
     } = req.body;
 
     const updateQuestion = await pool.query(
@@ -1010,7 +1043,7 @@ app.put("/questions/:id", async (req, res) => {
         created_at,
         updated_at,
         is_deleted,
-        id
+        id,
       ]
     );
 
