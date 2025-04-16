@@ -8,6 +8,8 @@ import SeeMoreButton from "./components/SeeMoreButton.jsx";
 import Header from "./components/Header.jsx";
 import Assignments from "./components/Assignments.jsx";
 import mentorImage from "./assets/mentor.png";
+import WaterDropIcon from "./assets/Water_Drop.png";
+
 
 const Home = () => {
   const toCompleteAssignments = [
@@ -60,9 +62,14 @@ const Home = () => {
                 </div>
 
                 <div className="flex flex-col justify-between w-72">
-                  <div className="flex flex-col bg-gray-100 p-9 rounded-lg border border-gray-300">
-                    <p className="text-3xl font-semibold">20</p>
-                    <p className="font-semibold">days checked in</p>
+                  <div className="flex flex-col bg-gray-100 p-9 rounded-lg border border-gray-300 items-center justify-center">
+                    <div className="flex items-center gap-0.01">
+                    {/* Icon */}
+                    <img src={WaterDropIcon} alt="Water Drop Icon" className="w-12 h-12"/>
+                    {/* Number */}
+                    <p className="text-4xl font-bold">20</p>
+                  </div>
+                    <p className="font-semibold">days checked in!</p>
                   </div>
 
                   <div className="bg-gray-100 p-5 rounded-lg border border-gray-300 flex flex-col items-center">
