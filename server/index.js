@@ -1164,20 +1164,34 @@ app.delete("/answers/:id", async (req, res) => {
 /////////////////////////////////////////////
 
 //Student search
-app.get("/search/students?query=", async (req, res) => {
+app.get("/search/students", async (req, res) => {
   try {
-    const { query } = req.query; // gets search query
+    const { query } = req.query;
 
     if (!query) {
       return res.status(400).json({ message: "Query parameter is required." });
     }
 
+    const searchTerm = `%${query}%`; // wildcard for partial matching
     const students = await pool.query(
-      `SELECT * FROM students 
-       WHERE LOWER(username) LIKE LOWER($1) 
-       OR LOWER(email) LIKE LOWER($1) 
-       OR LOWER(first_name) LIKE LOWER($1) 
-       OR LOWER(last_name) LIKE LOWER($1)`
+      `SELECT 
+         s.student_id, 
+         s.major_id, 
+         s.grade_level, 
+         s.expected_graduation_date,
+         s.resume_url,
+         s.bio,
+         u.username,
+         u.email,
+         u.first_name,
+         u.last_name
+       FROM students s
+       JOIN users u ON s.student_id = u.user_id
+       WHERE LOWER(u.username) LIKE LOWER($1)
+       OR LOWER(u.email) LIKE LOWER($1)
+       OR LOWER(u.first_name) LIKE LOWER($1)
+       OR LOWER(u.last_name) LIKE LOWER($1)`,
+      [searchTerm]
     );
 
     if (students.rows.length === 0) {
@@ -1187,37 +1201,68 @@ app.get("/search/students?query=", async (req, res) => {
     res.json(students.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server error");
+    res.status(500).send("Server error: " + err.message);
   }
 });
 
 //Mentor search
+// Mentors search endpoint - add this alongside your existing routes
 app.get("/search/mentors", async (req, res) => {
   try {
-    const { query } = req.query; // Extracts the search query
+    const { query } = req.query;
 
     if (!query) {
       return res.status(400).json({ message: "Query parameter is required." });
     }
 
+    const searchTerm = `%${query}%`;
+    
     const mentors = await pool.query(
-      `SELECT * FROM mentors 
-       WHERE LOWER(username) LIKE LOWER($1) 
-       OR LOWER(email) LIKE LOWER($1) 
-       OR LOWER(first_name) LIKE LOWER($1) 
-       OR LOWER(last_name) LIKE LOWER($1) 
-       OR LOWER(job_title) LIKE LOWER($1) 
-       OR EXISTS (SELECT 1 FROM unnest(expertise_areas) e WHERE LOWER(e) LIKE LOWER($1))`
+      `SELECT 
+         u.user_id,
+         u.username,
+         u.email,
+         u.first_name,
+         u.last_name,
+         m.company,
+         m.job_title,
+         m.years_of_experience,
+         m.expertise_areas,
+         m.max_mentees,
+         m.bio as mentor_bio
+       FROM users u
+       JOIN mentors m ON u.user_id = m.mentor_id
+       WHERE LOWER(u.username) LIKE LOWER($1)
+       OR LOWER(u.email) LIKE LOWER($1)
+       OR LOWER(u.first_name) LIKE LOWER($1)
+       OR LOWER(u.last_name) LIKE LOWER($1)
+       OR LOWER(m.job_title) LIKE LOWER($1)
+       OR LOWER(m.company) LIKE LOWER($1)
+       OR EXISTS (
+         SELECT 1 
+         FROM unnest(m.expertise_areas) AS e
+         WHERE LOWER(e::text) LIKE LOWER($1)
+       )`,
+      [searchTerm]
     );
 
     if (mentors.rows.length === 0) {
       return res.status(404).json({ message: "No mentors found." });
     }
 
-    res.json(mentors.rows);
+    // Format expertise_areas array for cleaner output
+    const formattedResults = mentors.rows.map(mentor => ({
+      ...mentor,
+      expertise_areas: mentor.expertise_areas.join(', ')
+    }));
+
+    res.json(formattedResults);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
+    console.error("Mentor search error:", err.message);
+    res.status(500).json({ 
+      message: "Server error",
+      error: err.message 
+    });
   }
 });
 
