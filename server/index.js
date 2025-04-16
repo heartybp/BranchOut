@@ -607,6 +607,22 @@ app.get("/mentors/:id/work-experiences", async (req, res) => {
   }
 });
 
+// getting mentors mentorship-groups
+app.get("/mentors/:id/mentorship-groups", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const workExperiences = await pool.query(
+      "SELECT * FROM mentorship_groups WHERE mentor_id = $1",
+      [id]
+    );
+
+    res.json(workExperiences.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 // work experience routes
 
 /////////////////////////////////////////////
@@ -913,6 +929,27 @@ app.put("/mentorship-requests/:id", async (req, res) => {
     }
 
     res.json(updatedRequest.rows[0]); // Update the mentorship request
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+//Delete a mentorship request
+app.delete("/mentorship-requests/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedRequest = await pool.query(
+      "DELETE FROM mentorship_requests WHERE request_id = $1 RETURNING *",
+      [id]
+    );
+
+    if (deletedRequest.rows.length === 0) {
+      return res.status(404).json({ message: "Mentorship request not found." });
+    }
+
+    res.json({ message: "Mentorship request deleted successfully." });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
