@@ -9,6 +9,8 @@ import Header from "./components/Header.jsx";
 import Assignments from "./components/Assignments.jsx";
 import mentorImage from "./assets/mentor.png";
 import WaterDropIcon from "./assets/Water_Drop.png";
+import TreeWithTiers from "./assets/tree_with_tiers.png";
+import GrowingSinceText from "./assets/growing_since_text.png";
 
 
 const Home = () => {
@@ -57,8 +59,10 @@ const Home = () => {
               {/* tree, checked in, + mentor */}
               <div className="flex justify-center gap-x-5 bg-blue-200">
                 {/* jane's tree */}
-                <div>
-                  <img src={Tree} alt="" width={500} />
+                <div className="relative w-[500px]">
+                  <img src={Tree} alt="" className="absolute w-[500px] h-[338px]"/>
+                  <img src={TreeWithTiers} alt="" className="absolute w-[250px] h-[250px]" style={{top:"45%", left: "50%", transform: "translate(-50%, -50%)"}}/>
+                  <img src={GrowingSinceText} alt="" className="absolute w-[175px] h-[15px]" style={{bottom: "3%", right: "3%"}}/>
                 </div>
 
                 <div className="flex flex-col justify-between w-72">
