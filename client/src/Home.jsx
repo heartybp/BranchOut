@@ -73,17 +73,17 @@ const Home = () => {
                     {/* Number */}
                     <p className="text-4xl font-bold">20</p>
                   </div>
-                    <p className="font-semibold">days checked in!</p>
+                    <p className="font-bold">days checked in!</p>
                   </div>
                   <div className="bg-gray-100 p-5 rounded-lg border border-gray-300 flex flex-col items-center">
-                    <p className="font-semibold">Current Mentor</p>
+                    <p className="font-bold">Current Mentor</p>
                     <img
                       src={mentorImage}
                       alt=""
                       width={100}
                       className="my-2"
                     />
-                    <p className="font-semibold">Josh Doe</p>
+                    <p className="font-bold">Josh Doe</p>
                   </div>
                 </div>
               </div>
