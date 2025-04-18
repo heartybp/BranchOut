@@ -57,7 +57,7 @@ const Home = () => {
 
             <div className="bg-white justify-center w-[940px] flex-row ">
               {/* tree, checked in, + mentor */}
-              <div className="flex justify-center gap-x-5 items-end">
+              <div className="flex justify-center gap-x-8 items-end">
                 {/* jane's tree */}
                 <div className="relative w-[500px] h-[352px] flex-shrink-0">
                   <img src={Tree} alt="" className="absolute w-[500px] h-[353px]"/>
@@ -65,7 +65,7 @@ const Home = () => {
                   <img src={GrowingSinceText} alt="" className="absolute w-[175px] h-[15px]" style={{bottom: "3%", right: "3%"}}/>
                 </div>
 
-                <div className="flex flex-col justify-between w-72">
+                <div className="flex flex-col justify-between w-[330px]">
                   <div className="flex flex-col bg-gray-100 p-9 rounded-lg border border-gray-300 items-center justify-center mb-4">
                     <div className="flex items-center gap-0.01">
                     {/* Icon */}
