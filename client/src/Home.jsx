@@ -57,16 +57,16 @@ const Home = () => {
 
             <div className="bg-white justify-center w-[940px] flex-row ">
               {/* tree, checked in, + mentor */}
-              <div className="flex justify-center gap-x-5 bg-blue-200">
+              <div className="flex justify-center gap-x-5 items-end">
                 {/* jane's tree */}
-                <div className="relative w-[500px]">
-                  <img src={Tree} alt="" className="absolute w-[500px] h-[338px]"/>
+                <div className="relative w-[500px] h-[352px] flex-shrink-0">
+                  <img src={Tree} alt="" className="absolute w-[500px] h-[353px]"/>
                   <img src={TreeWithTiers} alt="" className="absolute w-[250px] h-[250px]" style={{top:"45%", left: "50%", transform: "translate(-50%, -50%)"}}/>
                   <img src={GrowingSinceText} alt="" className="absolute w-[175px] h-[15px]" style={{bottom: "3%", right: "3%"}}/>
                 </div>
 
                 <div className="flex flex-col justify-between w-72">
-                  <div className="flex flex-col bg-gray-100 p-9 rounded-lg border border-gray-300 items-center justify-center">
+                  <div className="flex flex-col bg-gray-100 p-9 rounded-lg border border-gray-300 items-center justify-center mb-4">
                     <div className="flex items-center gap-0.01">
                     {/* Icon */}
                     <img src={WaterDropIcon} alt="Water Drop Icon" className="w-12 h-12"/>
@@ -75,7 +75,6 @@ const Home = () => {
                   </div>
                     <p className="font-semibold">days checked in!</p>
                   </div>
-
                   <div className="bg-gray-100 p-5 rounded-lg border border-gray-300 flex flex-col items-center">
                     <p className="font-semibold">Current Mentor</p>
                     <img
