@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import Upload from "./components/Upload";
 
 const Resources = () => {
   const [viewMode, setViewMode] = useState("list"); // 'list' or 'grid'
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [showUpload, setShowUpload] = useState(false);
 
   const myDocuments = [
     {
@@ -127,122 +129,123 @@ const Resources = () => {
               </svg>
             </button>
           </div>
-          <button className="px-5 py-3 bg-green-800 text-white rounded">
-            Upload New
+          <button className="px-5 py-3 bg-green-800 text-white rounded" onClick={() => setShowUpload(true)}  // <--- Add this line!
+            >
+              Upload New
           </button>
         </div>
       </div>
 
       <div className="p-4">
-        {/* My Documents Table */}
-        <div className="bg-white border rounded-md overflow-hidden mb-8">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-amber-50">
-                <th className="text-left p-4 font-semibold">Name</th>
-                <th className="text-left p-4 font-semibold">Type</th>
-                <th className="text-left p-4 font-semibold">Category</th>
-                <th className="text-left p-4 font-semibold">Visibility</th>
-                <th className="text-left p-4 font-semibold">Upload Date</th>
+  {/* --- LIST VIEW FOR BOTH SECTIONS --- */}
+  {viewMode === "list" && (
+    <>
+      {/* My Documents List */}
+      <div className="bg-white border rounded-md overflow-hidden mb-8">
+        <table className="w-full">
+          <thead>
+            <tr className="bg-amber-50">
+              <th className="text-left p-4 font-semibold">Name</th>
+              <th className="text-left p-4 font-semibold">Type</th>
+              <th className="text-left p-4 font-semibold">Category</th>
+              <th className="text-left p-4 font-semibold">Visibility</th>
+              <th className="text-left p-4 font-semibold">Upload Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {displayedDocuments.map((doc, index) => (
+              <tr key={index} className="border-t">
+                <td className="p-4 text-blue-600">
+                  <a href={doc.link}>{doc.name}</a>
+                </td>
+                <td className="p-4">{doc.type}</td>
+                <td className="p-4">{doc.category}</td>
+                <td className="p-4">{doc.visibility}</td>
+                <td className="p-4">{doc.uploadDate}</td>
               </tr>
-            </thead>
-            <tbody>
-              {displayedDocuments.map((doc, index) => (
-                <tr key={index} className="border-t">
-                  <td className="p-4 text-blue-600">
-                    <a href={doc.link}>{doc.name}</a>
-                  </td>
-                  <td className="p-4">{doc.type}</td>
-                  <td className="p-4">{doc.category}</td>
-                  <td className="p-4">{doc.visibility}</td>
-                  <td className="p-4">{doc.uploadDate}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {/* Pagination */}
-          <div className="flex justify-between items-center p-4 bg-white border-t">
-            <div className="text-sm text-gray-600">
-              {`${(currentPage - 1) * itemsPerPage + 1}-${Math.min(
-                currentPage * itemsPerPage,
-                myDocuments.length
-              )} of ${myDocuments.length}`}
-            </div>
-            <div className="flex items-center space-x-1">
-              <button
-                className="px-2 py-1 border rounded"
-                onClick={() => handlePageChange(1)}
-                disabled={currentPage === 1}
-              >
-                &lt;&lt;
-              </button>
-              <button
-                className="px-2 py-1 border rounded"
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-              >
-                &lt;
-              </button>
-              <div className="px-2 py-1">{currentPage}</div>
-              <button
-                className="px-2 py-1 border rounded"
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-              >
-                &gt;
-              </button>
-              <button
-                className="px-2 py-1 border rounded"
-                onClick={() => handlePageChange(totalPages)}
-                disabled={currentPage === totalPages}
-              >
-                &gt;&gt;
-              </button>
-            </div>
-            <div className="flex items-center">
-              <select
-                className="border rounded p-1"
-                value={itemsPerPage}
-                onChange={(e) => setItemsPerPage(Number(e.target.value))}
-              >
-                <option value={5}>5 per page</option>
-                <option value={10}>10 per page</option>
-                <option value={20}>20 per page</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Shared with me */}
-        <h1 className="text-2xl font-semibold mb-4">Shared with me</h1>
-        <div className="bg-white border rounded-md overflow-hidden">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-amber-50">
-                <th className="text-left p-4 font-semibold">Name</th>
-                <th className="text-left p-4 font-semibold">Type</th>
-                <th className="text-left p-4 font-semibold">Category</th>
-                <th className="text-left p-4 font-semibold">Visibility</th>
-                <th className="text-left p-4 font-semibold">Upload Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sharedWithMe.map((doc, index) => (
-                <tr key={index} className="border-t">
-                  <td className="p-4 text-blue-600">
-                    <a href={doc.link}>{doc.name}</a>
-                  </td>
-                  <td className="p-4">{doc.type}</td>
-                  <td className="p-4">{doc.category}</td>
-                  <td className="p-4">{doc.visibility}</td>
-                  <td className="p-4">{doc.uploadDate}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            ))}
+          </tbody>
+        </table>
+        {/* Pagination */}
+        <div className="flex justify-between items-center p-4 bg-white border-t">
+          {/* ...pagination code here... */}
         </div>
       </div>
+
+      {/* Shared with me List */}
+      <h1 className="text-2xl font-semibold mb-4">Shared with me</h1>
+      <div className="bg-white border rounded-md overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="bg-amber-50">
+              <th className="text-left p-4 font-semibold">Name</th>
+              <th className="text-left p-4 font-semibold">Type</th>
+              <th className="text-left p-4 font-semibold">Category</th>
+              <th className="text-left p-4 font-semibold">Visibility</th>
+              <th className="text-left p-4 font-semibold">Upload Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sharedWithMe.map((doc, index) => (
+              <tr key={index} className="border-t">
+                <td className="p-4 text-blue-600">
+                  <a href={doc.link}>{doc.name}</a>
+                </td>
+                <td className="p-4">{doc.type}</td>
+                <td className="p-4">{doc.category}</td>
+                <td className="p-4">{doc.visibility}</td>
+                <td className="p-4">{doc.uploadDate}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  )}
+
+  {/* --- GRID VIEW FOR BOTH SECTIONS --- */}
+  {viewMode === "grid" && (
+    <>
+      {/* My Documents Grid */}
+      <div className="bg-white border rounded-md overflow-hidden mb-8">
+        <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+          {displayedDocuments.map((doc, index) => (
+            <div key={index} className="rounded-xl bg-[#f7f2ea] p-4 shadow flex flex-col justify-between min-h-[200px]">
+              <div className="font-bold mb-2">{doc.name}</div>
+              <div className="flex-1 flex items-center justify-center">
+                <img src="/file-icon.png" alt={doc.type} className="w-full h-24 object-contain mb-2" />
+              </div>
+              <div className="text-xs text-gray-600 mb-1">Type: {doc.type}</div>
+              <div className="text-xs text-gray-600 mb-1">Category: {doc.category}</div>
+              <div className="text-xs text-gray-600 mb-1">Visibility: {doc.visibility}</div>
+              <div className="text-xs text-gray-500">Uploaded: {doc.uploadDate}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Shared with me Grid */}
+      <h1 className="text-2xl font-semibold mb-4">Shared with me</h1>
+      <div className="bg-white border rounded-md overflow-hidden">
+        <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+          {sharedWithMe.map((doc, index) => (
+            <div key={index} className="rounded-xl bg-[#f7f2ea] p-4 shadow flex flex-col justify-between min-h-[200px]">
+              <div className="font-bold mb-2">{doc.name}</div>
+              <div className="flex-1 flex items-center justify-center">
+                <img src="/file-icon.png" alt={doc.type} className="w-full h-24 object-contain mb-2" />
+              </div>
+              <div className="text-xs text-gray-600 mb-1">Type: {doc.type}</div>
+              <div className="text-xs text-gray-600 mb-1">Category: {doc.category}</div>
+              <div className="text-xs text-gray-600 mb-1">Visibility: {doc.visibility}</div>
+              <div className="text-xs text-gray-500">Uploaded: {doc.uploadDate}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  )}
+</div>
+      <Upload show={showUpload} onClose={() => setShowUpload(false)} />
     </div>
   );
 };
