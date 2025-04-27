@@ -168,7 +168,6 @@ const Resources = () => {
         </table>
         {/* Pagination */}
         <div className="flex justify-between items-center p-4 bg-white border-t">
-          {/* ...pagination code here... */}
         </div>
       </div>
 

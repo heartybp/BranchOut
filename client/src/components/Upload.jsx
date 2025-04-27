@@ -1,4 +1,3 @@
-// src/components/UploadModal.js
 import React from "react";
 
 export default function UploadModal({ show, onClose }) {
