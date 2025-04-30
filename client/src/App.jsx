@@ -8,7 +8,7 @@ import Network from "./Network.jsx";
 import Forum from "./Forum.jsx";
 import Profile from "./Profile.jsx";
 import Resources from "./Resources.jsx";
-
+import OnboardingQuiz from "./components/OnboardingQuiz.jsx";
 // App.jsx is the entry point of a React application
 // Here, you define your main React component and render the initial structure of the user interface
 
@@ -21,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/onBoardingQuiz" element={<OnboardingQuiz/>} />
         <Route path="/home" element={<Home />} />
 
         <Route path="/network" element={<Network />} />
