@@ -1,58 +1,128 @@
-import React from "react";
+// Upload.jsx
+import React, { useState } from "react";
 
-export default function UploadModal({ show, onClose }) {
+export default function Upload({ show, onClose }) {
   if (!show) return null;
 
+  const DOC_TYPES = ["pdf", "jpeg", "png", "docx", "pptx", "txt"];
+  const [docType, setDocType] = useState(DOC_TYPES[0]);
+
+  // maps each docType to the proper accept string
+  const ACCEPT_MAP = {
+    pdf: ".pdf",
+    jpeg: ".jpeg,.jpg", // accepts both!
+    png: ".png",
+    docx: ".docx",
+    pptx: ".pptx",
+    txt: ".txt",
+  };
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
-      <div className="bg-white p-10 rounded-xl w-[60vw] shadow-lg relative">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-xl font-bold"
-        >
-          ×
-        </button>
-        <h1 className="text-3xl font-semibold mb-6">File Upload</h1>
-        {/* upload form below */}
-        {/* example fields: */}
-        <form>
-          <div className="mb-4">
-            <label className="block mb-1">Document File</label>
-            <input type="file" className="w-full border p-2 rounded" />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1">Name</label>
-            <input type="text" className="w-full border p-2 rounded" />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1">Document Type</label>
-            <select className="w-full border p-2 rounded">
-              <option>Resume</option>
-              <option>Letter</option>
-              <option>Transcript</option>
-              <option>Presentation</option>
-            </select>
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1">Visibility</label>
-            <label className="inline-flex items-center">
-              <input type="checkbox" className="form-checkbox" />
-              <span className="ml-2">Private</span>
-            </label>
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1">Description</label>
-            <textarea className="w-full border p-2 rounded" rows={4}></textarea>
-          </div>
-          <div className="flex justify-end gap-4">
-            <button type="button" onClick={onClose} className="px-6 py-2 border rounded">
-              Cancel
-            </button>
-            <button type="submit" className="px-6 py-2 bg-green-800 text-white rounded">
-              Save
-            </button>
-          </div>
-        </form>
+    <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg w-full max-w-xl p-8 space-y-6">
+        <h1 className="text-3xl font-bold">File Upload</h1>
+
+        {/* Document File (now restricted to the selected type) */}
+        <div className="space-y-1">
+          <label htmlFor="file" className="block font-medium">
+            Document File
+          </label>
+          <input
+            id="file"
+            type="file"
+            accept={ACCEPT_MAP[docType]}
+            className="hidden"
+            onChange={e => {
+              const file = e.target.files?.[0];
+              if (file) {
+                const ext = file.name.split(".").pop().toLowerCase();
+                if (!DOC_TYPES.includes(ext)) {
+                  alert(`Only .${docType} files allowed!`);
+                  e.target.value = "";
+                } else {
+                  // sync dropdown to picked file
+                  setDocType(ext);
+                }
+              }
+            }}
+          />
+          <label
+            htmlFor="file"
+            className="block w-full border border-gray-300 rounded-md bg-white hover:bg-gray-50 text-center py-3 cursor-pointer"
+          >
+            {`Choose File${docType ? ` (${docType.toUpperCase()})` : ""}`}
+          </label>
+        </div>
+
+        {/* Name */}
+        <div className="space-y-1">
+          <label htmlFor="name" className="block font-medium">
+            Name
+          </label>
+          <input
+            id="name"
+            type="text"
+            className="block w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-green-200"
+            placeholder="Enter document name"
+          />
+        </div>
+
+        {/* Dynamic Document Type */}
+        <div className="space-y-1">
+          <label htmlFor="type" className="block font-medium">
+            Document Type
+          </label>
+          <select
+            id="type"
+            value={docType}
+            onChange={e => setDocType(e.target.value)}
+            className="block w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-green-200 appearance-none bg-white"
+          >
+            {DOC_TYPES.map(ext => (
+              <option key={ext} value={ext}>
+                {ext.toUpperCase()}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Visibility */}
+        <div className="space-y-1">
+          <span className="block font-medium">Visibility</span>
+          <label className="inline-flex items-center border border-gray-300 rounded-md px-4 py-2 cursor-pointer">
+            <span>Private</span>
+            <input
+              type="checkbox"
+              className="ml-3 form-checkbox h-5 w-5 text-green-600"
+            />
+          </label>
+        </div>
+
+        {/* Description */}
+        <div className="space-y-1">
+          <label htmlFor="desc" className="block font-medium">
+            Description
+          </label>
+          <textarea
+            id="desc"
+            rows={4}
+            className="block w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-green-200"
+            placeholder="Add a brief description…"
+          />
+        </div>
+
+        {/* Buttons */}
+        <div className="flex justify-end space-x-4 pt-4 border-t">
+          <button
+            onClick={onClose}
+            className="px-6 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+          >
+            Cancel
+          </button>
+          <button className="px-6 py-2 bg-green-700 text-white rounded-md hover:bg-green-800">
+            Save
+          </button>
+        </div>
       </div>
     </div>
   );
