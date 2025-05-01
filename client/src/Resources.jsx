@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Navbar from "./components/Navbar";
 import Upload from "./components/Upload";
 
 const Resources = () => {
@@ -94,6 +95,7 @@ const Resources = () => {
     setCurrentPage(page);
   };
 
+  /* Navbar just needs to be added! */
   return (
     <div className="flex flex-col bg-white min-h-screen">
       {/* header with upload button */}
