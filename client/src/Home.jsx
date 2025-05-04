@@ -7,7 +7,7 @@ import SuggestedConnections from "./components/SuggestedConnections.jsx";
 import SeeMoreButton from "./components/SeeMoreButton.jsx";
 import Header from "./components/Header.jsx";
 import Assignments from "./components/Assignments.jsx";
-import mentorImage from "./assets/mentor.png";
+import mentorImage from "./assets/mentor.png";  
 
 const Home = () => {
   const toCompleteAssignments = [
