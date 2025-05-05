@@ -111,12 +111,12 @@ const Home = () => {
 
                 {/* component */}
                 <Assignments
-                  title="Complete"
+                  title="Complete:"
                   assignments={toCompleteAssignments}
                 />
 
                 <Assignments
-                  title="Upcoming"
+                  title="Upcoming:"
                   assignments={upcomingAssignments}
                 />
 

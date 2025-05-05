@@ -4,7 +4,7 @@ import Assignment from './Assignment'
 const Assignments = ({title, assignments}) => {
   return (
     <div className='flex flex-col my-2'>
-      <h3 className='pl-4 font-semibold mb-1'>{title}</h3>
+      <h3 className='pl-4 font-bold mb-2 text-sm'>{title}</h3>
       <div className='space-y-2'> 
         {
           assignments.map((assignment, index) => (
