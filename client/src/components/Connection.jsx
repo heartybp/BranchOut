@@ -1,5 +1,6 @@
 import React from 'react'
 import connectionPhoto from '../assets/connection-photo.png'
+import chatIcon from '../assets/chat_icon.png'
 
 const Connection = () => {
   return (
@@ -20,8 +21,11 @@ const Connection = () => {
             </p>
         </div>
         <div className='flex flex-col gap-y-2'>
-            <button className='w-36 py-2 bg-gray-100 border border-gray-300 rounded-lg'>Message</button>
-            <button className='w-36 py-2 bg-brandGreen border border-gray-300 rounded-lg'>Connect</button>
+            <button className='w-36 py-2 bg-gray-100 border border-gray-300 rounded-lg font-bold flex items-center justify-center gap-x-1'>
+                <img src={chatIcon} alt="Chat Icon" className = "w-4 h-4" />
+                Message
+            </button>
+            <button className='w-36 py-2 bg-brandGreen border border-gray-300 rounded-lg font-bold text-white'>Connect</button>
         </div>
       
     </div>
