@@ -1,6 +1,7 @@
 import React from 'react'
 import Timer from '../assets/timer.png'
 import CheckboxCheck from '../assets/checkbox_check.png'
+import Assigner from '../assets/assigner.png'
 const Assignment = ({resource, assignedBy, assignedDate, dueIn}) => {
   return (
     <div className='flex justify-center'>
@@ -15,9 +16,9 @@ const Assignment = ({resource, assignedBy, assignedDate, dueIn}) => {
           </div>
           
           <div className = "flex items-center text-xs">
+            <img src={Assigner} alt="Assigner Icon" className="w-4 h-4 mr-1" />
             <p className="text-xs">{assignedBy} assigned on {assignedDate}</p>
             <p className="ml-1 text-gray-600">• Due in {dueIn}</p>
-
           </div>
         </div>
       </div>
