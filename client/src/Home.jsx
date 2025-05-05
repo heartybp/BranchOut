@@ -11,6 +11,7 @@ import mentorImage from "./assets/mentor.png";
 import WaterDropIcon from "./assets/Water_Drop.png";
 import TreeWithTiers from "./assets/tree_with_tiers.png";
 import GrowingSinceText from "./assets/growing_since_text.png";
+import TaskBar from "./assets/task_bar.png";
 
 
 const Home = () => {
@@ -101,10 +102,12 @@ const Home = () => {
             {/* right side */}
             <div className="bg-white flex justify-center">
               <div className="flex flex-col bg-gray-100 rounded-md border border-gray-300 w-[390px] mx-6">
-                <h2>This Week:</h2>
-                <p className="rounded-3xl w-36 h-48 bg-blue-200">
-                  placeholder for progress bar
-                </p>
+                <div className="flex flex-col my-2">
+                <h2 className = "pl-6 pt-4 font-semibold mb-2 text-xl">This Week:</h2>
+                </div>
+                <div className="flex justify-center items-center ">
+                  <img src={TaskBar} alt="" className="w-72 h-72" />
+                </div>
 
                 {/* component */}
                 <Assignments
