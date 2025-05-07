@@ -3,7 +3,7 @@ import Event from './Event.jsx'
 import LeftArrow from "../assets/left_arrow.png";
 import RightArrow from "../assets/right_arrow.png";
 
-const ScrollEvents = ({ScrollEventsTitle}) => {
+const ScrollEvents = ({ScrollEventsTitle, status}) => {
   return (
     <>
         <div className='py-10'>
@@ -24,9 +24,9 @@ const ScrollEvents = ({ScrollEventsTitle}) => {
           />
         </div>
         <div className='flex gap-x-20 justify-center'>
-            <Event />
-            <Event />
-            <Event />
+            <Event status={status}/>
+            <Event status={status}/>
+            <Event status={status}/>
         </div>
         </div>
     </>

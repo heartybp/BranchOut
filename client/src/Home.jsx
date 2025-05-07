@@ -89,10 +89,10 @@ const Home = () => {
                 </div>
               </div>
 
-              <ScrollEvents ScrollEventsTitle="Ongoing Mentor Matchings:" />
+              <ScrollEvents ScrollEventsTitle="Ongoing Mentor Matchings:" status="Live Now"/>
               <SeeMoreButton />
 
-              <ScrollEvents ScrollEventsTitle="Upcoming Mentor Matchings:" />
+              <ScrollEvents ScrollEventsTitle="Upcoming Mentor Matchings:" status="Sat, Mar 8" />
               <SeeMoreButton />
 
               <SuggestedConnections />

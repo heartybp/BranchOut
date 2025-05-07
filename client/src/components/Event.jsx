@@ -1,7 +1,7 @@
 import React from 'react'
 import eventImage from "../assets/event-cover.png"
 
-const Event = () => {
+const Event = ({ status }) => {
   return (
     <>
     <div className="flex flex-col items-center justify-center">
@@ -14,7 +14,7 @@ const Event = () => {
             <p className='text-xs text-gray-500 mb-2'> Do you need to grow your network? Come chat, network, and connect with a mentor or mentee!
             </p>
             <p className='text-xs font-semibold text-gray-800'> 
-              <span>Live Now</span>
+              <span>{status}</span>
               <span className="text-blue-500 font-semibold cursor-pointer ml-12">Read More</span>
               <span className="ml-1"></span>
             </p>
