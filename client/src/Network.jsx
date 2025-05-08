@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "./components/Navbar";
-import BrandName from "./assets/brand-name.png";
+import BrandName from "./assets/brand-name.svg";
 import TreeImage from "./assets/100ConnectionsTree.png";
 import MentorImage from "./assets/mentor.png";
 import ConnectionImage from "./assets/connection-photo.png";
@@ -12,27 +12,103 @@ const BranchOut = () => {
 
   // Sample data for mentors and connections
   const suggestedMentors = [
-    { id: 1, name: "Josh Doe", position: "UX/UX @ UCI", connections: "95+ mutual connections" },
-    { id: 2, name: "Josh Doe", position: "UX/UX @ UCI", connections: "95+ mutual connections" },
-    { id: 3, name: "Josh Doe", position: "UX/UX @ UCI", connections: "95+ mutual connections" },
-    { id: 4, name: "Josh Doe", position: "UX/UX @ UCI", connections: "95+ mutual connections" }
+    {
+      id: 1,
+      name: "Josh Doe",
+      position: "UX/UX @ UCI",
+      connections: "95+ mutual connections",
+    },
+    {
+      id: 2,
+      name: "Josh Doe",
+      position: "UX/UX @ UCI",
+      connections: "95+ mutual connections",
+    },
+    {
+      id: 3,
+      name: "Josh Doe",
+      position: "UX/UX @ UCI",
+      connections: "95+ mutual connections",
+    },
+    {
+      id: 4,
+      name: "Josh Doe",
+      position: "UX/UX @ UCI",
+      connections: "95+ mutual connections",
+    },
   ];
 
   const suggestedConnections = [
-    { id: 1, name: "Josh Doe", position: "UX/UX @ UCI", connections: "95+ mutual connections" },
-    { id: 2, name: "Josh Doe", position: "UX/UX @ UCI", connections: "95+ mutual connections" },
-    { id: 3, name: "Josh Doe", position: "UX/UX @ UCI", connections: "95+ mutual connections" },
-    { id: 4, name: "Josh Doe", position: "UX/UX @ UCI", connections: "95+ mutual connections" }
+    {
+      id: 1,
+      name: "Josh Doe",
+      position: "UX/UX @ UCI",
+      connections: "95+ mutual connections",
+    },
+    {
+      id: 2,
+      name: "Josh Doe",
+      position: "UX/UX @ UCI",
+      connections: "95+ mutual connections",
+    },
+    {
+      id: 3,
+      name: "Josh Doe",
+      position: "UX/UX @ UCI",
+      connections: "95+ mutual connections",
+    },
+    {
+      id: 4,
+      name: "Josh Doe",
+      position: "UX/UX @ UCI",
+      connections: "95+ mutual connections",
+    },
   ];
 
   // Extended connections data for the connections page
   const connections = [
-    { id: 1, name: "John Doe", position: "Bio major first year student", school: "Undergrad", looking: "Mentor in school resources & Finding Research" },
-    { id: 2, name: "John Doe", position: "Bio major first year student", school: "Undergrad", looking: "Mentor in school resources & Finding Research" },
-    { id: 3, name: "John Doe", position: "Bio major first year student", school: "Undergrad", looking: "Mentor in school resources & Finding Research" },
-    { id: 4, name: "John Doe", position: "Bio major first year student", school: "Undergrad", looking: "Mentor in school resources & Finding Research" },
-    { id: 5, name: "John Doe", position: "Bio major first year student", school: "Undergrad", looking: "Mentor in school resources & Finding Research" },
-    { id: 6, name: "John Doe", position: "Bio major first year student", school: "Undergrad", looking: "Mentor in school resources & Finding Research" }
+    {
+      id: 1,
+      name: "John Doe",
+      position: "Bio major first year student",
+      school: "Undergrad",
+      looking: "Mentor in school resources & Finding Research",
+    },
+    {
+      id: 2,
+      name: "John Doe",
+      position: "Bio major first year student",
+      school: "Undergrad",
+      looking: "Mentor in school resources & Finding Research",
+    },
+    {
+      id: 3,
+      name: "John Doe",
+      position: "Bio major first year student",
+      school: "Undergrad",
+      looking: "Mentor in school resources & Finding Research",
+    },
+    {
+      id: 4,
+      name: "John Doe",
+      position: "Bio major first year student",
+      school: "Undergrad",
+      looking: "Mentor in school resources & Finding Research",
+    },
+    {
+      id: 5,
+      name: "John Doe",
+      position: "Bio major first year student",
+      school: "Undergrad",
+      looking: "Mentor in school resources & Finding Research",
+    },
+    {
+      id: 6,
+      name: "John Doe",
+      position: "Bio major first year student",
+      school: "Undergrad",
+      looking: "Mentor in school resources & Finding Research",
+    },
   ];
 
   // Current mentor
@@ -112,7 +188,11 @@ const BranchOut = () => {
         <div className="bg-gray-50 border rounded-lg mb-4">
           <div className="flex flex-col items-center py-4">
             <div className="relative mb-2">
-              <img src={TreeImage} alt="Tree with connections" className="w-44 h-auto mx-auto" />
+              <img
+                src={TreeImage}
+                alt="Tree with connections"
+                className="w-44 h-auto mx-auto"
+              />
             </div>
             <div className="text-center">
               <h3 className="text-3xl font-bold">100+</h3>
@@ -127,7 +207,12 @@ const BranchOut = () => {
             className="w-full border rounded-lg py-2 px-4 flex items-center justify-center space-x-2 bg-gray-50 hover:bg-gray-100"
             onClick={() => setCurrentPage("connections")}
           >
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <svg
+              className="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -141,10 +226,16 @@ const BranchOut = () => {
 
         {/* Current Mentor */}
         <div className="border rounded-lg p-4 bg-gray-50">
-          <h3 className="font-medium mb-3 text-sm text-center">Current Mentor</h3>
+          <h3 className="font-medium mb-3 text-sm text-center">
+            Current Mentor
+          </h3>
           <div className="flex flex-col items-center">
             <div className="w-16 h-16 rounded-full overflow-hidden mb-2">
-              <img src={MentorImage} alt="Mentor" className="w-full h-full object-cover" />
+              <img
+                src={MentorImage}
+                alt="Mentor"
+                className="w-full h-full object-cover"
+              />
             </div>
             <span className="font-medium text-sm">{currentMentor.name}</span>
           </div>
@@ -159,7 +250,11 @@ const BranchOut = () => {
             <div key={mentor.id} className="border rounded-lg p-3 bg-gray-50">
               <div className="flex flex-col items-center mb-3">
                 <div className="w-16 h-16 rounded-full overflow-hidden mb-2">
-                  <img src={MentorImage} alt="Mentor" className="w-full h-full object-cover" />
+                  <img
+                    src={MentorImage}
+                    alt="Mentor"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="text-center">
                   <p className="font-medium text-sm">{mentor.name}</p>
@@ -168,8 +263,18 @@ const BranchOut = () => {
                 </div>
               </div>
               <button className="w-full bg-green-800 text-white rounded-md py-1 px-2 text-xs flex items-center justify-center">
-                <svg className="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="white">
-                  <path d="M12 5V19M5 12H19" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  className="w-3 h-3 mr-1"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                >
+                  <path
+                    d="M12 5V19M5 12H19"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
                 <span>Connect</span>
               </button>
@@ -178,23 +283,44 @@ const BranchOut = () => {
         </div>
 
         {/* Suggested connections in Irvine, CA */}
-        <h2 className="font-medium mb-4">Suggested connections in Irvine, CA</h2>
+        <h2 className="font-medium mb-4">
+          Suggested connections in Irvine, CA
+        </h2>
         <div className="grid grid-cols-4 gap-4">
           {suggestedConnections.map((connection) => (
-            <div key={connection.id} className="border rounded-lg p-3 bg-gray-50">
+            <div
+              key={connection.id}
+              className="border rounded-lg p-3 bg-gray-50"
+            >
               <div className="flex flex-col items-center mb-3">
                 <div className="w-16 h-16 rounded-full overflow-hidden mb-2">
-                  <img src={ConnectionImage} alt="Connection" className="w-full h-full object-cover" />
+                  <img
+                    src={ConnectionImage}
+                    alt="Connection"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="text-center">
                   <p className="font-medium text-sm">{connection.name}</p>
                   <p className="text-xs text-gray-600">{connection.position}</p>
-                  <p className="text-xs text-gray-600">{connection.connections}</p>
+                  <p className="text-xs text-gray-600">
+                    {connection.connections}
+                  </p>
                 </div>
               </div>
               <button className="w-full bg-green-800 text-white rounded-md py-1 px-2 text-xs flex items-center justify-center">
-                <svg className="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="white">
-                  <path d="M12 5V19M5 12H19" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  className="w-3 h-3 mr-1"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                >
+                  <path
+                    d="M12 5V19M5 12H19"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
                 <span>Connect</span>
               </button>
@@ -214,7 +340,12 @@ const BranchOut = () => {
             className="p-2 border rounded-md bg-white hover:bg-gray-100"
             onClick={() => setCurrentPage("home")}
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <svg
+              className="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -224,7 +355,12 @@ const BranchOut = () => {
             </svg>
           </button>
           <h2 className="font-medium text-lg flex items-center">
-            <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <svg
+              className="w-5 h-5 mr-2"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -240,7 +376,12 @@ const BranchOut = () => {
             <span className="mr-2 text-sm">Sort by:</span>
             <button className="border rounded-md py-1 px-3 bg-white flex items-center">
               <span className="text-sm mr-2">Recently Added</span>
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <svg
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -276,19 +417,33 @@ const BranchOut = () => {
       {/* Connection List */}
       <div className="space-y-4">
         {connections.map((connection) => (
-          <div key={connection.id} className="border rounded-lg p-4 flex items-center justify-between bg-gray-50">
+          <div
+            key={connection.id}
+            className="border rounded-lg p-4 flex items-center justify-between bg-gray-50"
+          >
             <div className="flex items-center">
               <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                <img src={ConnectionImage} alt="Connection" className="w-full h-full object-cover" />
+                <img
+                  src={ConnectionImage}
+                  alt="Connection"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <div className="flex items-center">
                   <h3 className="font-medium text-md">{connection.name}</h3>
                   <span className="text-xs text-gray-500 mx-2">|</span>
-                  <span className="text-xs text-gray-500">{connection.school}</span>
+                  <span className="text-xs text-gray-500">
+                    {connection.school}
+                  </span>
                 </div>
-                <p className="text-xs text-gray-600">I am a {connection.position}. I want to know more about the school</p>
-                <p className="text-xs text-gray-600">I am looking for {connection.looking}</p>
+                <p className="text-xs text-gray-600">
+                  I am a {connection.position}. I want to know more about the
+                  school
+                </p>
+                <p className="text-xs text-gray-600">
+                  I am looking for {connection.looking}
+                </p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
