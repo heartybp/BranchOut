@@ -1,51 +1,46 @@
-import React from "react";
-import {useState} from "react";
+import React, { useState } from "react";
+import { UserCircle } from "lucide-react";
 
 const EducationSection = () => {
-    const [isEditing, setIsEditing] = useState(false);
-    const [education, setEducation] = useState({
-        school: "University of California",
-        degree: "Bachelor of Science in Computer Science",
-        yearStart: "2019",
-        yearEnd: "2024",
-        gpa: "3.8",
-        activities: ["CS Club", "Robotics Team"]
-    });
+  const [education, setEducation] = useState({
+    school: "University of California",
+    degree: "Bachelor of Science in Computer Science",
+    duration: "2019 – 2024",
+    gpa: "GPA: 3.8",
+    activities: "Computer Science Club, Robotics Team",
+  });
 
+  const handleChange = (key, value) => {
+    setEducation({ ...education, [key]: value });
+  };
 
-    const handleChange = (e) => {
-        setEducation ({ ...education, [e.target.name]: e.target.value });
-    };
-
-    return (
-        <div className="px-80 mx-auto bg-white w-full flex flex-col">
-            <h2 className="text-2xl mt-20 font-bold mb-4">Education</h2>
-            <div className="space-y-3">
-                {Object.entries(education).map(([key, value]) => (
-                <div key={key} className="bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center">
-                    {isEditing ? (
-                        <input
-                            type="text"
-                            name={key}
-                            value={value}
-                            onChange={handleChange}
-                            className="bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center"
-                        />
-                    ) : (
-                        <span>{value}</span>
-                    )}
-                </div>
-                ))}
-                <button onClick={() => setIsEditing(!isEditing)} className="mt-4 px-4 py-2 bg-green-800 text-white rounded-md hover:bg-green-700 flex items-center space-x-2">
-                    {isEditing ? (
-                        <span>Save</span>
-                    ) : (
-                        <span>Edit</span>
-                    )}
-                </button>
-            </div>
+  return (
+    <div className="w-full bg-white flex flex-col items-center py-10">
+      <div className="w-3/4">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">Education</h2>
+          <button className="px-4 py-1 text-white bg-brandGreen rounded-md hover:bg-green-700">
+            Save
+          </button>
         </div>
-    );
+
+        <div className="flex items-start space-x-3">
+          <UserCircle className="text-gray-600" size={24} />
+          <div className="space-y-2 w-full">
+            {Object.entries(education).map(([key, value]) => (
+              <input
+                key={key}
+                type="text"
+                value={value}
+                onChange={(e) => handleChange(key, e.target.value)}
+                className="bg-gray-200 px-4 py-2 rounded-md text-sm w-full outline-none"
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default EducationSection;

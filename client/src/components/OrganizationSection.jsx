@@ -1,42 +1,41 @@
-import React from "react";
-import {useState} from "react";
+import React, { useState } from "react";
+import { UserCircle } from "lucide-react";
 
 const OrganizationSection = () => {
-    const [orgs, setOrgs] = useState([
-        'Computer Science Club',
-        'Robotics Team'
-    ]);
-    const [newOrg, setNewOrg] = useState('');
+  const [orgs, setOrgs] = useState(["Hiking Club @UCI", "AI Club @UCI"]);
 
-    const addOrg = () => {
-        if (newOrg.trim() !== '') {
-            setOrgs ([...orgs, newOrg])
-            setNewOrg('');
-        }
-    }
+  const handleChange = (index, value) => {
+    const updated = [...orgs];
+    updated[index] = value;
+    setOrgs(updated);
+  };
 
-
-    return (
-        <div className="px-80 mx-auto p-20 bg-white w-full flex flex-col">
-            <h2 className="text-2xl mt-20 flex flex-col font-bold mb-4">Organizations</h2>
-            <div className="space-y-3">
-                <ul>
-                    {orgs.map((org, index) => (
-                        <li key={index} className="bg-gray-200 px-4 py-2 mt-2 rounded-md flex justify-between items-center">{org}</li>
-                    ))}
-                </ul>
-
-                <button onClick={addOrg} className="mt-8 px-4 py-2 bg-green-800 text-white rounded-md hover:bg-green-700 flex items-center space-x-2">Add New</button>
-                <input
-                    type="text"
-                    value={newOrg}
-                    onChange={(e) => setNewOrg(e.target.value)}
-                    placeholder="Enter new organization..."
-                    className="bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center"
-                />
-            </div>
+  return (
+    <div className="w-full bg-white flex flex-col items-center py-10">
+      <div className="w-3/4">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">Organizations</h2>
+          <button className="px-4 py-1 text-white bg-brandGreen rounded-md hover:bg-green-700">
+            Save
+          </button>
         </div>
-    );
+
+        <div className="space-y-2">
+          {orgs.map((org, index) => (
+            <div key={index} className="flex items-center space-x-3">
+              <UserCircle className="text-gray-600" size={24} />
+              <input
+                type="text"
+                value={org}
+                onChange={(e) => handleChange(index, e.target.value)}
+                className="bg-gray-200 px-4 py-2 rounded-md w-full text-sm outline-none"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default OrganizationSection;
