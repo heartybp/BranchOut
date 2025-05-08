@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 const AboutMeSection = ({ user }) => {
+  const [aboutText, setAboutText] = useState(user.aboutMe);
+
   return (
     <div className="w-full bg-white flex flex-col items-center py-10">
       <div className="w-3/4">
@@ -11,9 +13,11 @@ const AboutMeSection = ({ user }) => {
           </button>
         </div>
 
-        <div className="bg-gray-200 rounded-md px-6 py-4 text-sm text-gray-700 leading-relaxed">
-          {user.aboutMe}
-        </div>
+        <textarea
+          value={aboutText}
+          onChange={(e) => setAboutText(e.target.value)}
+          className="bg-gray-200 rounded-md px-6 py-4 text-sm text-gray-700 leading-relaxed w-full resize-none outline-none"
+        />
       </div>
     </div>
   );

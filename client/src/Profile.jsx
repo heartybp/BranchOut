@@ -25,7 +25,7 @@ const Profile = () => {
     <div className="flex max-h-screen bg-gray-200">
       <Navbar />
 
-      <div className="flex flex-col items-center overflow-scroll">
+      <div className="flex flex-col items-center overflow-scroll w-full">
         <Header />
         <div className="w-3/4 flex flex-col items-center bg-red-200">
           <ProfileSection user={user} />
