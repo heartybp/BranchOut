@@ -8,6 +8,8 @@ import Network from "./Network.jsx";
 import Forum from "./Forum.jsx";
 import Profile from "./Profile.jsx";
 import Resources from "./Resources.jsx";
+import Header from "./components/Header";
+// import AIResumeFeedback from "./components/AIResumeFeedback";
 
 // App.jsx is the entry point of a React application
 // Here, you define your main React component and render the initial structure of the user interface
