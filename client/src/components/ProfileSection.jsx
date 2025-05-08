@@ -50,7 +50,7 @@ const ProfileSection = ({ user }) => {
       </div>
 
       {/* Profile Banner */}
-      <div className="w-full h-[400px] bg-brandGreen relative">
+      <div className="w-full h-[300px] bg-brandGreen relative">
         <img
           src={user.avatar}
           className="w-60 h-60 rounded-full border-4 border-white absolute left-1/2 transform -translate-x-1/2 bottom-[-4rem] object-cover"

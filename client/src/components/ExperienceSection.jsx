@@ -1,50 +1,40 @@
-import React from "react";
-import {useState} from "react";
+import React, { useState } from "react";
+import { UserCircle } from "lucide-react";
 
 const ExperienceSection = () => {
-    const [isEditing, setIsEditing] = useState(false);
-    const [experience, setExperience] = useState({
-        companyName: "CoolCompany Co. Irvine",
-        degree: "Electrical Engineer",
-        timePeriod: "Aug 2020 - July 2021",
-        description: "Did super cool stuff!!"
-    });
+  const [experience] = useState({
+    company: "CoolCompany Co. Irvine",
+    title: "Electrical Engineer",
+    period: "Aug 2020 – Jul 2021",
+    description: "Job Description Here",
+  });
 
-
-    const handleChange = (e) => {
-        setExperience ({ ...experience, [e.target.name]: e.target.value });
-    };
-
-    return (
-        <div className="px-80 mx-auto bg-white w-full flex flex-col">
-            <h2 className="text-2xl mt-20 font-bold mb-4">Experience</h2>
-            <div className="space-y-3">
-                {Object.entries(experience).map(([key, value]) => (
-                <div key={key} className="bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center">
-                    {isEditing ? (
-                        <input
-                            type="text"
-                            name={key}
-                            value={value}
-                            onChange={handleChange}
-                            placeholder="Job Description Here"
-                            className="bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center"
-                        />
-                    ) : (
-                        <span>{value}</span>
-                    )}
-                </div>
-                ))}
-                <button onClick={() => setIsEditing(!isEditing)} className="mt-4 px-4 py-2 bg-green-800 text-white rounded-md hover:bg-green-700 flex items-center space-x-2">
-                    {isEditing ? (
-                        <span>Save</span>
-                    ) : (
-                        <span>Edit</span>
-                    )}
-                </button>
-            </div>
+  return (
+    <div className="w-full bg-white flex flex-col items-center py-10">
+      <div className="w-3/4">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">Experiences</h2>
+          <button className="px-4 py-1 text-white bg-green-800 rounded-md hover:bg-green-700">
+            Save
+          </button>
         </div>
-    );
+
+        <div className="flex items-start space-x-3">
+          <UserCircle className="text-gray-600 " size={24} />
+          <div className="space-y-2 w-full">
+            {Object.values(experience).map((item, index) => (
+              <div
+                key={index}
+                className="bg-gray-200 px-4 py-2 rounded-md text-sm"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ExperienceSection;
