@@ -19,7 +19,7 @@ const Navbar = () => {
   const navigateResources = () => navigate("/resources");
 
   return (
-    <div className="flex justify-center text-white min-w-28 w-28 h-screen bg-brandGreen">
+    <div className="flex justify-center text-white min-w-28 w-28 h-screen bg-brandGreen z-20">
       <ul className="flex flex-col space-y-10">
         <Leaf size={70} className="pl-2 mt-10 mb-14" />
 

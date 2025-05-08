@@ -9,7 +9,7 @@ const BranchOut = () => {
   const [searchTerm, setSearchTerm] = useState("");
   // Add state to track which page is displayed
   const [currentPage, setCurrentPage] = useState("home"); // "home" or "connections"
-  
+
   // Sample data for mentors and connections
   const suggestedMentors = [
     { id: 1, name: "Josh Doe", position: "UX/UX @ UCI", connections: "95+ mutual connections" },
@@ -17,7 +17,7 @@ const BranchOut = () => {
     { id: 3, name: "Josh Doe", position: "UX/UX @ UCI", connections: "95+ mutual connections" },
     { id: 4, name: "Josh Doe", position: "UX/UX @ UCI", connections: "95+ mutual connections" }
   ];
-  
+
   const suggestedConnections = [
     { id: 1, name: "Josh Doe", position: "UX/UX @ UCI", connections: "95+ mutual connections" },
     { id: 2, name: "Josh Doe", position: "UX/UX @ UCI", connections: "95+ mutual connections" },
@@ -107,7 +107,7 @@ const BranchOut = () => {
       {/* Left Column - My Network */}
       <div className="bg-white rounded-lg shadow p-4 col-span-2">
         <h2 className="font-medium mb-4">My network:</h2>
-        
+
         {/* Network Stats */}
         <div className="bg-gray-50 border rounded-lg mb-4">
           <div className="flex flex-col items-center py-4">
@@ -120,10 +120,10 @@ const BranchOut = () => {
             </div>
           </div>
         </div>
-        
+
         {/* View Connections Button */}
         <div className="mb-4">
-          <button 
+          <button
             className="w-full border rounded-lg py-2 px-4 flex items-center justify-center space-x-2 bg-gray-50 hover:bg-gray-100"
             onClick={() => setCurrentPage("connections")}
           >
@@ -138,7 +138,7 @@ const BranchOut = () => {
             <span className="text-sm">View connections</span>
           </button>
         </div>
-        
+
         {/* Current Mentor */}
         <div className="border rounded-lg p-4 bg-gray-50">
           <h3 className="font-medium mb-3 text-sm text-center">Current Mentor</h3>
@@ -176,7 +176,7 @@ const BranchOut = () => {
             </div>
           ))}
         </div>
-        
+
         {/* Suggested connections in Irvine, CA */}
         <h2 className="font-medium mb-4">Suggested connections in Irvine, CA</h2>
         <div className="grid grid-cols-4 gap-4">
@@ -210,7 +210,7 @@ const BranchOut = () => {
     <div className="bg-white rounded-lg shadow p-4">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-2">
-          <button 
+          <button
             className="p-2 border rounded-md bg-white hover:bg-gray-100"
             onClick={() => setCurrentPage("home")}
           >
@@ -311,7 +311,7 @@ const BranchOut = () => {
       {/* Main Content */}
       <div className="flex-1 p-4 bg-slate-50">
         <Header />
-        
+
         {/* Conditional rendering based on current page */}
         {currentPage === "home" ? <HomePage /> : <ConnectionsPage />}
       </div>

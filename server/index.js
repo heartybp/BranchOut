@@ -1207,10 +1207,10 @@ app.get("/search/students", async (req, res) => {
 
     const searchTerm = `%${query}%`; // wildcard for partial matching
     const students = await pool.query(
-      `SELECT 
-         s.student_id, 
-         s.major_id, 
-         s.grade_level, 
+      `SELECT
+         s.student_id,
+         s.major_id,
+         s.grade_level,
          s.expected_graduation_date,
          s.resume_url,
          s.bio,
@@ -1249,9 +1249,9 @@ app.get("/search/mentors", async (req, res) => {
     }
 
     const searchTerm = `%${query}%`;
-    
+
     const mentors = await pool.query(
-      `SELECT 
+      `SELECT
          u.user_id,
          u.username,
          u.email,
@@ -1272,7 +1272,7 @@ app.get("/search/mentors", async (req, res) => {
        OR LOWER(m.job_title) LIKE LOWER($1)
        OR LOWER(m.company) LIKE LOWER($1)
        OR EXISTS (
-         SELECT 1 
+         SELECT 1
          FROM unnest(m.expertise_areas) AS e
          WHERE LOWER(e::text) LIKE LOWER($1)
        )`,
@@ -1292,9 +1292,9 @@ app.get("/search/mentors", async (req, res) => {
     res.json(formattedResults);
   } catch (err) {
     console.error("Mentor search error:", err.message);
-    res.status(500).json({ 
+    res.status(500).json({
       message: "Server error",
-      error: err.message 
+      error: err.message
     });
   }
 });
