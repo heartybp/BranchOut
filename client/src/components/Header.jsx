@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// OKAY THIS ONE IS THE ONE FS:
+
+import React, { useState, useEffect } from "react";
 import brandName from "../assets/brand-name.png";
 import notifIcon from "../assets/notif_icon.png";
 import windowCheck from "../assets/window_check.png";
@@ -10,7 +12,8 @@ import mortyDoe from "../assets/morty_doe.png";
 
 const Header = () => {
   const [showNotifications, setShowNotifications] = useState(false);
-  const [showAIResumeFeedback, setShowAIResumeFeedback] = useState(false); // State to toggle AI Resume Feedback
+  const [currentScreen, setCurrentScreen] = useState("home"); // State to manage screens
+  const [progress, setProgress] = useState(0); // State for progress percentage
 
   const notifications = [
     {
@@ -34,6 +37,16 @@ const Header = () => {
       status: "accepted",
     },
   ];
+
+  // Increment progress dynamically when on the "progress" screen
+  useEffect(() => {
+    if (currentScreen === "progress" && progress < 100) {
+      const timer = setTimeout(() => {
+        setProgress((prev) => Math.min(prev + 30, 100)); // Increment by 30% every 500ms
+      }, 500);
+      return () => clearTimeout(timer); // Cleanup timeout
+    }
+  }, [currentScreen, progress]);
 
   return (
     <>
@@ -75,7 +88,7 @@ const Header = () => {
           </button>
 
           {/* Paper Star Icon */}
-          <button onClick={() => setShowAIResumeFeedback(!showAIResumeFeedback)}>
+          <button onClick={() => setCurrentScreen("aiResumeFeedback")}>
             <img src={paperStar} alt="AI Resume Feedback" className="h-8" />
           </button>
 
@@ -137,39 +150,117 @@ const Header = () => {
         </div>
       </div>
 
-      {/* AI Resume Feedback Section */}
-      {showAIResumeFeedback && (
+      {/* Main Content Section */}
+      {currentScreen === "home" && (
+        <div className="main-content">
+          <h1 className="text-2xl font-bold">Welcome to the Home Page!</h1>
+          <p>This is the main content of the page.</p>
+        </div>
+      )}
+
+            {/* AI Resume Feedback Section */}
+      {currentScreen === "aiResumeFeedback" && (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 pt-10">
-          {/* Title */}
           <h1 className="text-2xl font-bold mb-6">
             Choose the resume you would like to be reviewed:
           </h1>
 
-          {/* Containers for Current Resume and Upload */}
+          {/* Horizontal Layout for Boxes */}
           <div className="flex gap-10">
-            {/* Current Resume Container */}
-            <div className="bg-white shadow-md rounded-lg p-6 w-80">
-              <h2 className="text-lg font-semibold mb-4">Current Resume</h2>
-              <p className="text-gray-500">No file uploaded yet.</p>
+            {/* Current Resume Section */}
+            <div className="flex flex-col items-center">
+              <div className="bg-white shadow-md rounded-lg p-6 w-80 h-80 flex flex-col items-center justify-center">
+                <h2 className="text-lg font-semibold mb-2">My Resume 2025</h2>
+                <img
+                  src="../assets/resume_preview.png"
+                  alt="Resume Preview"
+                  className="w-40 h-40 object-cover mb-2"
+                />
+                <p className="text-gray-500">Uploaded: Feb 7, 2025</p>
+              </div>
+              {/* Text Below the Box */}
+              <p className="text-center mt-4 text-xl font-semibold">
+                Current Resume
+              </p>
             </div>
 
-            {/* Upload a File Container */}
-            <div className="bg-white shadow-md rounded-lg p-6 w-80">
-              <h2 className="text-lg font-semibold mb-4">Upload a File</h2>
-              <input
-                type="file"
-                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-700 file:text-white hover:file:bg-green-800"
-              />
+            {/* Upload a File Section */}
+            <div className="flex flex-col items-center">
+              <div className="bg-white shadow-md rounded-lg p-6 w-80 h-80 flex flex-col items-center justify-center">
+                <img
+                  src="../assets/upload_icon.png"
+                  alt="Upload Icon"
+                  className="w-20 h-20 mb-2"
+                />
+              </div>
+              {/* Text Below the Box */}
+              <p className="text-center mt-4 text-xl font-semibold">
+                Upload a File
+              </p>
             </div>
           </div>
 
-          {/* Continue Button */}
           <button
-            onClick={() => setShowAIResumeFeedback(false)} // Close AI Resume Feedback
+            onClick={() => setCurrentScreen("progress")}
             className="mt-8 bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800"
           >
             Continue
           </button>
+        </div>
+      )}
+
+      {/* Progress Screen */}
+      {currentScreen === "progress" && (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+          <div className="w-40 h-40 border-8 border-gray-300 border-t-green-700 rounded-full animate-spin"></div>
+          <h1 className="text-xl font-bold mt-6">
+            Harvesting insights... {progress}%
+          </h1>
+          {progress === 100 && (
+            <button
+              onClick={() => setCurrentScreen("analysis")}
+              className="mt-8 bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800"
+            >
+              View Results
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Analysis Result Screen */}
+      {currentScreen === "analysis" && (
+        <div className="flex flex-row justify-center items-start min-h-screen bg-gray-100 p-10 gap-10">
+          {/* Left Container: Progress + Recommendations */}
+          <div className="bg-white shadow-md rounded-lg p-6 w-1/2">
+            <div className="w-40 h-40 bg-green-700 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto">
+              85%
+            </div>
+            <h1 className="text-xl font-bold mt-6 text-center">
+              Your resume is well-structured and highlights relevant experience
+              for an entry-level role! Still, I see some room for improvement.
+              Here’s how to fine-tune it:
+            </h1>
+            <ul className="mt-6 space-y-4">
+              <li className="bg-gray-100 p-4 rounded-lg shadow-sm">
+                1. Remove unnecessary info like SAT score.
+              </li>
+              <li className="bg-gray-100 p-4 rounded-lg shadow-sm">
+                2. Use stronger action verbs to communicate.
+              </li>
+              <li className="bg-gray-100 p-4 rounded-lg shadow-sm">
+                3. Be specific on how you improved experiences.
+              </li>
+            </ul>
+          </div>
+
+          {/* Right Container: Highlighted Resume */}
+          <div className="bg-white shadow-md rounded-lg p-6 w-1/2 flex items-center justify-center">
+            <img
+              src="../assets/resume_highlighted.png"
+              alt="Highlighted Resume"
+              className="w-full h-auto"
+            />
+          </div>
         </div>
       )}
     </>
