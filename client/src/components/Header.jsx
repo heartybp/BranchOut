@@ -66,7 +66,7 @@ const Header = () => {
             <input
               type="text"
               placeholder="Search..."
-              className="border border-gray-300 rounded-lg py-2 px-4 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-gray-300 rounded-lg py-2 px-4 w-[1000px] focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button className="absolute right-2 top-2 text-gray-500">
               <svg
