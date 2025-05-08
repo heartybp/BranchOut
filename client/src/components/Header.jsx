@@ -9,6 +9,10 @@ import unclickedBell from "../assets/unclicked_bell.png";
 import janeDoe from "../assets/jane_doe.png";
 import jamesDoe from "../assets/james_doe.png";
 import mortyDoe from "../assets/morty_doe.png";
+import cloudUpload from "../assets/cloud_upload.png";
+import myResume from "../assets/my_resume.png";
+import highlightedResume from "../assets/highlighted_resume.png";
+import resultCircle from "../assets/result_circle.png"; // Placeholder for progress circle image
 
 const Header = () => {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -153,8 +157,8 @@ const Header = () => {
       {/* Main Content Section */}
       {currentScreen === "home" && (
         <div className="main-content">
-          <h1 className="text-2xl font-bold">Welcome to the Home Page!</h1>
-          <p>This is the main content of the page.</p>
+          {/* <h1 className="text-2xl font-bold">Welcome to the Home Page!</h1>
+          <p>This is the main content of the page.</p> */}
         </div>
       )}
 
@@ -169,10 +173,10 @@ const Header = () => {
           <div className="flex gap-10">
             {/* Current Resume Section */}
             <div className="flex flex-col items-center">
-              <div className="bg-white shadow-md rounded-lg p-6 w-80 h-80 flex flex-col items-center justify-center">
+              <div className="bg-stone-200 shadow-md rounded-lg p-6 w-80 h-80 flex flex-col items-center justify-center">
                 <h2 className="text-lg font-semibold mb-2">My Resume 2025</h2>
                 <img
-                  src="../assets/resume_preview.png"
+                  src={myResume}
                   alt="Resume Preview"
                   className="w-40 h-40 object-cover mb-2"
                 />
@@ -186,11 +190,11 @@ const Header = () => {
 
             {/* Upload a File Section */}
             <div className="flex flex-col items-center">
-              <div className="bg-white shadow-md rounded-lg p-6 w-80 h-80 flex flex-col items-center justify-center">
+              <div className="bg-stone-200 shadow-md rounded-lg p-6 w-80 h-80 flex flex-col items-center justify-center">
                 <img
-                  src="../assets/upload_icon.png"
+                  src={cloudUpload}
                   alt="Upload Icon"
-                  className="w-20 h-20 mb-2"
+                  className="w-40 h-30 mb-2"
                 />
               </div>
               {/* Text Below the Box */}
@@ -232,22 +236,28 @@ const Header = () => {
         <div className="flex flex-row justify-center items-start min-h-screen bg-gray-100 p-10 gap-10">
           {/* Left Container: Progress + Recommendations */}
           <div className="bg-white shadow-md rounded-lg p-6 w-1/2">
-            <div className="w-40 h-40 bg-green-700 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto">
-              85%
+            <h1 className="text-3xl font-bold mb-6 ml-6 mt-6">Analysis Result</h1>
+            <div className= "flex items-center justify-center text-2xl font-bold mx-auto">
+              {/* 85% */}
+              <img 
+                src={resultCircle}
+                alt="Progress Circle"
+                className="w-90 h-60 mt-2 rounded-full"
+              />
             </div>
-            <h1 className="text-xl font-bold mt-6 text-center">
+            <h1 className="text-xl font-bold mt-10 ml-20 mr-20 mb-20 text-center">
               Your resume is well-structured and highlights relevant experience
               for an entry-level role! Still, I see some room for improvement.
               Here’s how to fine-tune it:
             </h1>
             <ul className="mt-6 space-y-4">
-              <li className="bg-gray-100 p-4 rounded-lg shadow-sm">
+              <li className="bg-gray-100 p-4 rounded-lg shadow-sm text-lg">
                 1. Remove unnecessary info like SAT score.
               </li>
-              <li className="bg-gray-100 p-4 rounded-lg shadow-sm">
+              <li className="bg-gray-100 p-4 rounded-lg shadow-sm text-lg">
                 2. Use stronger action verbs to communicate.
               </li>
-              <li className="bg-gray-100 p-4 rounded-lg shadow-sm">
+              <li className="bg-gray-100 p-4 rounded-lg shadow-sm text-lg">
                 3. Be specific on how you improved experiences.
               </li>
             </ul>
@@ -256,7 +266,7 @@ const Header = () => {
           {/* Right Container: Highlighted Resume */}
           <div className="bg-white shadow-md rounded-lg p-6 w-1/2 flex items-center justify-center">
             <img
-              src="../assets/resume_highlighted.png"
+              src={highlightedResume}
               alt="Highlighted Resume"
               className="w-full h-auto"
             />
