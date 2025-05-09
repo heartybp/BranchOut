@@ -4,10 +4,10 @@ import BrandName from "./assets/brand-name.svg";
 import TreeImage from "./assets/100ConnectionsTree.png";
 import MentorImage from "./assets/mentor.png";
 import ConnectionImage from "./assets/connection-photo.png";
+import Header from "./components/Header.jsx";
+import { Bell, FileText, CalendarCheck, Search } from "lucide-react";
 
 const BranchOut = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  // Add state to track which page is displayed
   const [currentPage, setCurrentPage] = useState("home"); // "home" or "connections"
 
   // Sample data for mentors and connections
@@ -114,68 +114,7 @@ const BranchOut = () => {
   // Current mentor
   const currentMentor = { name: "Josh Doe" };
 
-  // Header component reused across pages
-  const Header = () => (
-    <div className="flex justify-between items-center mb-6">
-      <div className="flex items-center">
-        <img src={BrandName} alt="Brand Name" className="h-8 mr-2" />
-      </div>
-      <div className="flex items-center space-x-4">
-        <div className="relative">
-          <input
-            type="text"
-            className="pl-8 pr-4 py-2 border rounded-md w-64 bg-white"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <svg
-            className="w-5 h-5 absolute left-2 top-2.5 text-gray-500"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </div>
-        <button className="p-2 border rounded-md bg-white">
-          <svg
-            className="w-5 h-5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
-        </button>
-        <button className="p-2 border rounded-md bg-white">
-          <svg
-            className="w-5 h-5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-            />
-          </svg>
-        </button>
-      </div>
-    </div>
-  );
+  // We're now using the imported Header component instead of defining it inline
 
   // Home page content
   const HomePage = () => (
@@ -332,52 +271,23 @@ const BranchOut = () => {
   );
 
   // Connections page content
-  const ConnectionsPage = () => (
-    <div className="bg-white rounded-lg shadow p-4">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-2">
-          <button
-            className="p-2 border rounded-md bg-white hover:bg-gray-100"
-            onClick={() => setCurrentPage("home")}
-          >
-            <svg
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
+  const ConnectionsPage = () => {
+    const [connectionSearchTerm, setConnectionSearchTerm] = useState("");
+    
+    const handleConnectionSearch = (e) => {
+      setConnectionSearchTerm(e.target.value);
+    };
+    
+    return (
+      <div className="bg-white rounded-lg shadow p-4">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-2">
+            <button
+              className="p-2 border rounded-md bg-white hover:bg-gray-100"
+              onClick={() => setCurrentPage("home")}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
-          <h2 className="font-medium text-lg flex items-center">
-            <svg
-              className="w-5 h-5 mr-2"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-              />
-            </svg>
-            427 connections
-          </h2>
-        </div>
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center">
-            <span className="mr-2 text-sm">Sort by:</span>
-            <button className="border rounded-md py-1 px-3 bg-white flex items-center">
-              <span className="text-sm mr-2">Recently Added</span>
               <svg
-                className="w-4 h-4"
+                className="w-5 h-5"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -386,89 +296,129 @@ const BranchOut = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d="M19 9l-7 7-7-7"
+                  d="M15 19l-7-7 7-7"
                 />
               </svg>
             </button>
+            <h2 className="font-medium text-lg flex items-center">
+              <svg
+                className="w-5 h-5 mr-2"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                />
+              </svg>
+              427 connections
+            </h2>
           </div>
-          <div className="relative">
-            <input
-              type="text"
-              className="pl-8 pr-4 py-1 border rounded-md w-48 bg-white"
-              placeholder="Search by name"
-            />
-            <svg
-              className="w-4 h-4 absolute left-2 top-2 text-gray-500"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center">
+              <span className="mr-2 text-sm">Sort by:</span>
+              <button className="border rounded-md py-1 px-3 bg-white flex items-center">
+                <span className="text-sm mr-2">Recently Added</span>
+                <svg
+                  className="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="relative">
+              <input
+                type="text"
+                className="pl-8 pr-4 py-1 border rounded-md w-48 bg-white"
+                placeholder="Search by name"
+                value={connectionSearchTerm}
+                onChange={handleConnectionSearch}
               />
-            </svg>
+              <svg
+                className="w-4 h-4 absolute left-2 top-2 text-gray-500"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Connection List */}
-      <div className="space-y-4">
-        {connections.map((connection) => (
-          <div
-            key={connection.id}
-            className="border rounded-lg p-4 flex items-center justify-between bg-gray-50"
-          >
-            <div className="flex items-center">
-              <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                <img
-                  src={ConnectionImage}
-                  alt="Connection"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div>
-                <div className="flex items-center">
-                  <h3 className="font-medium text-md">{connection.name}</h3>
-                  <span className="text-xs text-gray-500 mx-2">|</span>
-                  <span className="text-xs text-gray-500">
-                    {connection.school}
-                  </span>
+        {/* Connection List */}
+        <div className="space-y-4">
+          {connections.map((connection) => (
+            <div
+              key={connection.id}
+              className="border rounded-lg p-4 flex items-center justify-between bg-gray-50"
+            >
+              <div className="flex items-center">
+                <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
+                  <img
+                    src={ConnectionImage}
+                    alt="Connection"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <p className="text-xs text-gray-600">
-                  I am a {connection.position}. I want to know more about the
-                  school
-                </p>
-                <p className="text-xs text-gray-600">
-                  I am looking for {connection.looking}
-                </p>
+                <div>
+                  <div className="flex items-center">
+                    <h3 className="font-medium text-md">{connection.name}</h3>
+                    <span className="text-xs text-gray-500 mx-2">|</span>
+                    <span className="text-xs text-gray-500">
+                      {connection.school}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-600">
+                    I am a {connection.position}. I want to know more about the
+                    school
+                  </p>
+                  <p className="text-xs text-gray-600">
+                    I am looking for {connection.looking}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2">
+                <button className="border rounded-md py-1 px-3 bg-white text-xs">
+                  <span>Message</span>
+                </button>
+                <button className="bg-green-800 text-white rounded-md py-1 px-3 text-xs">
+                  <span>Connect</span>
+                </button>
               </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <button className="border rounded-md py-1 px-3 bg-white text-xs">
-                <span>Message</span>
-              </button>
-              <button className="bg-green-800 text-white rounded-md py-1 px-3 text-xs">
-                <span>Connect</span>
-              </button>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="flex min-h-screen">
       <Navbar />
       {/* Main Content */}
-      <div className="flex-1 p-4 bg-slate-50">
+      <div className="flex-1 bg-slate-50 flex flex-col">
         <Header />
-
-        {/* Conditional rendering based on current page */}
-        {currentPage === "home" ? <HomePage /> : <ConnectionsPage />}
+        <div className="p-4 flex-1">
+          {/* Conditional rendering based on current page */}
+          {currentPage === "home" ? <HomePage /> : <ConnectionsPage />}
+        </div>
       </div>
     </div>
   );
