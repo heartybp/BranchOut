@@ -1,17 +1,17 @@
-import React from 'react'
-import Event from './Event.jsx'
+import React from "react";
+import Event from "./Event.jsx";
 import LeftArrow from "../assets/left_arrow.png";
 import RightArrow from "../assets/right_arrow.png";
 
-const ScrollEvents = ({ScrollEventsTitle, status}) => {
+const ScrollEvents = ({ ScrollEventsTitle, status }) => {
   return (
     <>
-        <div className='py-10'>
-        <h1 className='text-3xl font-bold pl-10 mb-8'>{ScrollEventsTitle}</h1>
+      <div className="py-10">
+        <h1 className="text-2xl font-bold pl-14 mb-8">{ScrollEventsTitle}</h1>
 
         {/* Scrolling Events Container */}
         <div className="relative flex items-center">
-        {/* Left Arrow */}
+          {/* Left Arrow */}
           <img
             src={LeftArrow}
             alt="Left Arrow"
@@ -23,14 +23,14 @@ const ScrollEvents = ({ScrollEventsTitle, status}) => {
             className="absolute right-[2.5rem] top-40 transform -translate-y-1/2 w-4 h-6 cursor-pointer"
           />
         </div>
-        <div className='flex gap-x-20 justify-center'>
-            <Event status={status}/>
-            <Event status={status}/>
-            <Event status={status}/>
+        <div className="flex gap-x-16 justify-center">
+          <Event status={status} />
+          <Event status={status} />
+          <Event status={status} />
         </div>
-        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default ScrollEvents
+export default ScrollEvents;
