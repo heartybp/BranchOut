@@ -10,10 +10,13 @@ import Profile from "./Profile.jsx";
 import Resources from "./Resources.jsx";
 import OnboardingQuiz from "./components/OnboardingQuiz.jsx";
 import Loading from "./components/Loading.jsx";
+import Header from "./components/Header";
+// import AIResumeFeedback from "./components/AIResumeFeedback";
+
 // App.jsx is the entry point of a React application
 // Here, you define your main React component and render the initial structure of the user interface
 
-// components are listed in the componentss folder in src
+// components are listed in the components folder in src
 // client > src > components
 
 function App() {

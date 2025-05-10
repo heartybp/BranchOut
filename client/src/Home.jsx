@@ -8,6 +8,11 @@ import SeeMoreButton from "./components/SeeMoreButton.jsx";
 import Header from "./components/Header.jsx";
 import Assignments from "./components/Assignments.jsx";
 import mentorImage from "./assets/mentor.png";
+import WaterDropIcon from "./assets/Water_Drop.png";
+import TreeWithTiers from "./assets/tree_with_tiers.png";
+import GrowingSinceText from "./assets/growing_since_text.png";
+import TaskBar from "./assets/task_bar.png";
+
 
 const Home = () => {
   const toCompleteAssignments = [
@@ -53,35 +58,41 @@ const Home = () => {
 
             <div className="bg-white justify-center w-[940px] flex-row ">
               {/* tree, checked in, + mentor */}
-              <div className="flex justify-center gap-x-5 bg-blue-200">
+              <div className="flex justify-center gap-x-8 items-end">
                 {/* jane's tree */}
-                <div>
-                  <img src={Tree} alt="" width={500} />
+                <div className="relative w-[500px] h-[352px] flex-shrink-0">
+                  <img src={Tree} alt="" className="absolute w-[500px] h-[353px]"/>
+                  <img src={TreeWithTiers} alt="" className="absolute w-[250px] h-[250px]" style={{top:"45%", left: "50%", transform: "translate(-50%, -50%)"}}/>
+                  <img src={GrowingSinceText} alt="" className="absolute w-[175px] h-[15px]" style={{bottom: "3%", right: "3%"}}/>
                 </div>
 
-                <div className="flex flex-col justify-between w-72">
-                  <div className="flex flex-col bg-gray-100 p-9 rounded-lg border border-gray-300">
-                    <p className="text-3xl font-semibold">20</p>
-                    <p className="font-semibold">days checked in</p>
+                <div className="flex flex-col justify-between w-[330px]">
+                  <div className="flex flex-col bg-gray-100 p-9 rounded-lg border border-gray-300 items-center justify-center mb-4">
+                    <div className="flex items-center gap-0.01">
+                    {/* Icon */}
+                    <img src={WaterDropIcon} alt="Water Drop Icon" className="w-12 h-12"/>
+                    {/* Number */}
+                    <p className="text-4xl font-bold">20</p>
                   </div>
-
+                    <p className="font-bold">days checked in!</p>
+                  </div>
                   <div className="bg-gray-100 p-5 rounded-lg border border-gray-300 flex flex-col items-center">
-                    <p className="font-semibold">Current Mentor</p>
+                    <p className="font-bold">Current Mentor</p>
                     <img
                       src={mentorImage}
                       alt=""
                       width={100}
                       className="my-2"
                     />
-                    <p className="font-semibold">Josh Doe</p>
+                    <p className="font-bold">Josh Doe</p>
                   </div>
                 </div>
               </div>
 
-              <ScrollEvents ScrollEventsTitle="Ongoing Mentor Matchings" />
+              <ScrollEvents ScrollEventsTitle="Ongoing Mentor Matchings:" status="Live Now"/>
               <SeeMoreButton />
 
-              <ScrollEvents ScrollEventsTitle="Upcoming Mentor Matchings" />
+              <ScrollEvents ScrollEventsTitle="Upcoming Mentor Matchings:" status="Sat, Mar 8" />
               <SeeMoreButton />
 
               <SuggestedConnections />
@@ -91,19 +102,21 @@ const Home = () => {
             {/* right side */}
             <div className="bg-white flex justify-center">
               <div className="flex flex-col bg-gray-100 rounded-md border border-gray-300 w-[390px] mx-6">
-                <h2>This Week:</h2>
-                <p className="rounded-3xl w-36 h-48 bg-blue-200">
-                  placeholder for progress bar
-                </p>
+                <div className="flex flex-col my-2">
+                <h2 className = "pl-6 pt-4 font-semibold mb-2 text-xl">This Week:</h2>
+                </div>
+                <div className="flex justify-center items-center ">
+                  <img src={TaskBar} alt="" className="w-72 h-72" />
+                </div>
 
                 {/* component */}
                 <Assignments
-                  title="Complete"
+                  title="Complete:"
                   assignments={toCompleteAssignments}
                 />
 
                 <Assignments
-                  title="Upcoming"
+                  title="Upcoming:"
                   assignments={upcomingAssignments}
                 />
 
