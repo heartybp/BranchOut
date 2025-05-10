@@ -1,6 +1,12 @@
 import brandName from "../assets/brand-name.svg";
-import { Bell, FileText, Star, CalendarCheck, Search } from "lucide-react";
-
+import {
+  Bell,
+  FileText,
+  Star,
+  CalendarCheck,
+  Search,
+  Upload as UploadIcon,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import notifIcon from "../assets/notif_icon.png";
 import windowCheck from "../assets/window_check.png";
@@ -12,12 +18,21 @@ import mortyDoe from "../assets/morty_doe.png";
 import cloudUpload from "../assets/cloud_upload.png";
 import myResume from "../assets/my_resume.png";
 import highlightedResume from "../assets/highlighted_resume.png";
-import resultCircle from "../assets/result_circle.png"; // Placeholder for progress circle image
+import resultCircle from "../assets/result_circle.png";
+import UploadComponent from "./Upload"; // Import the Upload component
 
 const Header = () => {
   const [showNotifications, setShowNotifications] = useState(false);
-  const [currentScreen, setCurrentScreen] = useState("home"); // State to manage screens
-  const [progress, setProgress] = useState(0); // State for progress percentage
+  const [currentScreen, setCurrentScreen] = useState("home");
+  const [progress, setProgress] = useState(0);
+  const [showUpload, setShowUpload] = useState(false);
+
+  // State for current resume details
+  const [currentResume, setCurrentResume] = useState({
+    title: "My Resume 2025",
+    uploadDate: "Feb 7, 2025",
+    file: myResume,
+  });
 
   const notifications = [
     {
@@ -51,6 +66,24 @@ const Header = () => {
       return () => clearTimeout(timer); // Cleanup timeout
     }
   }, [currentScreen, progress]);
+
+  // Handler for when a file is saved in the Upload component
+  const handleFileSaved = (fileDetails) => {
+    // Get the current date
+    const today = new Date();
+    const formattedDate = `${today.toLocaleString("default", {
+      month: "short",
+    })} ${today.getDate()}, ${today.getFullYear()}`;
+
+    // Update the currentResume state with the new file details
+    setCurrentResume({
+      title: fileDetails.name || "Untitled Document",
+      uploadDate: formattedDate,
+      file: myResume, // Keep using the same preview image for demonstration
+    });
+
+    setShowUpload(false);
+  };
 
   return (
     <>
@@ -155,23 +188,27 @@ const Header = () => {
 
       {/* AI resume feedback */}
       {currentScreen === "aiResumeFeedback" && (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 pt-10">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100  w-full">
           <h1 className="text-2xl font-bold mb-6">
             Choose the resume you would like to be reviewed:
           </h1>
 
           {/* Horizontal Layout for Boxes */}
           <div className="flex gap-10">
-            {/* Current Resume Section */}
+            {/* Current Resume Section - Now with dynamic title and date */}
             <div className="flex flex-col items-center">
               <div className="bg-stone-200 shadow-md rounded-lg p-6 w-80 h-80 flex flex-col items-center justify-center">
-                <h2 className="text-lg font-semibold mb-2">My Resume 2025</h2>
+                <h2 className="text-lg font-semibold mb-2">
+                  {currentResume.title}
+                </h2>
                 <img
-                  src={myResume}
+                  src={currentResume.file}
                   alt="Resume Preview"
-                  className="w-40 h-40 object-cover mb-2"
+                  className="w-50 h-50 object-cover mb-2"
                 />
-                <p className="text-gray-500">Uploaded: Feb 7, 2025</p>
+                <p className="text-gray-500">
+                  Uploaded: {currentResume.uploadDate}
+                </p>
               </div>
               {/* Text Below the Box */}
               <p className="text-center mt-4 text-xl font-semibold">
@@ -181,12 +218,16 @@ const Header = () => {
 
             {/* Upload a File Section */}
             <div className="flex flex-col items-center">
-              <div className="bg-stone-200 shadow-md rounded-lg p-6 w-80 h-80 flex flex-col items-center justify-center">
-                <img
-                  src={cloudUpload}
-                  alt="Upload Icon"
-                  className="w-40 h-30 mb-2"
+              <div
+                className="bg-stone-200 shadow-md rounded-lg p-6 w-80 h-80 flex flex-col items-center justify-center cursor-pointer hover:bg-stone-300 transition-colors"
+                onClick={() => setShowUpload(true)}
+              >
+                <UploadIcon
+                  size={70}
+                  className="text-gray-600 mb-4"
+                  strokeWidth={1.5}
                 />
+                <p className="text-gray-700 text-lg">Click to upload a file</p>
               </div>
               {/* Text Below the Box */}
               <p className="text-center mt-4 text-xl font-semibold">
@@ -204,9 +245,16 @@ const Header = () => {
         </div>
       )}
 
+      {/* Upload Modal - Modified to pass the save handler */}
+      <UploadComponent
+        show={showUpload}
+        onClose={() => setShowUpload(false)}
+        onSave={handleFileSaved}
+      />
+
       {/* Progress Screen */}
       {currentScreen === "progress" && (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gray-100">
           <div className="w-40 h-40 border-8 border-gray-300 border-t-green-700 rounded-full animate-spin"></div>
           <h1 className="text-xl font-bold mt-6">
             Harvesting insights... {progress}%
@@ -224,7 +272,7 @@ const Header = () => {
 
       {/* Analysis Result Screen */}
       {currentScreen === "analysis" && (
-        <div className="flex flex-row justify-center items-start min-h-screen bg-gray-100 p-10 gap-10">
+        <div className="flex flex-row justify-center items-start  bg-gray-100 p-10 gap-10">
           {/* Left Container: Progress + Recommendations */}
           <div className="bg-white shadow-md rounded-lg p-6 w-1/2">
             <h1 className="text-3xl font-bold mb-6 ml-6 mt-6">

@@ -52,7 +52,7 @@ const Navbar = () => {
           onClick={navigateForum}
         >
           <MessageCircleQuestion size={40} />
-          <li className="">Forum</li>
+          <li className="">Feed</li>
         </div>
 
         <div
