@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import Upload from "./components/Upload";
+import DocImage from "./assets/documentPlaceholder.png";
 
 const Resources = () => {
   const [viewMode, setViewMode] = useState("list"); // 'list' or 'grid'
@@ -18,7 +19,7 @@ const Resources = () => {
       link: "#",
     },
     {
-      name: "Summer Internship Cover Letter",
+      name: "Internship Cover Letter",
       type: "PDF",
       category: "Letter",
       visibility: "Private",
@@ -53,7 +54,7 @@ const Resources = () => {
 
   const sharedWithMe = [
     {
-      name: "Resources for Business Students",
+      name: "Graduate School Essay",
       type: "PDF",
       category: "Document",
       visibility: "Public",
@@ -169,6 +170,7 @@ const Resources = () => {
                       <td className="p-4 text-blue-600">
                         <a href={doc.link}>{doc.name}</a>
                       </td>
+
                       <td className="p-4">{doc.type}</td>
                       <td className="p-4">{doc.category}</td>
                       <td className="p-4">{doc.visibility}</td>
@@ -339,31 +341,35 @@ const Resources = () => {
             {/* My Documents Grid */}
             <div className="bg-white border rounded-md overflow-hidden mb-8">
               {/* CARD GRID */}
-              <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+              <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                 {displayedDocuments.map((doc, idx) => (
                   <div
                     key={idx}
-                    className="rounded-xl bg-[#f7f2ea] p-4 shadow flex flex-col justify-between min-h-[200px]"
+                    className="rounded-xl bg-[#f7f2ea] p-4 shadow flex flex-col pb-4" // Fixed height
                   >
                     <div className="font-bold mb-2">{doc.name}</div>
                     <div className="flex-1 flex items-center justify-center">
                       <img
-                        src="/file-icon.png"
-                        alt={doc.type}
-                        className="w-full h-24 object-contain mb-2"
+                        src={DocImage}
+                        alt={`${doc.type} file`}
+                        className="w-full object-contain mb-2"
                       />
                     </div>
-                    <div className="text-xs text-gray-600 mb-1">
-                      Type: {doc.type}
-                    </div>
-                    <div className="text-xs text-gray-600 mb-1">
-                      Category: {doc.category}
-                    </div>
-                    <div className="text-xs text-gray-600 mb-1">
-                      Visibility: {doc.visibility}
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      Uploaded: {doc.uploadDate}
+                    <div className="mt-auto">
+                      {" "}
+                      {/* Push metadata to bottom */}
+                      <div className="text-xs text-gray-600 mb-1">
+                        Type: {doc.type}
+                      </div>
+                      <div className="text-xs text-gray-600 mb-1">
+                        Category: {doc.category}
+                      </div>
+                      <div className="text-xs text-gray-600 mb-1">
+                        Visibility: {doc.visibility}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        Uploaded: {doc.uploadDate}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -438,9 +444,9 @@ const Resources = () => {
                     <div className="font-bold mb-2">{doc.name}</div>
                     <div className="flex-1 flex items-center justify-center">
                       <img
-                        src="/file-icon.png"
-                        alt={doc.type}
-                        className="w-full h-24 object-contain mb-2"
+                        src={DocImage}
+                        alt={`${doc.type} file`}
+                        className="w-full object-contain mb-2"
                       />
                     </div>
                     <div className="text-xs text-gray-600 mb-1">
