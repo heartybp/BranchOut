@@ -101,16 +101,16 @@ const Home = () => {
                 ScrollEventsTitle="Ongoing Mentor Matchings:"
                 status="Live Now"
               />
-              <SeeMoreButton />
+              {/* <SeeMoreButton /> */}
 
               <ScrollEvents
                 ScrollEventsTitle="Upcoming Mentor Matchings:"
                 status="Sat, Mar 8"
               />
-              <SeeMoreButton />
+              {/* <SeeMoreButton /> */}
 
               <SuggestedConnections />
-              <SeeMoreButton />
+              {/* <SeeMoreButton /> */}
             </div>
 
             {/* right side */}
