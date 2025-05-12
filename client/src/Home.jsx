@@ -8,6 +8,7 @@ import SeeMoreButton from "./components/SeeMoreButton.jsx";
 import Header from "./components/Header.jsx";
 import Assignments from "./components/Assignments.jsx";
 import mentorImage from "./assets/mentor.png";
+import Avatar9 from "./assets/avatar9.png"; // Added import for Aaron Smith's avatar
 import WaterDropIcon from "./assets/Water_Drop.png";
 import TreeWithTiers from "./assets/tree_with_tiers.png";
 // import GrowingSinceText from "./assets/growing_since_text.png";
@@ -17,13 +18,13 @@ const Home = () => {
   const toCompleteAssignments = [
     {
       resource: "Read Chapter 5",
-      assignedBy: "John Smith",
+      assignedBy: "Aaron Smith",
       assignedDate: "04/02",
       dueIn: "3 days",
     },
     {
       resource: "Complete Quiz",
-      assignedBy: "Jane Doe",
+      assignedBy: "Aaron Smith",
       assignedDate: "04/01",
       dueIn: "2 days",
     },
@@ -32,13 +33,13 @@ const Home = () => {
   const upcomingAssignments = [
     {
       resource: "Read Chapter 6",
-      assignedBy: "John Smith",
+      assignedBy: "Aaron Smith",
       assignedDate: "04/08",
       dueIn: "9 days",
     },
     {
       resource: "Written Homework",
-      assignedBy: "Jane Doe",
+      assignedBy: "Aaron Smith",
       assignedDate: "04/05",
       dueIn: "6 days",
     },
@@ -86,12 +87,12 @@ const Home = () => {
                   <div className="bg-gray-100 p-2 rounded-lg border border-gray-300 flex flex-col items-center w-80">
                     <p className="font-bold">Current Mentor</p>
                     <img
-                      src={mentorImage}
-                      alt=""
+                      src={Avatar9}
+                      alt="Aaron Smith"
                       width={100}
                       className="my-2"
                     />
-                    <p className="font-bold">Josh Doe</p>
+                    <p className="font-bold">Aaron Smith</p>
                   </div>
                 </div>
               </div>

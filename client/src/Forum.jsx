@@ -4,6 +4,9 @@ import Avatar1 from "./assets/avatar1.png";
 import Avatar2 from "./assets/avatar2.png";
 import Avatar3 from "./assets/avatar3.png";
 import Avatar4 from "./assets/avatar4.png";
+import Avatar5 from "./assets/avatar5.png";
+import Avatar6 from "./assets/avatar6.png";
+import Avatar7 from "./assets/avatar7.png";
 import Navbar from "./components/Navbar.jsx";
 import Header from "./components/Header.jsx";
 
@@ -16,9 +19,9 @@ const Forum = () => {
   const [posts, setPosts] = useState([
     {
       id: 1,
-      author: "Jane Doe",
+      author: "Alexa Brown",
       content: "Hi! This is my first post!",
-      avatar: Avatar1,
+      avatar: Avatar5,
       comments: [],
       liked: false,
     },
@@ -68,7 +71,7 @@ const Forum = () => {
         id: posts.length + 1,
         author: "Jane Doe",
         content: newQuestionText,
-        avatar: "/api/placeholder/40/40",
+        avatar: Avatar1,
         comments: [],
         liked: false,
       };
@@ -102,9 +105,9 @@ const Forum = () => {
                 ...post.comments,
                 {
                   id: post.comments.length + 1,
-                  author: "You",
+                  author: "Jane Doe",
                   content: newComment,
-                  avatar: "/api/placeholder/40/40",
+                  avatar: Avatar1,
                 },
               ],
             };

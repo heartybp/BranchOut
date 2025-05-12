@@ -6,6 +6,10 @@ import MentorImage from "./assets/mentor.png";
 import Avatar2 from "./assets/avatar2.png";
 import Avatar3 from "./assets/avatar3.png";
 import Avatar4 from "./assets/avatar4.png";
+import Avatar5 from "./assets/avatar5.png";
+import Avatar6 from "./assets/avatar6.png";
+import Avatar7 from "./assets/avatar7.png";
+import Avatar9 from "./assets/avatar9.png";
 import ConnectionImage from "./assets/connection-photo.png";
 import Header from "./components/Header.jsx";
 import { Bell, FileText, CalendarCheck, Search } from "lucide-react";
@@ -13,111 +17,123 @@ import { Bell, FileText, CalendarCheck, Search } from "lucide-react";
 const BranchOut = () => {
   const [currentPage, setCurrentPage] = useState("home"); // "home" or "connections"
 
-  // Sample data for mentors and connections
+  // Updated data for mentors with different names and positions
   const suggestedMentors = [
     {
       id: 1,
-      name: "Josh Doe",
-      position: "UX/UX @ UCI",
+      name: "Emma Chen",
+      position: "UX/UI @ UCI",
       connections: "95+ mutual connections",
+      avatar: Avatar2,
     },
     {
       id: 2,
-      name: "Josh Doe",
-      position: "UX/UX @ UCI",
-      connections: "95+ mutual connections",
+      name: "Michael Rodriguez",
+      position: "CS Professor @ UCI",
+      connections: "72+ mutual connections",
+      avatar: Avatar4,
     },
     {
       id: 3,
-      name: "Josh Doe",
-      position: "UX/UX @ UCI",
-      connections: "95+ mutual connections",
+      name: "Sarah Johnson",
+      position: "Product @ Google",
+      connections: "63+ mutual connections",
+      avatar: Avatar3,
     },
     {
       id: 4,
-      name: "Josh Doe",
-      position: "UX/UX @ UCI",
-      connections: "95+ mutual connections",
+      name: "David Kim",
+      position: "UX Research @ UCI",
+      connections: "58+ mutual connections",
+      avatar: MentorImage,
     },
   ];
 
+  // Updated data for suggested connections with different names and positions
   const suggestedConnections = [
     {
       id: 1,
-      name: "Josh Doe",
-      position: "UX/UX @ UCI",
-      connections: "95+ mutual connections",
+      name: "Priya Patel",
+      position: "CS major @ UCI",
+      connections: "48+ mutual connections",
+      avatar: Avatar5,
     },
     {
       id: 2,
-      name: "Josh Doe",
-      position: "UX/UX @ UCI",
-      connections: "95+ mutual connections",
+      name: "Alex Thompson",
+      position: "Business Admin @ UCI",
+      connections: "36+ mutual connections",
+      avatar: Avatar6,
     },
     {
       id: 3,
-      name: "Josh Doe",
-      position: "UX/UX @ UCI",
-      connections: "95+ mutual connections",
+      name: "Maria Garcia",
+      position: "Data Science @ UCI",
+      connections: "29+ mutual connections",
+      avatar: ConnectionImage,
     },
     {
       id: 4,
-      name: "Josh Doe",
-      position: "UX/UX @ UCI",
-      connections: "95+ mutual connections",
+      name: "James Wilson",
+      position: "EECS @ UCI",
+      connections: "45+ mutual connections",
+      avatar: Avatar7,
     },
   ];
 
-  // Extended connections data for the connections page
+  // Updated connections data for the connections page with different names and interests
   const connections = [
     {
       id: 1,
-      name: "John Doe",
+      name: "Olivia Martinez",
       position: "Bio major first year student",
       school: "Undergrad",
       looking: "Mentor in school resources & Finding Research",
+      avatar: Avatar2,
     },
     {
       id: 2,
-      name: "John Doe",
-      position: "Bio major first year student",
+      name: "Ethan Williams",
+      position: "CS major sophomore",
       school: "Undergrad",
-      looking: "Mentor in school resources & Finding Research",
+      looking: "Internship opportunities & Algorithm practice",
+      avatar: Avatar4,
     },
     {
       id: 3,
-      name: "John Doe",
-      position: "Bio major first year student",
+      name: "Sophia Lee",
+      position: "Psychology major junior",
       school: "Undergrad",
-      looking: "Mentor in school resources & Finding Research",
+      looking: "Research opportunities & Graduate school advice",
+      avatar: Avatar3,
     },
     {
       id: 4,
-      name: "John Doe",
-      position: "Bio major first year student",
+      name: "Michelle Brown",
+      position: "Engineering major senior",
       school: "Undergrad",
-      looking: "Mentor in school resources & Finding Research",
+      looking: "Industry connections & Job referrals",
+      avatar: Avatar5,
     },
     {
       id: 5,
-      name: "John Doe",
-      position: "Bio major first year student",
+      name: "Ava Johnson",
+      position: "Business major sophomore",
       school: "Undergrad",
-      looking: "Mentor in school resources & Finding Research",
+      looking: "Networking events & Case competition teams",
+      avatar: Avatar6,
     },
     {
       id: 6,
-      name: "John Doe",
-      position: "Bio major first year student",
+      name: "Liam Davis",
+      position: "Art major first year student",
       school: "Undergrad",
-      looking: "Mentor in school resources & Finding Research",
+      looking: "Portfolio review & Exhibition opportunities",
+      avatar: Avatar7,
     },
   ];
 
-  // Current mentor
-  const currentMentor = { name: "Josh Doe" };
-
-  // We're now using the imported Header component instead of defining it inline
+  const currentMentor = { name: "Aaron Smith", avatar: Avatar9 };
 
   // Home page content
   const HomePage = () => (
@@ -174,7 +190,7 @@ const BranchOut = () => {
           <div className="flex flex-col items-center">
             <div className="w-16 h-16 rounded-full overflow-hidden mb-2">
               <img
-                src={MentorImage}
+                src={currentMentor.avatar}
                 alt="Mentor"
                 className="w-full h-full object-cover"
               />
@@ -193,7 +209,7 @@ const BranchOut = () => {
               <div className="flex flex-col items-center mb-3">
                 <div className="w-16 h-16 rounded-full overflow-hidden mb-2">
                   <img
-                    src={MentorImage}
+                    src={mentor.avatar}
                     alt="Mentor"
                     className="w-full h-full object-cover"
                   />
@@ -237,7 +253,7 @@ const BranchOut = () => {
               <div className="flex flex-col items-center mb-3">
                 <div className="w-16 h-16 rounded-full overflow-hidden mb-2">
                   <img
-                    src={ConnectionImage}
+                    src={connection.avatar}
                     alt="Connection"
                     className="w-full h-full object-cover"
                   />
@@ -375,7 +391,7 @@ const BranchOut = () => {
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
                   <img
-                    src={ConnectionImage}
+                    src={connection.avatar}
                     alt="Connection"
                     className="w-full h-full object-cover"
                   />

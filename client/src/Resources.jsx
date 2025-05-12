@@ -363,7 +363,7 @@ const Resources = () => {
                     {displayedDocuments.map((doc, idx) => (
                       <div
                         key={idx}
-                        className="rounded-xl bg-[#f7f2ea] p-4 shadow flex flex-col pb-4" // Fixed height
+                        className="rounded-xl bg-[#f7f2ea] p-4 shadow flex flex-col pb-4 transform transition-transform duration-300 hover:scale-110 hover:z-10" // Added transform and hover effects
                       >
                         <div className="font-bold mb-2">{doc.name}</div>
                         <div className="flex-1 flex items-center justify-center">
@@ -374,8 +374,6 @@ const Resources = () => {
                           />
                         </div>
                         <div className="mt-auto">
-                          {" "}
-                          {/* Push metadata to bottom */}
                           <div className="text-xs text-gray-600 mb-1">
                             Type: {doc.type}
                           </div>
@@ -457,7 +455,7 @@ const Resources = () => {
                     {displayedShared.map((doc, idx) => (
                       <div
                         key={idx}
-                        className="rounded-xl bg-[#f7f2ea] p-4 shadow flex flex-col justify-between min-h-[200px]"
+                        className="rounded-xl bg-[#f7f2ea] p-4 shadow flex flex-col justify-between min-h-[200px] transform transition-transform duration-300 hover:scale-110 hover:z-10" // Added transform and hover effects
                       >
                         <div className="font-bold mb-2">{doc.name}</div>
                         <div className="flex-1 flex items-center justify-center">
