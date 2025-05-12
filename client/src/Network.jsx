@@ -3,6 +3,9 @@ import Navbar from "./components/Navbar";
 import BrandName from "./assets/brand-name.svg";
 import TreeImage from "./assets/100ConnectionsTree.png";
 import MentorImage from "./assets/mentor.png";
+import Avatar2 from "./assets/avatar2.png";
+import Avatar3 from "./assets/avatar3.png";
+import Avatar4 from "./assets/avatar4.png";
 import ConnectionImage from "./assets/connection-photo.png";
 import Header from "./components/Header.jsx";
 import { Bell, FileText, CalendarCheck, Search } from "lucide-react";
@@ -273,11 +276,11 @@ const BranchOut = () => {
   // Connections page content
   const ConnectionsPage = () => {
     const [connectionSearchTerm, setConnectionSearchTerm] = useState("");
-    
+
     const handleConnectionSearch = (e) => {
       setConnectionSearchTerm(e.target.value);
     };
-    
+
     return (
       <div className="bg-white rounded-lg shadow p-4">
         <div className="flex items-center justify-between mb-6">

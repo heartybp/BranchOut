@@ -127,10 +127,10 @@ const Header = () => {
             <div className="relative">
               <button
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="focus:outline-none relative text-gray-700 hover:text-green-700"
+                className="focus:outline-none relative text-gray-700 hover:text-green-700 pt-1"
               >
                 <Bell
-                  size={24}
+                  size={22}
                   className={showNotifications ? "text-green-700" : ""}
                 />
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
