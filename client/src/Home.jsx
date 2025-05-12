@@ -49,7 +49,7 @@ const Home = () => {
       <div className="flex max-h-screen">
         <Navbar />
 
-        <div className="flex flex-col overflow-y-scroll bg-white">
+        <div className="flex flex-col overflow-y-scroll bg-white w-full">
           <Header />
 
           <div className="mb-10"></div>

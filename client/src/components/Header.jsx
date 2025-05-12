@@ -20,12 +20,14 @@ import myResume from "../assets/my_resume.png";
 import highlightedResume from "../assets/highlighted_resume.png";
 import resultCircle from "../assets/result_circle.png";
 import UploadComponent from "./Upload"; // Import the Upload component
+import Tasks from "./Tasks";
 
 const Header = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [currentScreen, setCurrentScreen] = useState("home");
   const [progress, setProgress] = useState(0);
   const [showUpload, setShowUpload] = useState(false);
+
 
   // State for current resume details
   const [currentResume, setCurrentResume] = useState({
@@ -185,7 +187,11 @@ const Header = () => {
           </div>
         </div>
       </div>
-
+      {currentScreen === "calendar" && (
+        <div className="flex flex-col items-center bg-black justify-center min-h-screen bg-gray-100  w-full">
+          <Tasks/>
+        </div>
+      )}
       {/* AI resume feedback */}
       {currentScreen === "aiResumeFeedback" && (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100  w-full">
