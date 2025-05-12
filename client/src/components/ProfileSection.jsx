@@ -5,50 +5,42 @@ import { Users, Pencil } from "lucide-react";
 import Tree from "../assets/tree.svg";
 
 // ---------- Use LinkedIn as reference --------- //
-
 /*
 PROFILE (Niva)
- [x] name 
+ [x] name
  [x] pic/avatar (editable)
  [x] follow/message button
  [x] follower / connections
 */
-
 /*
 BIO SECTION (Einar)
 - description (editable)
 */
-
 /*
 ABOUT SECTION (Niva)
  [x] summary
  [x] Social media / Contacts
 */
-
 /*
 WORK / PROJECT EXPERIENCE (Niva)
 - LinkedIn reference
 - work/project
 */
-
 /*
 EDUCATION (Einar)
 - Institution
 - Degree
 - Dates
 */
-
 // displayed in experiences section
-
-const ProfileSection = ({ user }) => {
+const ProfileSection = ({ user, onEditClick }) => {
   return (
     <div className="flex flex-col items-center bg-white w-full">
       {/* white icon section before banner */}
       <div className="flex items-center justify-end space-x-6 w-full py-4 px-4 bg-white">
         <Users className="w-8 h-8" />
-        <Pencil className="w-7 h-7" />
+        <Pencil className="w-7 h-7 cursor-pointer" onClick={onEditClick} />
       </div>
-
       {/* Profile Banner */}
       <div className="w-full h-[300px] bg-brandGreen relative">
         <img
@@ -59,7 +51,6 @@ const ProfileSection = ({ user }) => {
           <Leaf color="white" strokeWidth={3} size={40} />
         </div>
       </div>
-
       {/* User Info Section */}
       <div className="mt-20 text-center">
         <h1 className="text-gray-600">
@@ -75,7 +66,6 @@ const ProfileSection = ({ user }) => {
           </button>
         </div>
       </div>
-
       {/* Profile Tabs */}
       <div className="mt-6 border-b w-full pl-10">
         <button className="px-4 pb-2 border-b-2 border-black font-medium">
@@ -83,7 +73,6 @@ const ProfileSection = ({ user }) => {
         </button>
         <button className="px-4 pb-2 text-gray-500">Posts</button>
       </div>
-
       {/* User Profile Tree */}
       <div className="mt-6 p-4 w-[450px]">
         <img src={Tree} className="mx-auto mt-2 mb-2" />
