@@ -12,12 +12,14 @@ import Avatar7 from "./assets/avatar7.png";
 import Avatar9 from "./assets/avatar9.png";
 import ConnectionImage from "./assets/connection-photo.png";
 import Header from "./components/Header.jsx";
-import { Bell, FileText, CalendarCheck, Search } from "lucide-react";
 
 const BranchOut = () => {
-  const [currentPage, setCurrentPage] = useState("home"); // "home" or "connections"
+  const [currentPage, setCurrentPage] = useState("home");
 
-  // Updated data for mentors with different names and positions
+  const [requestedMentors, setRequestedMentors] = useState({});
+  const [requestedConnections, setRequestedConnections] = useState({});
+  const [requestedConnectionsList, setRequestedConnectionsList] = useState({});
+
   const suggestedMentors = [
     {
       id: 1,
@@ -49,7 +51,6 @@ const BranchOut = () => {
     },
   ];
 
-  // Updated data for suggested connections with different names and positions
   const suggestedConnections = [
     {
       id: 1,
@@ -134,6 +135,27 @@ const BranchOut = () => {
   ];
 
   const currentMentor = { name: "Aaron Smith", avatar: Avatar9 };
+
+  const handleMentorConnect = (mentorId) => {
+    setRequestedMentors((prev) => ({
+      ...prev,
+      [mentorId]: !prev[mentorId],
+    }));
+  };
+
+  const handleConnectionConnect = (connectionId) => {
+    setRequestedConnections((prev) => ({
+      ...prev,
+      [connectionId]: !prev[connectionId],
+    }));
+  };
+
+  const handleConnectionsListConnect = (connectionId) => {
+    setRequestedConnectionsList((prev) => ({
+      ...prev,
+      [connectionId]: !prev[connectionId],
+    }));
+  };
 
   // Home page content
   const HomePage = () => (
@@ -220,21 +242,32 @@ const BranchOut = () => {
                   <p className="text-xs text-gray-600">{mentor.connections}</p>
                 </div>
               </div>
-              <button className="w-full bg-green-800 text-white rounded-md py-1 px-2 text-xs flex items-center justify-center">
-                <svg
-                  className="w-3 h-3 mr-1"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                >
-                  <path
-                    d="M12 5V19M5 12H19"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <span>Connect</span>
+              <button
+                className={`w-full ${
+                  requestedMentors[mentor.id] ? "bg-green-500" : "bg-green-800"
+                } text-white rounded-md py-1 px-2 text-xs flex items-center justify-center`}
+                onClick={() => handleMentorConnect(mentor.id)}
+              >
+                {requestedMentors[mentor.id] ? (
+                  <span>Requested</span>
+                ) : (
+                  <>
+                    <svg
+                      className="w-3 h-3 mr-1"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="white"
+                    >
+                      <path
+                        d="M12 5V19M5 12H19"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span>Connect</span>
+                  </>
+                )}
               </button>
             </div>
           ))}
@@ -266,21 +299,34 @@ const BranchOut = () => {
                   </p>
                 </div>
               </div>
-              <button className="w-full bg-green-800 text-white rounded-md py-1 px-2 text-xs flex items-center justify-center">
-                <svg
-                  className="w-3 h-3 mr-1"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                >
-                  <path
-                    d="M12 5V19M5 12H19"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <span>Connect</span>
+              <button
+                className={`w-full ${
+                  requestedConnections[connection.id]
+                    ? "bg-green-500"
+                    : "bg-green-800"
+                } text-white rounded-md py-1 px-2 text-xs flex items-center justify-center`}
+                onClick={() => handleConnectionConnect(connection.id)}
+              >
+                {requestedConnections[connection.id] ? (
+                  <span>Requested</span>
+                ) : (
+                  <>
+                    <svg
+                      className="w-3 h-3 mr-1"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="white"
+                    >
+                      <path
+                        d="M12 5V19M5 12H19"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span>Connect</span>
+                  </>
+                )}
               </button>
             </div>
           ))}
@@ -296,6 +342,11 @@ const BranchOut = () => {
     const handleConnectionSearch = (e) => {
       setConnectionSearchTerm(e.target.value);
     };
+
+    // filter connections based on search term
+    const filteredConnections = connections.filter((connection) =>
+      connection.name.toLowerCase().includes(connectionSearchTerm.toLowerCase())
+    );
 
     return (
       <div className="bg-white rounded-lg shadow p-4">
@@ -383,7 +434,7 @@ const BranchOut = () => {
 
         {/* Connection List */}
         <div className="space-y-4">
-          {connections.map((connection) => (
+          {filteredConnections.map((connection) => (
             <div
               key={connection.id}
               className="border rounded-lg p-4 flex items-center justify-between bg-gray-50"
@@ -413,14 +464,26 @@ const BranchOut = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center space-x-2">
+              {/* CONNECTIONS SHOULD NOT HAVE CONNECT BUTTON */}
+              {/* <div className="flex items-center space-x-2">
                 <button className="border rounded-md py-1 px-3 bg-white text-xs">
                   <span>Message</span>
                 </button>
-                <button className="bg-green-800 text-white rounded-md py-1 px-3 text-xs">
-                  <span>Connect</span>
+                <button
+                  className={`${
+                    requestedConnectionsList[connection.id]
+                      ? "bg-green-500"
+                      : "bg-green-800"
+                  } text-white rounded-md py-1 px-3 text-xs`}
+                  onClick={() => handleConnectionsListConnect(connection.id)}
+                >
+                  <span>
+                    {requestedConnectionsList[connection.id]
+                      ? "Requested"
+                      : "Connect"}
+                  </span>
                 </button>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
