@@ -160,7 +160,7 @@ const About = () => {
       startDate: "August 2020",
       endDate: "August 2022",
       location: "Irvine",
-      description: "Description of job",
+      description: "Working with the CoPilot team.",
     },
   ];
 
