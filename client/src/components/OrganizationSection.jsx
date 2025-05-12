@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { UserCircle } from "lucide-react";
 
 const OrganizationSection = () => {
-  const [orgs, setOrgs] = useState(["Hiking Club @UCI", "AI Club @UCI"]);
+  const [orgs, setOrgs] = useState(["Fusion @UCI"]);
 
   const handleChange = (index, value) => {
     const updated = [...orgs];

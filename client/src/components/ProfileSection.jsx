@@ -33,7 +33,7 @@ EDUCATION (Einar)
 - Dates
 */
 // displayed in experiences section
-const ProfileSection = ({ user, onEditClick }) => {
+const ProfileSection = ({ user, onEditClick, isEditing }) => {
   return (
     <div className="flex flex-col items-center bg-white w-full">
       {/* white icon section before banner */}
@@ -57,7 +57,7 @@ const ProfileSection = ({ user, onEditClick }) => {
           {user.firstName} {user.lastName}
         </h1>
         <p className="text-gray-600">{user.school}</p>
-        <div className="mt-3 flex flex-coljustify-center space-x-2">
+        <div className="mt-3 flex flex-row justify-center space-x-2">
           <button className="bg-brandGreen text-white px-4 py-1 rounded">
             Connect
           </button>
@@ -71,7 +71,7 @@ const ProfileSection = ({ user, onEditClick }) => {
         <button className="px-4 pb-2 border-b-2 border-black font-medium">
           Profile
         </button>
-        <button className="px-4 pb-2 text-gray-500">Posts</button>
+        {/* <button className="px-4 pb-2 text-gray-500">Posts</button> */}
       </div>
       {/* User Profile Tree */}
       <div className="mt-6 p-4 w-[450px]">

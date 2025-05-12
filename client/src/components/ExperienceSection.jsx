@@ -3,10 +3,10 @@ import { UserCircle } from "lucide-react";
 
 const ExperienceSection = () => {
   const [experience, setExperience] = useState({
-    company: "CoolCompany Co. Irvine",
-    title: "Electrical Engineer",
+    company: "Microsoft",
+    title: "Software Engineer Intern",
     period: "Aug 2020 – Jul 2021",
-    description: "Job Description Here",
+    description: "Working with the CoPilot team.",
   });
 
   const handleChange = (key, value) => {

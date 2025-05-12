@@ -5,7 +5,7 @@ const EducationSection = () => {
   const [education, setEducation] = useState({
     school: "University of California",
     degree: "Bachelor of Science in Computer Science",
-    duration: "2019 – 2024",
+    duration: "2019 – 2023",
     gpa: "GPA: 3.8",
     activities: "Computer Science Club, Robotics Team",
   });

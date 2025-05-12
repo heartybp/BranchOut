@@ -5,25 +5,23 @@ import OrganizationSection from "./OrganizationSection.jsx";
 import ExperienceSection from "./ExperienceSection.jsx";
 import ConnectionSection from "./ConnectionSection.jsx";
 
-const user = {
-  firstName: "Jane",
-  lastName: "Doe",
-  school: "University of California, Irvine",
-  avatar: "src/assets/jane-doe.png",
-  joinDate: "2025-03-08",
-  treeImage: "src/assets/tree.png",
-  aboutMe:
-    "I'm a dedicated computer science student developing my technical skills through coursework, personal projects, and hackathons, I've developed strong skills in problem-solving and creating efficient code. I'm eager to apply my technical knowledge in real-world settings and connect with industry professionals as I prepare to enter the field.",
-};
-
-const Edit = () => {
+const Edit = ({ user, onSave }) => {
   return (
-    <div>
+    <div className="w-full">
       <AboutMeSection user={user} />
       <EducationSection />
       <OrganizationSection />
       <ExperienceSection />
       <ConnectionSection />
+
+      <div className="flex justify-center bg-white pb-10">
+        <button
+          onClick={onSave}
+          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors shadow-md"
+        >
+          Finished Editing
+        </button>
+      </div>
     </div>
   );
 };

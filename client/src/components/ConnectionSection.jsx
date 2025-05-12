@@ -76,7 +76,7 @@ const ConnectionSection = () => {
           />
         ))}
       </div>
-      <div className="text-sm text-gray-500 text-right pr-4 pb-12">
+      <div className="text-sm text-gray-500 text-right pr-4 pb-4">
         <a href="" className="px-20 mt-40 hover:underline">
           See 150+ Other Connections →
         </a>
